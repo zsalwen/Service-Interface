@@ -284,7 +284,7 @@ $count2 = mysql_num_rows($r2);
 	</tr>
 </table>
 <div class="noprint" style="text-align:center; font-variant:small-caps; font-size:24px; background-color:#FF0000; color:#FFFFFF; font-weight:bold;">SERVICE ALL FILES EXACTLY AS LISTED ON INSTRUCTION SHEET</div>
-<table width="100%" style="border-collapse:collapse; padding:0px !important;" border="0">
+<table width="100%" style="border-collapse:collapse; padding:0px !important;" border="0px" rules="cols">
 <?
 if ($_COOKIE['psdata']['level'] != "Operations"){
 	logAction($_COOKIE['psdata']['user_id'], $_SERVER['PHP_SELF'], 'Viewing Active File Tracker');
