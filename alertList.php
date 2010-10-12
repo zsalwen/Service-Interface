@@ -1,4 +1,5 @@
 <?
+//test
 include "common.php"; 
 $server=$_COOKIE['psdata']['user_id'];
 ?>
