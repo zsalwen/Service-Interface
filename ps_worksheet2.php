@@ -1,0 +1,305 @@
+<?
+include 'common.php';
+if ($_GET[svc] == 'Eviction'){
+	$table = 'evictionPackets';
+	$table2 = 'evictionHistory';
+	$idType = 'eviction_id';
+	$instructionsLink = 'ev_customInstructions';
+	$field='id';
+	$wizardLink = 'ev_wizard';
+	$docType='EVICTION';
+	$linkAppend="&svc=Eviction";
+}else{
+	$table = 'ps_packets';
+	$table2 = 'ps_history';
+	$idType = 'packet_id';
+	$instructionsLink = 'customInstructions';
+	$field='packet';
+	$wizardLink = 'wizard';
+	$docType='PRESALE';
+	$linkAppend="&svc=presale";
+}
+if ($_GET[status] && $_COOKIE[psdata][level] == 'Operations'){
+	$linkAppend .= "&status=$_GET[status]";
+}
+function mkAlert($alertStr,$entryID,$serverID,$packetID){
+	mysql_select_db('core');
+	@mysql_query("INSERT INTO ps_alert (alertStr, entryID, entryTime, serverID, packetID) VALUES ('$alertStr', '$entryID', NOW(), '$serverID', '$packetID')");
+}
+hardLog("loaded active files list.",'contractor');
+if ($_GET[status]){
+	$id = $_GET[status];
+	$status = "&status=$id";
+}else{
+	$id = $_COOKIE['psdata']['user_id'];
+	$status="";
+}
+function washURI2($uri){
+$uri = str_replace('portal/','',$uri);
+$uri = str_replace('/var/www/dataFiles/service/orders/','PS_PACKETS/',$uri);
+$uri=str_replace('data/service/orders/','PS_PACKETS/',$uri);
+return $uri;
+}
+
+function stripHours($date){
+$hours = explode(':',$date);
+return $hours[0];
+}
+
+function colorCode($hours){
+if ($hours <= 120){ return "00FF00"; }
+if ($hours > 120 && $hours <= 168){ return "ffFF00"; }
+if ($hours > 168){ return "ff0000"; }
+return "FFFFFF";
+}
+
+function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
+	$q1="SELECT $idType FROM $table WHERE (server_id='$server' OR server_ida='$server' OR server_idb='$server' OR server_idc='$server' OR server_idd='$server' OR server_ide='$server') ORDER BY $idType ASC LIMIT 0,1";
+	$r1=@mysql_query($q1) or die("Query: $q1<br>".mysql_error());
+	$d1=mysql_fetch_array($r1,MYSQL_ASSOC);
+	$i=floor($d1[$idType]/1000)-1;
+	$q="SELECT $idType FROM $table ORDER BY $idType DESC LIMIT 0,1";
+	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
+	$d=mysql_fetch_array($r,MYSQL_ASSOC);
+	$end=$d[$idType]/1000;
+	$end=ceil($end);
+	$header = "<table align='center'><tr>";
+	$listCount=0;
+	while ($i < ($end-1)){$i++;
+		$start=$i;
+		$stop=$i+1;
+		if ($start != $exStart && $stop != $exStop){
+			$newList = "<td><div style='border: 1px solid black; width: 130px;'><center><a href='http://service.mdwestserve.com/ps_worksheet.php?start=$start".$linkAppend."'>";
+			$start=$start*1000;
+			$stop=$stop*1000;
+			$newList .= "$start-$stop</a>";
+			$q2="SELECT $idType FROM $table WHERE (server_id='$server' OR server_ida='$server' OR server_idb='$server' OR server_idc='$server' OR server_idd='$server' OR server_ide='$server') AND $idType >= '$start' AND $idType < '$stop'";
+			$r2=@mysql_query($q2) or die ("Query $q2<br>".mysql_error());
+			$count = mysql_num_rows($r2);
+			$newList .= "-($count)</center></div></td>";
+			if ($count > 0){$listCount++;
+				$list .= $newList;
+			}
+		}
+	}
+	$list .= "</tr></table>";
+	if ($listCount > 1){
+		$header .= "<td colspan='$listCount' align='center' style='font-weight:bold;font-variant:small-caps;'>FILE RANGE LINKS</td></tr><tr>";
+		return $header.$list;
+	}
+}
+
+function county2envelope2($county){
+	$county=strtoupper($county);
+	if ($county == 'BALTIMORE'){
+		$search='BALTIMORE COUNTY';
+	}elseif($county == 'PRINCE GEORGES'){
+		$search='PRINCE GEORGE';
+	}elseif($county == 'ST MARYS'){
+		$search='ST MARY';
+	}elseif($county == 'QUEEN ANNES'){
+		$search='QUEEN ANNE';
+	}else{
+		$search=$county;
+	}
+	$r=@mysql_query("SELECT to1 FROM envelopeImage WHERE to1 LIKE '%$search%' AND addressType='COURT'");
+	$d=mysql_fetch_array($r,MYSQL_ASSOC);
+	return $d[to1];
+}
+
+function makeEntry($packet){
+	if ($_GET[svc] == 'Eviction'){
+		$table = 'evictionPackets';
+		$table2 = 'evictionHistory';
+		$idType = 'eviction_id';
+		$instructionsLink = 'ev_customInstructions';
+		$field='id';
+		$wizardLink = 'ev_wizard';
+		$docType='EVICTION';
+	}else{
+		$table = 'ps_packets';
+		$table2 = 'ps_history';
+		$idType = 'packet_id';
+		$instructionsLink = 'customInstructions';
+		$field='packet';
+		$wizardLink = 'wizard';
+		$docType='PRESALE';
+	}
+	$q="SELECT *, TIMEDIFF(NOW(), date_received) as hours FROM $table WHERE $idType='$packet'";
+	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
+	$d=mysql_fetch_array($r,MYSQL_ASSOC);	?>
+	<tr bgcolor="<?=colorCode(stripHours($d[hours]))?>">
+		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">	
+		<?
+		if ($_GET[status] && $_COOKIE[psdata][level] == 'Operations'){
+			$id = $_GET[status];
+		}else{
+			$id = $_COOKIE[psdata][user_id];
+		}
+		?>
+		</td>    
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF;" nowrap="nowrap" valign="top">Affidavit/Filing&nbsp;Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?></td>
+		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
+			<li><?=strtoupper($d['state1'])?></li><? if ($d['state1a']){?><li><?=strtoupper($d['state1a'])?></li><? }?><? if ($d['state1b']){?><li><?=strtoupper($d['state1b'])?></li><? }?><? if ($d['state1c']){?><li><?=strtoupper($d['state1c'])?></li><? }?><? if ($d['state1d']){?><li><?=strtoupper($d['state1d'])?></li><? }?><? if ($d['state1e']){?><li><?=strtoupper($d['state1e'])?></li><? }?></td>
+		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
+			<table><tr><td nowrap="nowrap">
+				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=$d['date_received']?>]</font>
+				<? echo "<form style='display:inline;' name='$packet' action='".$wizardLink.".php' target='_blank'><select style='background-color:CCEEFF; font-size:11px;' name='jump' onchange='this.form.submit();'><option value=''>JUMP TO WIZARD</option>";
+				$i2=0;
+				while ($i2 < 6){$i2++;
+					if ($d["name$i2"]){ echo "<option value='".$d[$idType]."-$i2'>".$i2.". ".$d["name$i2"]."</option>";}
+				}
+				echo "</select></form>";  ?>
+			   </td></tr><tr><td>
+				<? if ($d['payAuth'] == 1){?><img src="/gfx/icon.pay.jpg" height="40" border="0" /><? }?>
+				<? if ($d['affidavit_status'] == "NEED CORRECTION"){?><a href="ps_corrections.php?server=<?=$id?>"><img src="/gfx/icon.alert.jpg" height="40" border="0" /></a><? }?>
+				<? if ($d['affidavit_status'] == "SERVICE CONFIRMED"){ ?><a href="markPrinted.php?print=<?=$_COOKIE[psdata][user_id]?>&packet=<?=$d[$idType]?>&all=<?=$_GET[all]?>&status=<?=$id?>&svc=<?=$_GET[svc]?>" target="_blank"><img src="/gfx/icon.print.jpg" height="40" border="0" /></a><? }?>		
+				<? if ($d['request_close'] == "YES" || $d['request_closea'] == "YES" || $d['request_closeb'] == "YES" || $d['request_closec'] == "YES" || $d['request_closed'] == "YES" || $d['request_closee'] == "YES"){?><img src="/gfx/icon.closed.jpg" height="40" border="0" /><? }?>
+				<a href="<?=$instructionsLink?>.php?<?=$field?>=<?=$d[$idType]?>" target="_blank"><img src="/gfx/icon.instructions.jpg" height="40" border="0" /></a>
+				<a href="<?=washURI2($d['otd']);?>" target="_blank"><img src="/gfx/icon.envelope.jpg" height="40" border="0" /></a>
+				<? if($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L"  && $d[attorneys_id] != 70){ ?>
+				<a href="http://service.mdwestserve.com/stuffPacket.php?packet=<?=$d[$idType]?>" target='_blank'><img src="/gfx/icon.green.envelope.jpg" height="40" border="0" /></a>
+				<? }elseif($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L" && $d[lossMit] != '' && $d[attorneys_id] == 70){
+					//if file is a final or preliminary, instruct to include envelope for attorney
+					$lossMitInstructions="include a white, preprinted #10 envelope addressed to <span style='color:#990000;'>BIERMAN, GEESING & WARD, LLC</span>";
+					if ($d[lossMit] == "FINAL"){
+						//if file is a final, also instruct to include envelope for court
+						$toCounty=county2envelope2($d[circuit_court]);
+						$lossMitInstructions .= ", and another white, preprinted #10 envelope addressed to <span style='color:#990000;'>".$toCounty."</span>";
+					}
+					$lossMit .= " with each defendant's service documents.";
+					echo " <div style='display:inline-block; font-weight:bold; width:260px; font-size:11px; padding:0px; border: double 2px; background-color:FFFFFF;'>".strtoupper($lossMitInstructions)."</div> "; 
+				} ?>
+			</td></tr></table>
+		</td>
+		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><?=$d['case_no']?> <em>(<?=$d['client_file']?>)</em></td>
+		<?	$r55=mysql_query("select action_type from $table2 where $idType = '$d[$idType]' order by action_type");	?>
+		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top"><ol><? while ($d55=mysql_fetch_array($r55,MYSQL_ASSOC)){ echo "<li>$d55[action_type]</li>"; }?></ol></td>
+		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
+			<li><?=id2name($d['server_id'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?></li>
+		<?  foreach(range('a','e') as $letter){
+				if ($d["server_id$letter"]){?><li><?=id2name($d["server_id$letter"])?> <? if($d["svrPrint$letter"]==1){ echo "PRINTED";}?></li><? }
+			} ?>	
+		</td>
+	</tr>
+	<? 
+}
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//===------------------------------------END FUNCTIONS------------------------------------===
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+?>
+<style>
+td.psc { color:#FFFFFF; background-color: #6699cc;}
+td.psc:hover { color:#000000; background-color: #666699; cursor:pointer; font-size:16px;}
+li,ol,table,tr,td {padding:0px;}
+ol {display:inline;}
+</style>
+<?
+if (!$_GET[all]){
+	$r1=@mysql_query("SELECT packet_id FROM ps_packets WHERE (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id') AND process_status='ASSIGNED'");
+	$r2=@mysql_query("SELECT eviction_id FROM evictionPackets WHERE (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id') AND process_status='ASSIGNED'");
+	$all='';
+}else{
+	$r1=@mysql_query("SELECT packet_id FROM ps_packets WHERE (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')");
+	$r2=@mysql_query("SELECT eviction_id FROM evictionPackets WHERE (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')");
+	$all="&all=1";
+}
+$count1 = mysql_num_rows($r1);
+$count2 = mysql_num_rows($r2);
+?>
+<div style="text-align:center; font-size:25px;"><a href="?svc=presale<?=$all?><?=$status?>"><?=$count1?> Presale Cases</a> | <a href="?svc=Eviction<?=$all?><?=$status?>"><?=$count2?> Eviction Cases</a> | <a href="ps_standard.php"><?=$count3?> Standard Cases</a></div> 
+<table width="100%" class="noprint">
+	<tr>
+    	<td align="center"><img src="/gfx/icon.alert.jpg" height="30" border="0" /></td>
+    	<td align="center"><img src="/gfx/icon.print.jpg" height="30" border="0" /></td>
+    	<td align="center"><img src="/gfx/icon.closed.jpg" height="30" border="0" /></td>
+        <td align="center"><img src="/gfx/icon.instructions.jpg" height="30" border="0" /></td>
+        <td align="center"><img src="/gfx/icon.envelope.jpg" height="30" border="0" /></td>
+		<td align="center"><img src="/gfx/icon.green.envelope.jpg" height="30" border="0" /></td>
+    	<td align="center"><img src="/gfx/icon.pay.jpg" height="30" border="0" /></td>
+		<form action="<? if ($_GET[svc] == 'Eviction'){ echo "evictionAff.php";}else{ echo "liveAffidavit.php"; } ?>" target="_blank">
+		<td align="center"><input type="hidden" name="start" value="0"><input type="hidden" name="stop" value="200000"><input type="hidden" name="server" value="<?=$id?>"><input type="submit" name="submit" value="GO"></td>
+        </form>
+		<form action="http://service.mdwestserve.com/ps_worksheet.php">
+		<td align="center"><select name='svc'><option value='presale'>PRESALE</option><option value='Eviction'>EVICTION</option></select>&nbsp;<input name='psFile' size='6' <? if ($_GET[psFile] != ''){ echo "value='$_GET[psFile]'";}else{ echo "value='File #'";}?> onclick="value=''";>&nbsp;<input type="submit" name="submit" value="Go!"></td>
+		</form>
+    </tr>
+    <tr>
+        <td align="center">Needs Corrections</td>
+    	<td align="center">Printing Approved</td>
+        <td align="center">Close Requested</td>
+        <td align="center">Service Instructions</td>
+        <td align="center">Papers to Serve</td>
+		<td align="center">Envelope Stuffings</td>
+    	<td align="center">Pay Approved</td>
+		<td align="center">Print All <?=$docType?> Affidavits</td>
+		<td align="center">Load File Detail</td>
+	</tr>
+</table>
+<div class="noprint" style="text-align:center; font-variant:small-caps; font-size:24px; background-color:#FF0000; color:#FFFFFF; font-weight:bold;">SERVICE ALL FILES EXACTLY AS LISTED ON INSTRUCTION SHEET</div>
+<table width="100%" style="border-collapse:collapse" border="1">
+<?
+if ($_COOKIE['psdata']['level'] != "Operations"){
+	logAction($_COOKIE['psdata']['user_id'], $_SERVER['PHP_SELF'], 'Viewing Active File Tracker');
+}
+$q= "select * from $table where (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')";
+//if viewing assigned files...
+if ($_GET[all] != 1  && $_GET[psFile] == ''){
+	$q .= " and (process_status = 'ASSIGNED' or process_status = 'READY') ORDER BY package_id, $idType";
+//or viewing a specific single file
+}elseif($_GET[psFile] != ''){
+	//allow Operations to view details of any file
+	if ($_COOKIE[psdata][level] == 'Operations'){
+		$q = "select * from $table where $idType='".$_GET[psFile]."'";
+	//but servers can only view details of files on which they are set as server in our database
+	}else{
+		$q .= " and $idType='".$_GET[psFile]."'";
+	}
+//or viewing all
+}else{
+	$linkAppend .= "&all=1";
+	//then display rangeLinks, and perform necessary calculations.
+	if (!$_GET[start]){
+		$r2=@mysql_query("SELECT $idType FROM $table WHERE server_id='$id' OR server_ida='$id' OR server_idb='$id' OR server_idc='$id' OR server_idd='$id' OR server_ide='$id' ORDER BY $idType DESC LIMIT 0,1") or die (mysql_error());
+		$d2=mysql_fetch_array($r2,MYSQL_ASSOC);
+		$i=floor($d2[$idType]/1000);
+	}else{
+		$i=$_GET[start];
+	}
+	$rangeLinks="<tr><td colspan='20' align='center'>".rangeLinks($i,$i+1,$id,$idType,$table,$linkAppend)."</td></tr>";
+	echo $rangeLinks;
+	$start=$i*1000;
+	$stop=($i+1)*1000;
+	$q .= " AND $idType >= $start AND $idType < $stop ORDER BY package_id, $idType";
+}
+$r=@mysql_query($q) or die("Query: $q<br>".mysql_error());
+$i=0;
+while ($d=mysql_fetch_array($r, MYSQL_ASSOC)) {$i++;
+	makeEntry($d[$idType]);
+}
+if ($i == 0){
+	echo "<tr bgcolor='#FF0000'><td colspan='7' align='center'><font color='#FFFF00'><strong>No Files To Display</strong></font></td></tr>";
+}
+if ($_GET[all] == 1){
+	echo $rangeLinks;
+	$listType="$docType All Files List Range $start-$stop";
+}elseif($_GET[psFile] != ''){
+	$listType="Individual Files List for $docType ".$_GET[psFile];
+}else{
+	$listType="$docType Active Files List";
+}
+if ($_COOKIE[psdata][level] == 'Operations' && $_GET[status] != ''){
+	$listType .= " for Server ".id2name($_GET[status]);
+}
+echo "</table>";
+
+error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Viewing $listType \n",3,"/logs/user.log");
+include 'footer.php'; ?>

@@ -1,0 +1,35 @@
+<?php
+session_start();
+include 'functions.php';
+echo db_connect('delta.mdwestserve.com','intranet','root','zerohour');
+header("Content-type: text/xml");
+$open = "&lt;font size=4&gt;";
+$close = "&lt;/font&gt;";
+$break = "&lt;br&gt;";
+$stronga = "&lt;strong&gt;";
+$strongb = "&lt;/strong&gt;";
+$pubtoday = date('m/d/Y');
+$today = date('Y-m-d');
+$package = $_GET[id];
+$xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+
+$xml .= "<markers>";
+
+	$q1 = "SELECT * FROM private_process where (lat > '0') AND (server_id = '$id')";
+	$r1 = @mysql_query ($q1) or die($q1);
+	while($data = mysql_fetch_array($r1, MYSQL_ASSOC)){
+// internal map only
+//$link = "&lt;a href=index.php?page=details&amp;id=$data[schedule_id]&gt;Click For Details&lt;/a&gt;";
+//$xml .= "<marker lat='$data[lat]' lng='$data[lng]' html='$stronga $data[sale_date] $strongb $break $data[address1] $break $data[city], $data[state] $break $link' />";
+
+// public map
+$xml .= "<marker lat='$data[lat]' lng='$data[lng]' html='$open $stronga $strongb ".htmlentities($data[serve_add])." $break ".$data[p_city].", $data[p_state] $break $data[p_name] $close' />";
+
+	}
+
+$xml .= "</markers>";
+
+echo $xml;
+?>
+
+
