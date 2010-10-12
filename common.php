@@ -3,7 +3,8 @@ session_start();
 date_default_timezone_set('America/New_York');
 include 'security.php';
 include 'functions.php';
-db_connect('delta.mdwestserve.com','core','root','zerohour');
+mysql_connect();
+mysql_select_db('core');
 include 'online_now.php';
 // ok check for tos version here incase they never log out
  $templateDate=getTemplateDate('TOS');
