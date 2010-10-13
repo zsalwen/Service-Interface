@@ -50,7 +50,7 @@ return "FFFFFF";
 function photoCount($packet){
 	$count=0;
 	$r=@mysql_query("SELECT photoID FROM ps_photos WHERE packetID='$packet' LIMIT 0,1");
-	$d=mysql_fetch_array($r,MYSQL_ASSOC));
+	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	if ($d[photoID]){
 		$count++;
 	}
