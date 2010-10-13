@@ -59,7 +59,7 @@ function photoCheckList($server_id,$display){
 	$data .= "<div id='$server_id' style='display:$display;'><table align='center' border='1' style='border-collapse:collapse; border-style:solid 1px; padding:0px;'><tr><td>#</td><td>Filing Date</td><td># of Days Late</td><td>Photo Links (if they exist)</td><td>Packet #</td></tr>";
 	$r=@mysql_query("select * from ps_packets WHERE server_id='$server_id' AND service_status = 'MAILING AND POSTING' and status <> 'CANCELLED' order by date_received DESC");
 	while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){
-		if (testLink2($d[photo1c]) == 1 && photoCount($d[packet_id]) != 0){$_SESSION[fileCount]++;
+		if (testLink2($d[photo1c]) == 1 && photoCount($d[packet_id]) == 0){$_SESSION[fileCount]++;
 			$fileCount++;
 			$now=time();
 			if ($d[fileDate] != '0000-00-00'){
