@@ -102,5 +102,4 @@ if ($_COOKIE[psdata][level] == 'Operations'){
 	echo photoCheckList($_COOKIE[psdata][user_id],'block');
 	echo "<script>document.title='".$_SESSION[fileCount]." Services Missing Photos';</script>";
 }
-include 'footer.php';
 ?>
