@@ -46,30 +46,11 @@ if ($days > 15 && $days <= 30){ return "ffFF00"; }
 if ($days > 30){ return "ff0000"; }
 return "FFFFFF";
 }
-function getPage($url, $referer, $timeout, $header){
- 
-	if(!isset($timeout))
-        $timeout=30;
-    $curl = curl_init();
-    if(strstr($referer,"://")){
-        curl_setopt ($curl, CURLOPT_REFERER, $referer);
-    }
-    curl_setopt ($curl, CURLOPT_URL, $url);
-    curl_setopt ($curl, CURLOPT_TIMEOUT, $timeout);
-    curl_setopt ($curl, CURLOPT_USERAGENT, sprintf("Mozilla/%d.0",rand(4,5)));
-    curl_setopt ($curl, CURLOPT_HEADER, (int)$header);
-    curl_setopt ($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($curl, CURLOPT_SSL_VERIFYPEER, 0);
-    $html = curl_exec ($curl);
-    curl_close ($curl);
-    return $html;
-	
-}
+
 function photoCount($packet){
-	$count=trim(getPage("http://data.mdwestserve.com/countPhotos.php?packet=$packet", 'MDWS Count Photos', '5', ''));
-	if ($count==''){
-		$count=0;
-	}
+	$count=0;
+	$r="SELECT photoID FROM ps_photos WHERE packetID='$packet'";
+	while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){$count++;}
 	return $count;
 }
 function photoCheckList($server_id,$display){
@@ -123,3 +104,4 @@ if ($_COOKIE[psdata][level] == 'Operations'){
 }
 include 'footer.php';
 ?>
+
