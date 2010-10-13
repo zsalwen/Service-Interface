@@ -49,7 +49,7 @@ return "FFFFFF";
 
 function photoCount($packet){
 	$count=0;
-	$r="SELECT photoID FROM ps_photos WHERE packetID='$packet'";
+	$r=@mysql_query("SELECT photoID FROM ps_photos WHERE packetID='$packet'");
 	while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){$count++;}
 	return $count;
 }
@@ -104,4 +104,3 @@ if ($_COOKIE[psdata][level] == 'Operations'){
 }
 include 'footer.php';
 ?>
-
