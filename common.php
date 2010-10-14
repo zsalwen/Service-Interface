@@ -1,11 +1,9 @@
 <?
 session_start();
-date_default_timezone_set('America/New_York');
 include 'security.php';
 include 'functions.php';
 mysql_connect();
 mysql_select_db('core');
-include 'online_now.php';
 // ok check for tos version here incase they never log out
  $templateDate=getTemplateDate('TOS');
  if ($_COOKIE[psdata][tos_date] != $templateDate[0]){ header ('Location: tos_review.php'); }
