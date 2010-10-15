@@ -174,9 +174,9 @@ function makeEntry($packet){
 		<?	$r55=mysql_query("select action_type from $table2 where $idType = '$d[$idType]' order by action_type");	?>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top"><ol><? while ($d55=mysql_fetch_array($r55,MYSQL_ASSOC)){ echo "<li>$d55[action_type]</li>"; }?></ol></td>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
-			<li><?=id2name($d['server_id'])?><?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?></li>
+			<li><?=id2name($d['server_id'])?>-<?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?></li>
 		<?  foreach(range('a','e') as $letter){
-				if ($d["server_id$letter"]){?><li><?=id2name($d["server_id$letter"])?><?=strtoupper($d["state1$letter"])?> <? if($d["svrPrint$letter"]==1){ echo "PRINTED";}?></li><? }
+				if ($d["server_id$letter"]){?><li><?=id2name($d["server_id$letter"])?>-<?=strtoupper($d["state1$letter"])?> <? if($d["svrPrint$letter"]==1){ echo "PRINTED";}?></li><? }
 			} ?>	
 		</td>
 	</tr>
