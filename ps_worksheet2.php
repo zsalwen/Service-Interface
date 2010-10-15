@@ -139,8 +139,6 @@ function makeEntry($packet){
 		?>
 		</td>    
 		<td style="border-top:solid 1px #000000; background-color:#FFFFFF;" nowrap="nowrap" valign="top">Affidavit/Filing&nbsp;Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?></td>
-		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
-			<li><?=strtoupper($d['state1'])?></li><? if ($d['state1a']){?><li><?=strtoupper($d['state1a'])?></li><? }?><? if ($d['state1b']){?><li><?=strtoupper($d['state1b'])?></li><? }?><? if ($d['state1c']){?><li><?=strtoupper($d['state1c'])?></li><? }?><? if ($d['state1d']){?><li><?=strtoupper($d['state1d'])?></li><? }?><? if ($d['state1e']){?><li><?=strtoupper($d['state1e'])?></li><? }?></td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
 			<table><tr><td nowrap="nowrap">
 				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=$d['date_received']?>]</font>
@@ -176,9 +174,9 @@ function makeEntry($packet){
 		<?	$r55=mysql_query("select action_type from $table2 where $idType = '$d[$idType]' order by action_type");	?>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top"><ol><? while ($d55=mysql_fetch_array($r55,MYSQL_ASSOC)){ echo "<li>$d55[action_type]</li>"; }?></ol></td>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
-			<li><?=id2name($d['server_id'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?></li>
+			<li><?=id2name($d['server_id'])?><?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?></li>
 		<?  foreach(range('a','e') as $letter){
-				if ($d["server_id$letter"]){?><li><?=id2name($d["server_id$letter"])?> <? if($d["svrPrint$letter"]==1){ echo "PRINTED";}?></li><? }
+				if ($d["server_id$letter"]){?><li><?=id2name($d["server_id$letter"])?><?=strtoupper($d["state1$letter"])?> <? if($d["svrPrint$letter"]==1){ echo "PRINTED";}?></li><? }
 			} ?>	
 		</td>
 	</tr>
