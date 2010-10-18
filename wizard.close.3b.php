@@ -63,7 +63,7 @@ if ($ddr[service_status] == "MAILING AND POSTING" && ($_GET[mailDate] || $_POST[
 			}
 		}	
 	}
-	$href="http://mdwestserve.com/ps/obAffidavit.php?packet=$packet&mail=1&autoPrint=1";
+	$href="http://service.mdwestserve.com/obAffidavit.php?packet=$packet&mail=1&autoPrint=1";
 	echo "<script>window.open('".$href."', 'Mailing Affidavits')</script>";
 }
 
