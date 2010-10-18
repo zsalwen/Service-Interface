@@ -1030,7 +1030,7 @@ if ($_GET[level]){
 	$level=$_COOKIE[psdata][level];
 }
 if ($_GET[user_id]){
-	$user_id=$_GET[user_id]
+	$user_id=$_GET[user_id];
 }else{
 	$user_id=$_COOKIE[psdata][user_id];
 }
