@@ -894,42 +894,42 @@ function makeAffidavit($p,$defendant,$level,$user_id){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDe==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pagee["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $defendant, Page E ID [$iIDe] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $def, Page E ID [$iIDe] \n",3,"/logs/debug.log");
             }
         }
         if ($paged["$count2"] != ''){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDd==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$paged["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $defendant, Page D ID [$iIDd] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $def, Page D ID [$iIDd] \n",3,"/logs/debug.log");
             }
         }
         if ($pagec["$count2"] != ''){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDc==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pagec["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $defendant, Page C ID [$iIDc] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $def, Page C ID [$iIDc] \n",3,"/logs/debug.log");
             }
         }
         if ($pageb["$count2"] != ''){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDb==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageb["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $defendant, Page B ID [$iIDb] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $def, Page B ID [$iIDb] \n",3,"/logs/debug.log");
             }
         }
         if ($pagea["$count2"] != ''){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDa==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pagea["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $defendant, Page A ID [$iIDa] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $def, Page A ID [$iIDa] \n",3,"/logs/debug.log");
             }
         }
         if ($pageI["$count2"] != ''){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iID==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageI["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $defendant, Page I ID [$iID] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $def, Page I ID [$iID] \n",3,"/logs/debug.log");
             }
         }
         if ($pageII["$count2"] != ''){
@@ -941,21 +941,21 @@ function makeAffidavit($p,$defendant,$level,$user_id){
             }
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iiID==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageII["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $defendant, Page II ID [$iiIDd] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $def, Page II ID [$iiIDd] \n",3,"/logs/debug.log");
             }
         }
         if ($pageIII["$count2"] != ''){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="MAIL") && ($level=='Operations') && ($defendant != "SERVER")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageIII["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $defendant, Page III ID [$iiiIDd] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $def, Page III ID [$iiiIDd] \n",3,"/logs/debug.log");
             }
         }
         if ($pagePD["$count2"] != ''){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $PDID["$count2"]==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pagePD["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $defendant, Page PD ID [$PDID] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $def, Page PD ID [$PDID] \n",3,"/logs/debug.log");
             }
         }
     }
