@@ -1029,7 +1029,11 @@ if ($_GET[level]){
 }else{
 	$level=$_COOKIE[psdata][level];
 }
-$user_id=$_COOKIE[psdata][user_id];
+if ($_GET[user_id]){
+	$user_id=$_GET[user_id]
+}else{
+	$user_id=$_COOKIE[psdata][user_id];
+}
 //if $_GET[server], determine file range
 if ($_GET[server]){
 	$serveID=$_GET[server];
