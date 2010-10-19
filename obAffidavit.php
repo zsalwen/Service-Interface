@@ -890,9 +890,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		if ($pageII["$count"] != ''){
 			//if posting server also made attempt(s), do nothing
 			if ($iID["$count"]==$iiID["$count"]){
-			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID&iiID [$iID] !totalPages! \n",3,"/logs/debug.log");
+			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID&iiID [".$iID["$count"]."] !totalPages! \n",3,"/logs/debug.log");
 			}else{
-			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID [$iID] !totalPages! \n",3,"/logs/debug.log");
+			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID [".$iID["$count"]."] !totalPages! \n",3,"/logs/debug.log");
 			//otherwise increase counter
 				$totalPages++;
 			}
