@@ -381,6 +381,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		</tr>
 	</table>
 	<? }
+	$iIDe["$def"]=$iIDe;
 	$pagee["$def"] = ob_get_clean();
 	ob_start();
 	//5th server
@@ -438,6 +439,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		</tr>
 	</table>
 	<? } 
+	$iIDd["$def"]=$iIDd;
 	$paged["$def"] = ob_get_clean();
 	ob_start();
 	//4th server
@@ -496,6 +498,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	</table>
 	<? 
 	}
+	$iIDc["$def"]=$iIDc;
 	$pagec["$def"] = ob_get_clean();
 	ob_start();
 	//3rd server
@@ -554,6 +557,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	</table>
 	<? 
 	}
+	$iIDb["$def"]=$iIDb;
 	$pageb["$def"] = ob_get_clean();
 	ob_start();
 	//2nd server
@@ -612,6 +616,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	</table>
 	<? 
 	} 
+	$iIDa["$def"]=$iIDa;
 	$pagea["$def"] = ob_get_clean();
 	ob_start();
 	//1st server, or servera if non-Burson
@@ -672,6 +677,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	</table>
 	<? }
 	 }
+	$iID["$def"]=$iID;
 	$pageI["$def"] = ob_get_clean();
 	ob_start();
 	 //Multiple servers' attempts end here
@@ -731,6 +737,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		</tr>
 	</table>
 	<? } 
+	$iiID["$def"]=$iiID;
 	 $pageII["$def"] = ob_get_clean();
 	 $postingID["$def"] = $iiID;
 	 ob_start();
@@ -786,6 +793,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		</tr>
 	</table>
 	<? }
+	$iiiID["$def"]=$iiiID;
 	 $pageIII["$def"] = ob_get_clean();
 	//------------------------------------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------------------------------------
@@ -881,7 +889,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		}
 		if ($pageII["$count"] != ''){
 			//if posting server also made attempt(s), do nothing
-			if ($iID==$iiID){
+			if ($iID["$count"]==$iiID["$count"]){
 			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID&iiID [$iID] !totalPages! \n",3,"/logs/debug.log");
 			}else{
 			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID [$iID] !totalPages! \n",3,"/logs/debug.log");
@@ -902,82 +910,82 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	while($count2 < $defs){$count2++;
         if ($pagee["$count2"] != ''){
             $currentCounter++;
-            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDe==$user_id) && ($defendant != "MAIL")){
+            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDe["count2"]==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pagee["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page E ID [$iIDe] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page E ID [".$iIDe["count2"]."] \n",3,"/logs/debug.log");
             }else{
-			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page E ID [$iIDe]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
+			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page E ID [".$iIDe["count2"]."]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
         }else{
 		    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page E EMPTY \n",3,"/logs/debug.log");
 		}
         if ($paged["$count2"] != ''){
             $currentCounter++;
-            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDd==$user_id) && ($defendant != "MAIL")){
+            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDd["count2"]==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$paged["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page D ID [$iIDd] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page D ID [".$iIDd["count2"]."] \n",3,"/logs/debug.log");
             }else{
-			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page D ID [$iIDd]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
+			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page D ID [".$iIDd["count2"]."]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
         }else{
 		    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page D EMPTY \n",3,"/logs/debug.log");
 		}
         if ($pagec["$count2"] != ''){
             $currentCounter++;
-            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDc==$user_id) && ($defendant != "MAIL")){
+            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDc["count2"]==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pagec["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page C ID [$iIDc] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page C ID [".$iIDc["count2"]."] \n",3,"/logs/debug.log");
             }else{
-			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page C ID [$iIDc]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
+			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page C ID [".$iIDc["count2"]."]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
         }else{
 		    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page C EMPTY \n",3,"/logs/debug.log");
 		}
         if ($pageb["$count2"] != ''){
             $currentCounter++;
-            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDb==$user_id) && ($defendant != "MAIL")){
+            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDb["count2"]==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageb["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page B ID [$iIDb] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page B ID [".$iIDb["count2"]."] \n",3,"/logs/debug.log");
             }else{
-			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page B ID [$iIDb]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
+			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page B ID [".$iIDb["count2"]."]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
         }else{
 		    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page B EMPTY \n",3,"/logs/debug.log");
 		}
         if ($pagea["$count2"] != ''){
             $currentCounter++;
-            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDa==$user_id) && ($defendant != "MAIL")){
+            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDa["count2"]==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pagea["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page A ID [$iIDa] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page A ID [".$iIDa["count2"]."] \n",3,"/logs/debug.log");
             }else{
-			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page A ID [$iIDa]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
+			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page A ID [".$iIDa["count2"]."]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
         }else{
 		    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page A EMPTY \n",3,"/logs/debug.log");
 		}
         if ($pageI["$count2"] != ''){
             $currentCounter++;
-            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iID==$user_id) && ($defendant != "MAIL")){
+            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iID["count2"]==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageI["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page I ID [$iID] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page I ID [".$iID["count2"]."] \n",3,"/logs/debug.log");
             }else{
-			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page I ID [$iID]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
+			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page I ID [".$iID["count2"]."]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
         }else{
 		    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page I EMPTY \n",3,"/logs/debug.log");
 		}
         if ($pageII["$count2"] != ''){
             //if posting server also made attempt(s), do nothing
-            if ($iID==$iiID){
+            if ($iID["$count2"]==$iiID["$count2"]){
             }else{
             //otherwise increase counter
                 $currentCounter++;
             }
-            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iiID==$user_id) && ($defendant != "MAIL")){
+            if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iiID["count2"]==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageII["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page II ID [$iiID] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page II ID [".$iiID["count2"]."] \n",3,"/logs/debug.log");
             }else{
-			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page II ID [$iiID]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
+			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page II ID [".$iiID["count2"]."]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
         }else{
 		    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page II EMPTY \n",3,"/logs/debug.log");
@@ -986,9 +994,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="MAIL") && ($level=='Operations') && ($defendant != "SERVER")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageIII["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page III ID [$iiiID] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page III ID [".$iiiID["$count2"]."] \n",3,"/logs/debug.log");
             }else{
-			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page III ID [$iiiID]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
+			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page III ID [".$iiiID["$count2"]."]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
         }else{
 		    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page III EMPTY \n",3,"/logs/debug.log");
@@ -1010,48 +1018,48 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	while($count2 < $defs){$count2++;
 		if ($pagee["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDe==$user_id) && ($defendant != "MAIL")){
+			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDe["$count2"]==$user_id) && ($defendant != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pagee["$count2"]);
 			}
 		}
 		if ($paged["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDd==$user_id) && ($defendant != "MAIL")){
+			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDd["$count2"]==$user_id) && ($defendant != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$paged["$count2"]);
 			}
 		}
 		if ($pagec["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDc==$user_id) && ($defendant != "MAIL")){
+			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDc["$count2"]==$user_id) && ($defendant != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pagec["$count2"]);
 			}
 		}
 		if ($pageb["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDb==$user_id) && ($defendant != "MAIL")){
+			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDb["$count2"]==$user_id) && ($defendant != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pageb["$count2"]);
 			}
 		}
 		if ($pagea["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDa==$user_id) && ($defendant != "MAIL")){
+			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iIDa["$count2"]==$user_id) && ($defendant != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pagea["$count2"]);
 			}
 		}
 		if ($pageI["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iID==$user_id) && ($defendant != "MAIL")){
+			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iID["$count2"]==$user_id) && ($defendant != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pageI["$count2"]);
 			}
 		}
 		if ($pageII["$count2"] != ''){
 			//if posting server also made attempt(s), do nothing
-			if ($iID==$iiID){
+			if ($iID["$count2"]==$iiID["$count2"]){
 			}else{
 			//otherwise increase counter
 				$currentCounter++;
 			}
-			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iiID==$user_id) && ($defendant != "MAIL")){
+			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iiID["$count2"]==$user_id) && ($defendant != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pageII["$count2"]);
 			}
 		}
