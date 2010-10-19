@@ -968,7 +968,8 @@ error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OT
 			}
         }else{
 			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page I EMPTY \n",3,"/logs/debug.log");
-}
+		}
+	}
         if ($pageII["$count2"] != ''){
             //if posting server also made attempt(s), do nothing
             if ($iID==$iiID){
