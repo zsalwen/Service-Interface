@@ -58,6 +58,7 @@ if ($_GET[server]){
 function makeAffidavit($p,$defendant,$level,$user_id){
 	$packet = $p;
 	$def = 0;
+	$defCount=defCount($packet);
 	if (strpos($defendant,"!")){
 		$overRide=1;
 		$explode=explode('!',$defendant);
@@ -622,7 +623,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	//1st server, or servera if non-Burson
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	if ($iID != $iIDa){
-	error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def, iID&iiID [$iID] !construction1! \n",3,"/logs/debug.log");
+	error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def, iID [$iID] !construction1! \n",3,"/logs/debug.log");
 	?>
 		<table width="80%" align="center" bgcolor="#FFFFFF" <? if (strtoupper($d1[affidavit_status]) != "SERVICE CONFIRMED"){echo $dim;}?>>
 	 <? 
