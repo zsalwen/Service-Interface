@@ -153,7 +153,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		if ($d4[serverID] == $d1[server_id]){
 			$attempts .= $d4[action_str];
 			$iID = $d4[serverID];
-			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2,  iID [$iID] !FIRST! \n",3,"/logs/debug.log");
+			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def,  iID [$iID] !FIRST! \n",3,"/logs/debug.log");
 		}elseif($d1[server_ida] && $d4[serverID] == $d1[server_ida]){
 			$attemptsa .= $d4[action_str];
 			$iIDa = $d4[serverID];
@@ -178,7 +178,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		if ($d4[serverID]==$d1[server_id]){
 			$attempts .= $d4[action_str];
 			$iID = $d4[serverID];
-			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2,  iID [$iID] !SECOND! \n",3,"/logs/debug.log");
+			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def,  iID [$iID] !SECOND! \n",3,"/logs/debug.log");
 		}elseif($d1[server_ida] && $d4[serverID]==$d1[server_ida]){
 			$attemptsa .= $d4[action_str];
 			$iIDa = $d4[serverID];
@@ -323,6 +323,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		$hiID=$iIDa;
 	}elseif($iID){
 		$hiID=$iID;
+		error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def,  iID [$iID] !hiID! \n",3,"/logs/debug.log");
 	}
 	//$topPage["$def"] = ob_get_clean();
 	//ob_start();
