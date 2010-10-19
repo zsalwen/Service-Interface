@@ -622,7 +622,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	//1st server, or servera if non-Burson
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	if ($iID != $iIDa){
-	error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID&iiID [$iID] !construction1! \n",3,"/logs/debug.log");
+	error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def, iID&iiID [$iID] !construction1! \n",3,"/logs/debug.log");
 	?>
 		<table width="80%" align="center" bgcolor="#FFFFFF" <? if (strtoupper($d1[affidavit_status]) != "SERVICE CONFIRMED"){echo $dim;}?>>
 	 <? 
@@ -683,9 +683,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	 //Multiple servers' attempts end here
 	if($posting){
 	if ($iID==$iiID){
-		error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID&iiID [$iID] !construction2! \n",3,"/logs/debug.log");
+		error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def, iID&iiID [$iID] !construction2! \n",3,"/logs/debug.log");
 	}else{
-		error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID [$iID] !construction2! \n",3,"/logs/debug.log");
+		error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def, iID [$iID] !construction2! \n",3,"/logs/debug.log");
 	?>
 		<table width="80%" align="center" bgcolor="#FFFFFF" <? if (strtoupper($d1[affidavit_status]) != "SERVICE CONFIRMED"){echo $dim;}?>>
 	<?
@@ -890,9 +890,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		if ($pageII["$count"] != ''){
 			//if posting server also made attempt(s), do nothing
 			if ($iID["$count"]==$iiID["$count"]){
-			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID&iiID [".$iID["$count"]."] !totalPages! \n",3,"/logs/debug.log");
+			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count, iID&iiID [".$iID["$count"]."] !totalPages! \n",3,"/logs/debug.log");
 			}else{
-			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID [".$iID["$count"]."] !totalPages! \n",3,"/logs/debug.log");
+			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count, iID [".$iID["$count"]."] !totalPages! \n",3,"/logs/debug.log");
 			//otherwise increase counter
 				$totalPages++;
 			}
