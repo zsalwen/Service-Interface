@@ -268,7 +268,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			}elseif($attemptsa != ''){
 				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:</u></div>
 				".$attemptsa;
+				error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2,  iID [$iID] 1 \n",3,"/logs/debug.log");
 				$iID=$iIDa;
+				error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2,  iID [$iID] 2 \n",3,"/logs/debug.log");
 			}
 			$history2 = "<div style='font-weight:300'><u>Include the date of the posting and a description of the location of the posting on the property:</u></div>".$posting;
 		if ($mailing == ''){
@@ -987,9 +989,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $PDID["$count2"]==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pagePD["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page PD ID [$PDID] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page PD ID [".$PDID["$count2"]."] \n",3,"/logs/debug.log");
             }else{
-			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page PD ID [$PDID]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
+			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page PD ID [".$PDID["$count2"]."]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
         }else{
 		    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page PD EMPTY \n",3,"/logs/debug.log");
