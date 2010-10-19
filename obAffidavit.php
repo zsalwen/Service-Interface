@@ -959,6 +959,8 @@ error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OT
 			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iID==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageI["$count2"]);
                 error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page I ID [$iID] \n",3,"/logs/debug.log");
+			}else{
+				error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page I ID [$iID]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
         }else{
 			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page I EMPTY \n",3,"/logs/debug.log");
