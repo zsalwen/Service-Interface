@@ -153,6 +153,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		if ($d4[serverID] == $d1[server_id]){
 			$attempts .= $d4[action_str];
 			$iID = $d4[serverID];
+			$iID2["$def"] = $d4[serverID];
 		}elseif($d1[server_ida] && $d4[serverID] == $d1[server_ida]){
 			$attemptsa .= $d4[action_str];
 			$iIDa = $d4[serverID];
@@ -177,6 +178,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		if ($d4[serverID]==$d1[server_id]){
 			$attempts .= $d4[action_str];
 			$iID = $d4[serverID];
+			$iID2["$def"] = $d4[serverID];
 		}elseif($d1[server_ida] && $d4[serverID]==$d1[server_ida]){
 			$attemptsa .= $d4[action_str];
 			$iIDa = $d4[serverID];
@@ -955,7 +957,7 @@ error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OT
 }
 		}elseif($iID == ''){
 			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, iID EMPTY \n",3,"/logs/debug.log");
-			$iID=$d[server_id];
+			$iID=$iID2["$count2"];
 			if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iID==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageI["$count2"]);
                 error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2, Page I ID [$iID] \n",3,"/logs/debug.log");
