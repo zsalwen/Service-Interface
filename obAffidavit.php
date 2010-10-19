@@ -965,7 +965,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
             }
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iiID==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageII["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page II ID [$iiIDd] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page II ID [$iiID] \n",3,"/logs/debug.log");
             }else{
 			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page II ID [$iiID]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
@@ -976,7 +976,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
             $currentCounter++;
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="MAIL") && ($level=='Operations') && ($defendant != "SERVER")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageIII["$count2"]);
-                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page III ID [$iiiIDd] \n",3,"/logs/debug.log");
+                error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page III ID [$iiiID] \n",3,"/logs/debug.log");
             }else{
 			    error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2, Page III ID [$iiiID]-NO DISPLAY: defendant $defendant | level $level | user_id $user_id \n",3,"/logs/debug.log");
 			}
