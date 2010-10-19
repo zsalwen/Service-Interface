@@ -177,6 +177,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		if ($d4[serverID]==$d1[server_id]){
 			$attempts .= $d4[action_str];
 			$iID = $d4[serverID];
+			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affdavits for OTD$packet, DEF: $count2,  iID [$iID] ! \n",3,"/logs/debug.log");
 		}elseif($d1[server_ida] && $d4[serverID]==$d1[server_ida]){
 			$attemptsa .= $d4[action_str];
 			$iIDa = $d4[serverID];
