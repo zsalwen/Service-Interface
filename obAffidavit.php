@@ -87,8 +87,8 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	} else {
 		$court = ucwords(strtolower($court));
 	}
-	error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def, defCount ".defCount($packet)." \n",3,"/logs/debug.log");
 	while ($def < defCount($packet)){$def++;
+	error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def, defCount ".defCount($packet)." \n",3,"/logs/debug.log");
 	if ($def < $defCount ){
 		$q1='';
 		$r1='';
