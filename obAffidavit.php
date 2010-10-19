@@ -152,22 +152,28 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		if ($d4[serverID] == $d1[server_id]){
 			$attempts .= $d4[action_str];
 			$iID = $d4[serverID];
+			$iID["$def"] = $d4[serverID];
 			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def,  iID [$iID] !FIRST! \n",3,"/logs/debug.log");
 		}elseif($d1[server_ida] && $d4[serverID] == $d1[server_ida]){
 			$attemptsa .= $d4[action_str];
 			$iIDa = $d4[serverID];
+			$iIDa["$def"] = $d4[serverID];
 		}elseif($d1[server_idb] && $d4[serverID] == $d1[server_idb]){
 			$attemptsb .= $d4[action_str];
 			$iIDb = $d4[serverID];
+			$iIDb["$def"] = $d4[serverID];
 		}elseif($d1[server_idc] && $d4[serverID] == $d1[server_idc]){
 			$attemptsc .= $d4[action_str];
 			$iIDc = $d4[serverID];
+			$iIDc["$def"] = $d4[serverID];
 		}elseif($d1[server_idd] && $d4[serverID] == $d1[server_idd]){
 			$attemptsd .= $d4[action_str];
 			$iIDd = $d4[serverID];
+			$iIDd["$def"] = $d4[serverID];
 		}elseif($d1[server_ide] && $d4[serverID] == $d1[server_ide]){
 			$attemptse .= $d4[action_str];
 			$iIDe = $d4[serverID];
+			$iIDe["$def"] = $d4[serverID];
 		}
 	}
 
@@ -177,22 +183,28 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		if ($d4[serverID]==$d1[server_id]){
 			$attempts .= $d4[action_str];
 			$iID = $d4[serverID];
+			$iID["$def"] = $d4[serverID];
 			error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $def,  iID [$iID] !SECOND! \n",3,"/logs/debug.log");
 		}elseif($d1[server_ida] && $d4[serverID]==$d1[server_ida]){
 			$attemptsa .= $d4[action_str];
 			$iIDa = $d4[serverID];
+			$iIDa["$def"] = $d4[serverID];
 		}elseif($d1[server_idb] && $d4[serverID]==$d1[server_idb]){
 			$attemptsb .= $d4[action_str];
 			$iIDb = $d4[serverID];
+			$iIDb["$def"] = $d4[serverID];
 		}elseif($d1[server_idc] && $d4[serverID]==$d1[server_idc]){
 			$attemptsc .= $d4[action_str];
 			$iIDc = $d4[serverID];
+			$iIDc["$def"] = $d4[serverID];
 		}elseif($d1[server_idd] && $d4[serverID]==$d1[server_idd]){
 			$attemptsd .= $d4[action_str];
 			$iIDd = $d4[serverID];
+			$iIDd["$def"] = $d4[serverID];
 		}elseif($d1[server_ide] && $d4[serverID]==$d1[server_ide]){
 			$attemptse .= $d4[action_str];
 			$iIDe = $d4[serverID];
+			$iIDe["$def"] = $d4[serverID];
 		}
 	}
 
@@ -201,13 +213,14 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$d4=mysql_fetch_array($r4, MYSQL_ASSOC);
 	$posting = $d4[action_str];
 	$iiID = $d4[serverID];
-
+	$iiID["$def"] = $d4[serverID];
 	$q4="SELECT * from ps_history where packet_id = '$packet' AND defendant_id = '$def' and action_type = 'First Class C.R.R. Mailing' and onAffidavit='checked'";
 	$r4=@mysql_query($q4) or die(mysql_error());
 	while ($d4=mysql_fetch_array($r4, MYSQL_ASSOC)){
 		$mailing .= $d4[action_str];
 		$crr=$d4[action_type];
 		$iiiID = $d4[serverID];
+		$iiiID["$def"] = $d4[serverID];
 	}
 	if ($mailing == ''){
 		$q4="SELECT * from ps_history where packet_id = '$packet' AND defendant_id = '$def' and action_type = 'First Class Mailing' and onAffidavit='checked'";
@@ -215,6 +228,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		while ($d4=mysql_fetch_array($r4, MYSQL_ASSOC)){
 			$mailing .= $d4[action_str];
 			$iiiID = $d4[serverID];
+			$iiiID["$def"] = $d4[serverID];
 			$first = $d4[action_type];
 		}
 	}
@@ -380,7 +394,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		</tr>
 	</table>
 	<? }
-	$iIDe["$def"]=$iIDe;
 	$pagee["$def"] = ob_get_clean();
 	ob_start();
 	//5th server
@@ -438,7 +451,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		</tr>
 	</table>
 	<? } 
-	$iIDd["$def"]=$iIDd;
 	$paged["$def"] = ob_get_clean();
 	ob_start();
 	//4th server
@@ -497,7 +509,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	</table>
 	<? 
 	}
-	$iIDc["$def"]=$iIDc;
 	$pagec["$def"] = ob_get_clean();
 	ob_start();
 	//3rd server
@@ -556,7 +567,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	</table>
 	<? 
 	}
-	$iIDb["$def"]=$iIDb;
 	$pageb["$def"] = ob_get_clean();
 	ob_start();
 	//2nd server
@@ -615,7 +625,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	</table>
 	<? 
 	} 
-	$iIDa["$def"]=$iIDa;
 	$pagea["$def"] = ob_get_clean();
 	ob_start();
 	//1st server, or servera if non-Burson
@@ -676,7 +685,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	</table>
 	<? }
 	 }
-	$iID["$def"]=$iID;
 	$pageI["$def"] = ob_get_clean();
 	ob_start();
 	 //Multiple servers' attempts end here
@@ -736,7 +744,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		</tr>
 	</table>
 	<? } 
-	$iiID["$def"]=$iiID;
 	 $pageII["$def"] = ob_get_clean();
 	 $postingID["$def"] = $iiID;
 	 ob_start();
@@ -792,7 +799,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		</tr>
 	</table>
 	<? }
-	$iiiID["$def"]=$iiiID;
 	 $pageIII["$def"] = ob_get_clean();
 	//------------------------------------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------------------------------------
