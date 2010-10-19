@@ -87,9 +87,8 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	} else {
 		$court = ucwords(strtolower($court));
 	}
-	$defCount=defCount($packet);
-	while ($def < $defCount){$def++;
-	if ($def < $defCount){
+	while ($def < defCount($packet)){$def++;
+	if ($def < $defCount ){
 		$q1='';
 		$r1='';
 		$d1='';
@@ -324,7 +323,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		$hiID=$iIDa;
 	}elseif($iID){
 		$hiID=$iID;
-		error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OTD$packet, DEF: $count2,  iID [$iID] 3 \n",3,"/logs/debug.log");
 	}
 	//$topPage["$def"] = ob_get_clean();
 	//ob_start();
