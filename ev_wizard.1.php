@@ -3,7 +3,6 @@
 		$instructions = "SELECT AN ACTION SUCH AS:<br>
 		<ul><li>Mailing and Posting (to enter service attempts or document postings),</li>
 		<li>Personal Delivery (to make entries for if the service documents were left with the defendant or a co-resident),</li>
-		<li>an Invalid Address (if an address, to the best of your knowledge, does not exist),</li>
 		<li>or the Photo Manager (to upload service photos).</li></ul>";
 	}else{
 				$instructions = "SELECT AN ACTION SUCH AS:<br>
@@ -20,10 +19,9 @@
 	}
  }else{?>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="service_type" value="MAILING AND POSTING" /> MAILING AND POSTING</div>
-<div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="INVALID ADDRESS" /> INVALID ADDRESS <em>{NEW}</em></div>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="service_type" value="PERSONAL DELIVERY" /> PERSONAL DELIVERY</div>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="MAKE CORRECTION" /> MAKE CORRECTIONS</div>
-<div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="CHANGE SIGNATORY" /> CHANGE SIGNATORY <em>{NEW}</em></div>
+<div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="CHANGE SIGNATORY" /> CHANGE SIGNATORY</div>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="i" value="close.1" /> REQUEST CLOSE</div>
 <? }?>
 <div class="nav0"><input onClick="submitLoader()" Checked type="radio" name="i" value="2" /> NEXT</div>
