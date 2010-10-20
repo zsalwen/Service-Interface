@@ -27,16 +27,6 @@ function alpha2desc($alpha){
 	if ($alpha == 'a'){ return "FIRST DOT ATTEMPT"; }
 	if ($alpha == 'b'){ return "SECOND DOT ATTEMPT"; }
 	if ($alpha == 'c'){ return "POSTED DOT PROPERTY"; }
-	if ($alpha == 'd'){ return "FIRST LKA ATTEMPT"; }
-	if ($alpha == 'e'){ return "SECOND LKA ATTEMPT"; }
-	if ($alpha == 'f'){ return "FIRST ALT ATTEMPT"; }
-	if ($alpha == 'g'){ return "SECOND ALT ATTEMPT"; }
-	if ($alpha == 'h'){ return "FIRST ALT ATTEMPT"; }
-	if ($alpha == 'i'){ return "SECOND ALT ATTEMPT"; }
-	if ($alpha == 'j'){ return "FIRST ALT ATTEMPT"; }
-	if ($alpha == 'k'){ return "SECOND ALT ATTEMPT"; }
-	if ($alpha == 'l'){ return "FIRST ALT ATTEMPT"; }
-	if ($alpha == 'm'){ return "SECOND ALT ATTEMPT"; }
 }
 function photoAddress($packet,$defendant,$alpha){
 	$r=@mysql_query("SELECT * from evictionPackets where eviction_id = '$packet'");
@@ -44,31 +34,6 @@ function photoAddress($packet,$defendant,$alpha){
 	if ($alpha == "a" || $alpha == "b"|| $alpha == "c"){
 		if ($d["address$defendant"]){
 			return $d["address$defendant"].", ".$d["state$defendant"];
-		}
-	}
-	if ($alpha == "d" || $alpha == "e"){
-		if ($d["address$defendant"."a"]){
-			return $d["address$defendant"."a"].", ".$d["state$defendant"."a"];
-		}
-	}
-	if ($alpha == "f" || $alpha == "g"){
-		if ($d["address$defendant"."b"]){
-			return $d["address$defendant"."b"].", ".$d["state$defendant"."b"];
-		}
-	}
-	if ($alpha == "h" || $alpha == "i"){
-		if ($d["address$defendant"."c"]){
-			return $d["address$defendant"."c"].", ".$d["state$defendant"."c"];
-		}
-	}
-	if ($alpha == "j" || $alpha == "k"){
-		if ($d["address$defendant"."d"]){
-			return $d["address$defendant"."d"].", ".$d["state$defendant"."d"];
-		}
-	}
-	if ($alpha == "l" || $alpha == "m"){
-		if ($d["address$defendant"."e"]){
-			return $d["address$defendant"."e"].", ".$d["state$defendant"."e"];
 		}
 	}
 }
@@ -260,11 +225,11 @@ function serverFiled($county, $server){
 }
 function photoCount($packet,$defendant){
 	$count=0;
-	$q="SELECT photo1a, photo2a, photo3a, photo4a, photo5a, photo6a, photo1b, photo2b, photo3b, photo4b, photo5b, photo6b, photo1c, photo2c, photo3c, photo4c, photo5c, photo6c, photo1d, photo2d, photo3d, photo4d, photo5d, photo6d, photo1e, photo2e, photo3e, photo4e, photo5e, photo6e, photo1f, photo2f, photo3f, photo4f, photo5f, photo6f, photo1g, photo2g, photo3g, photo4g, photo5g, photo6g, photo1h, photo2h, photo3h, photo4h, photo5h, photo6h, photo1i, photo2i, photo3i, photo4i, photo5i, photo6i, photo1j, photo2j, photo3j, photo4j, photo5j, photo6j, photo1k, photo2k, photo3k, photo4k, photo5k, photo6k, photo1l, photo2l, photo3l, photo4l, photo5l, photo6l, photo1m, photo2m, photo3m, photo4m, photo5m, photo6m FROM evictionPackets WHERE eviction_id='$packet'";
+	$q="SELECT photo1a, photo1b, photo1c FROM evictionPackets WHERE eviction_id='$packet'";
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
-	foreach(range('a','m') as $letter){
-		$current="photo".$defendant.$letter;
+	foreach(range('a','c') as $letter){
+		$current="photo1".$letter;
 		if($d["$current"] != ''){$count++;}
 	}
 	return $count;
@@ -289,36 +254,7 @@ mysql_select_db ('core');
 $qqr = @mysql_query("SELECT * from evictionPackets where eviction_id = '$packet'");
 $ddr = mysql_fetch_array($qqr, MYSQL_ASSOC);
 $dname = $ddr["name$defendant"];
-$daddy = $ddr["address$defendant"].', '.$ddr["city$defendant"].', '.$ddr["state$defendant"].' '.$ddr["zip$defendant"].' - <b>'.initals(id2name($ddr[server_id])).'</b>';
-$vera=$defendant.'a';
-$verb=$defendant.'b';
-$verc=$defendant.'c';
-$verd=$defendant.'d';
-$vere=$defendant.'e';
-if ($ddr["address$vera"]){
-	$addressa=strtoupper($ddr["address$vera"].', '.$ddr["city$vera"].', '.$ddr["state$vera"].' '.$ddr["zip$vera"]).' - <b>'.initals(id2name($ddr[server_ida])).'</b>';
-	$daddya="<br><small>$addressa</small>";
-}
-if ($ddr["address$verb"]){
-	$addressb=strtoupper($ddr["address$verb"].', '.$ddr["city$verb"].', '.$ddr["state$verb"].' '.$ddr["zip$verb"]).' - <b>'.initals(id2name($ddr[server_idb])).'</b>';
-	$daddyb="<br><small>$addressb</small>";
-}
-if ($ddr["address$verc"]){
-	$addressc=strtoupper($ddr["address$verc"].', '.$ddr["city$verc"].', '.$ddr["state$verc"].' '.$ddr["zip$verc"]).' - <b>'.initals(id2name($ddr[server_idc])).'</b>';
-	$daddyc="<br><small>$addressc</small>";
-}
-if ($ddr["address$verd"]){
-	$addressd=strtoupper($ddr["address$verd"].', '.$ddr["city$verd"].', '.$ddr["state$verd"].' '.$ddr["zip$verd"]).' - <b>'.initals(id2name($ddr[server_idd])).'</b>';
-	$daddyd="<br><small>$addressd</small>";
-}
-if ($ddr["address$vere"]){
-	$addresse=strtoupper($ddr["address$vere"].', '.$ddr["city$vere"].', '.$ddr["state$vere"].' '.$ddr["zip$vere"]).' - <b>'.initals(id2name($ddr[server_ide])).'</b>';
-	$daddye="<br><small>$addresse</small>";
-}
-if ($ddr["pobox"]){
-	$addresspo=strtoupper($ddr["pobox"].', '.$ddr["pocity"].', '.$ddr["postate"].' '.$ddr["pozip"]);
-	$daddypo="<br><small>$addresspo</small>";
-}
+$daddy = $ddr["address1"].', '.$ddr["city1"].', '.$ddr["state1"].' '.$ddr["zip1"].' - <b>'.initals(id2name($ddr[server_id])).'</b>';
 $info = "<div>Packet: $packet</div>";
 $info .= "<div>Defendant: $dname</div>";
 $info .= "<div>Address: $daddy</div>";
@@ -385,19 +321,13 @@ if ($_COOKIE[psdata][level] != "Operations"){
 <form enctype="multipart/form-data" id="wizard" name="wizard" onSubmit="hideshow(document.getElementById('loading'))" method="post">
 <fieldset style="background-color:#FFFFFF;"><legend style=" background-color:#FFFFCC; border:double 1px #999999; padding:5px;">
 <? if($_COOKIE[psdata][level]=="Operations"){ echo id2name($_POST[opServer])."*<br>"; }?>
-DEFENDANT: <a href="http://service.mdwestserve.com/ev_wizard.php?jump=<?=$packet?>-1<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '1'){ echo "<b>1</b>";}else{ echo "1";}?></a>
-<? if ($ddr[name2]){?> <a href="http://service.mdwestserve.com/ev_wizard.php?jump=<?=$packet?>-2<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '2'){ echo "<b>2</b>";}else{ echo "2";}?></a><? } ?>
-<? if ($ddr[name3]){?> <a href="http://service.mdwestserve.com/ev_wizard.php?jump=<?=$packet?>-3<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '3'){ echo "<b>3</b>";}else{ echo "3";}?></a><? } ?>
-<? if ($ddr[name4]){?> <a href="http://service.mdwestserve.com/ev_wizard.php?jump=<?=$packet?>-4<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '4'){ echo "<b>4</b>";}else{ echo "4";}?></a><? } ?>
-<? if ($ddr[name5]){?> <a href="http://service.mdwestserve.com/ev_wizard.php?jump=<?=$packet?>-5<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '5'){ echo "<b>5</b>";}else{ echo "5";}?></a><? } ?>
-<? if ($ddr[name6]){?> <a href="http://service.mdwestserve.com/ev_wizard.php?jump=<?=$packet?>-6<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '6'){ echo "<b>6</b>";}else{ echo "6";}?></a><? } ?>
 <? if ($_COOKIE[psdata][level] == 'Operations'){ ?> <a href="http://staff.mdwestserve.com/ev/order.php?packet=<?=$ddr[eviction_id]?>" target="_blank">(<?=id2attorney($ddr[attorneys_id]);?>)</a> - 
 <a href="http://staff.mdwestserve.com/ev/ev_instructions.<? if($ddr[attorneys_id] == 56){ echo 'brennan.';}?>php?id=<?=$ddr[eviction_id]?>" target="_blank">INSTRUCTIONS</a> - 
 <a href="http://staff.mdwestserve.com/ev/evSheet.php?id=<?=$packet?>&autoPrint=1" target="_blank">CHECKLIST</a> - 
 <a href="http://staff.mdwestserve.com/ev/evictionHistoryModify.php?id=<?=$packet?>" target="_blank">MODIFY</a><? } ?>
 <? if($_GET[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_GET[mailDate];} ?>
 <? if($_POST[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_POST[mailDate];} ?><br>
-<?=strtoupper($dname)?><br /><small><?=strtoupper($daddy)?></small><?=$daddya?><?=$daddyb?><?=$daddyc?><?=$daddyd?><?=$daddye?><? if ($_COOKIE["psdata"]["level"] == "Operations"){echo $daddypo;}?><br />
+<?=strtoupper($dname)?><br /><small><?=strtoupper($daddy)?></small><br />
 <? if($i=='a'){ ?>SELECT DEFENDANT<? }elseif($i==1){ ?><strong><?=strtoupper($ddr[process_status])?> : <?=strtoupper($ddr[service_status])?> : <?=strtoupper($ddr[affidavit_status])?></strong><? }elseif($i==4){ ?>ARE ALL DETAILS CORRECT?<? }else{ ?><? if ($i != 2 && $i!= 'a'){ echo "<strong>ENTER ".$_POST[served]." DETAILS</strong>";}?><? }?><? if ($ddr[reopenNotes] != ''){?><br>"<?=$ddr[reopenNotes]?>"<? }?></legend>
 <?
 //Display Server Instructions (if they exist):
