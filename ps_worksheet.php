@@ -145,10 +145,14 @@ function makeEntry($packet){
 			<table><tr><td nowrap="nowrap">
 				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=$d['date_received']?>]</font>
 				<? echo "<form style='display:inline;' name='$packet' action='".$wizardLink.".php' target='_blank'><select style='background-color:CCEEFF; font-size:11px;' name='jump' onchange='this.form.submit();'><option value=''>JUMP TO WIZARD</option>";
-				$i2=0;
-				while ($i2 < 6){$i2++;
+                                if ($_GET[svc] != 'Eviction'){
+				    $i2=0;
+				    while ($i2 < 6){$i2++;
 					if ($d["name$i2"]){ echo "<option value='".$d[$idType]."-$i2'>".$i2.". ".$d["name$i2"]."</option>";}
-				}
+				    }
+	                        }else{
+                                    echo "<option value='".$d[$idType]."-1'>1. OCCUPANT</option>";
+}
 				echo "</select></form>";  ?>
 			   </td></tr><tr><td>
 				<? if ($d['payAuth'] == 1){?><img src="/gfx/icon.pay.jpg" height="40" border="0" /><? }?>
