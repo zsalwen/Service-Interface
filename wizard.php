@@ -1,18 +1,5 @@
 <?
-function talk($to,$message){
-	include_once '/thirdParty/xmpphp/XMPPHP/XMPP.php';
-	$conn = new XMPPHP_XMPP('talk.google.com', 5222, 'talkabout.files@gmail.com', 'zerohour', 'xmpphp', 'gmail.com', $printlog=false, $loglevel=XMPPHP_Log::LEVEL_INFO);
-	try {
-		$conn->useEncryption(true);
-		$conn->connect();
-		$conn->processUntil('session_start');
-		//$conn->presence("Ya, I'm online","available","talk.google.com");
-		$conn->message($to, $message);
-		$conn->disconnect();
-	} catch(XMPPHP_Exception $e) {
-		die($e->getMessage());
-	}
-}
+
 if (!$_POST['i']){
 $i='a';
 }else{
