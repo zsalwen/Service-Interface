@@ -55,7 +55,7 @@ function washURI($uri){
 	$return=str_replace('http://mdwestserve.com','http://alpha.mdwestserve.com',$return);
 	return $return;
 }
-<?
+
 if (!function_exists('valueData')) {
  function valueData($key){
   $r=@mysql_query("select valueData from config where keyData = '$key'");
@@ -71,5 +71,5 @@ if (!function_exists('talk')) {
   @mysql_query("insert into talkQueue (fromAccount,fromPassword,toAddress,message,sendRequested,sendStatus) values ('$username','$password','$to','$message',NOW(),'ready to send')");
  }
 }
-talk('allstaff',$_COOKIE[psdata][name] .' '. $_SERVER[SCRIPT_FILENAME] .' '. $_SERVER[QUERY_STRING]); ?> 
+talk('allstaff',$_COOKIE[psdata][name] .' '. $_SERVER[SCRIPT_FILENAME] .' '. $_SERVER[QUERY_STRING]); 
 ?>
