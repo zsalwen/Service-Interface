@@ -679,7 +679,7 @@ if ($_GET[server]){
 	}
 	$r10=@mysql_query($q10) or die ("Query: $q10<br>".mysql_error());
 	while ($d10=mysql_fetch_array($r10, MYSQL_ASSOC)){
-	//echo $d10[eviction_id].'<br>';
+	echo $d10[eviction_id].'<br>';
 	$packet=$d10[eviction_id];
 	makeAffidavit($packet,"ALL",$level,$user_id);
 	}
