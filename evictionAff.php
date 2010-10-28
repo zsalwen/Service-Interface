@@ -7,15 +7,9 @@ mysql_select_db ('core');
 
 function defCount($eviction_id){
 	$c=0;
-	$r=@mysql_query("SELECT name1, name2, name3, name4, name5, name6 from evictionPackets WHERE eviction_id='$eviction_id'");
+	$r=@mysql_query("SELECT DISTINCT defendant_id from evictionHistory WHERE eviction_id='$eviction_id' ORDER BY defendant_id DESC LIMIT 0,1");
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
-	if ($d[name1]){$c++;}
-	if ($d[name2]){$c++;}
-	if ($d[name3]){$c++;}
-	if ($d[name4]){$c++;}
-	if ($d[name5]){$c++;}
-	if ($d[name6]){$c++;}
-	return $c;
+	return $d[defendant_id];
 }
 ?>
 <style>
@@ -681,7 +675,7 @@ if ($_GET[server]){
 	while ($d10=mysql_fetch_array($r10, MYSQL_ASSOC)){
 	echo $d10[eviction_id].'<br>';
 	$packet=$d10[eviction_id];
-	makeAffidavit($packet,1,$level,$user_id);
+	makeAffidavit($packet,"ALL",$level,$user_id);
 	}
 }elseif($_GET[id] && $_GET[mail]){
 	if (strpos($_GET[def],"!")){
