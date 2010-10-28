@@ -111,11 +111,11 @@ function getEntries($id,$server,$table,$idType){
 	$r=@mysql_query("SELECT history_id FROM $table WHERE $idType='$id' AND serverID='$server'");
 	$c=mysql_num_rows($r);
 	if ($c > 1){
-		return " <small>$c ENTRIES</small> ";
+		return "<small>$c ENTRIES</small>";
 	}elseif($c == 1){
-		return " <small>1 ENTRY</small> ";
+		return "<small>1 ENTRY</small>";
 	}else{
-		return " <small>NO ENTRIES</small> ";
+		return "<small>NO ENTRIES</small>";
 	}
 }
 
@@ -164,40 +164,42 @@ function makeEntry($packet){
 				}
 				echo "</select></form>";  ?>
 			   </td><td style="border-top:solid 1px #000000;" align="left" valign="top">
-				<? if ($d['payAuth'] == 1){?><img src="/gfx/icon.pay.jpg" height="40" border="0" /><? }?>
-				<? if ($d['affidavit_status'] == "NEED CORRECTION"){?><a href="ps_corrections.php?server=<?=$id?>"><img src="/gfx/icon.alert.jpg" height="40" border="0" /></a><? }?>
-				<? if ($d['affidavit_status'] == "SERVICE CONFIRMED"){ ?><a href="markPrinted.php?print=<?=$_COOKIE[psdata][user_id]?>&packet=<?=$d[$idType]?>&all=<?=$_GET[all]?>&status=<?=$id?>&svc=<?=$_GET[svc]?>" target="_blank"><img src="/gfx/icon.print.jpg" height="40" border="0" /></a><? }?>		
-				<? if ($d['request_close'] == "YES" || $d['request_closea'] == "YES" || $d['request_closeb'] == "YES" || $d['request_closec'] == "YES" || $d['request_closed'] == "YES" || $d['request_closee'] == "YES"){?><img src="/gfx/icon.closed.jpg" height="40" border="0" /><? }?>
-				<a href="<?=$instructionsLink?>.php?<?=$field?>=<?=$d[$idType]?>" target="_blank"><img src="/gfx/icon.instructions.jpg" height="40" border="0" /></a>
-				<a href="<?=washURI2($d['otd']);?>" target="_blank"><img src="/gfx/icon.envelope.jpg" height="40" border="0" /></a>
+				<? if ($d['payAuth'] == 1){?><img src="/gfx/icon.pay.jpg" height="35" border="0" /><? }?>
+				<? if ($d['affidavit_status'] == "NEED CORRECTION"){?><a href="ps_corrections.php?server=<?=$id?>"><img src="/gfx/icon.alert.jpg" height="35" border="0" /></a><? }?>
+				<? if ($d['affidavit_status'] == "SERVICE CONFIRMED"){ ?><a href="markPrinted.php?print=<?=$_COOKIE[psdata][user_id]?>&packet=<?=$d[$idType]?>&all=<?=$_GET[all]?>&status=<?=$id?>&svc=<?=$_GET[svc]?>" target="_blank"><img src="/gfx/icon.print.jpg" height="35" border="0" /></a><? }?>		
+				<? if ($d['request_close'] == "YES" || $d['request_closea'] == "YES" || $d['request_closeb'] == "YES" || $d['request_closec'] == "YES" || $d['request_closed'] == "YES" || $d['request_closee'] == "YES"){?><img src="/gfx/icon.closed.jpg" height="35" border="0" /><? }?>
+				<a href="<?=$instructionsLink?>.php?<?=$field?>=<?=$d[$idType]?>" target="_blank"><img src="/gfx/icon.instructions.jpg" height="35" border="0" /></a>
+				<a href="<?=washURI2($d['otd']);?>" target="_blank"><img src="/gfx/icon.envelope.jpg" height="35" border="0" /></a>
 				<? if($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L"  && $d[attorneys_id] != 70){ ?>
-				<a href="http://service.mdwestserve.com/stuffPacket.php?packet=<?=$d[$idType]?>" target='_blank'><img src="/gfx/icon.green.envelope.jpg" height="40" border="0" /></a>
+				<a href="http://service.mdwestserve.com/stuffPacket.php?packet=<?=$d[$idType]?>" target='_blank'><img src="/gfx/icon.green.envelope.jpg" height="35" border="0" /></a>
 				<? }elseif($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L" && $d[lossMit] != '' && $d[attorneys_id] == 70){
 					//if file is a final or preliminary, instruct to include envelope for attorney
 					$lossMitInstructions="include a white, preprinted #10 envelope addressed to <span style='color:#990000;'>BIERMAN, GEESING & WARD, LLC</span>";
 					if ($d[lossMit] == "FINAL"){
 						//if file is a final, also instruct to include envelope for court
 						$toCounty=county2envelope2($d[circuit_court]);
-						$lossMitInstructions .= ", and another white, preprinted #10 envelope addressed to <span style='color:#990000;'>".$toCounty."</span>";
+						$lossMitInstructions .= ", and another to <span style='color:#990000;'>".$toCounty."</span>";
 					}
 					$lossMit .= " with each defendant's service documents.";
-					echo " <div style='display:inline-block; font-weight:bold; width:300px; font-size:11px; padding:0px; border: double 2px; background-color:FFFFFF;'>".strtoupper($lossMitInstructions)."</div> "; 
+					echo " <div style='display:inline-block; font-weight:bold; width:270px; font-size:10px; padding:0px; border: double 2px; background-color:FFFFFF; line-height: 1px;'>".strtoupper($lossMitInstructions)."</div> "; 
 				} ?>			
 		</td>
 		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><?=$d['case_no']?> <em>(<?=$d['client_file']?>)</em></td>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
-			<li><?=id2name($d['server_id'])?>:<?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?>-<?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?></li>
+			<li><?=id2name($d['server_id'])?>-<?=strtoupper($d['state1'])?>:<?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?> <? if($d[svrPrint]==1){ echo "PRINTED";}?>
 			<? $list2 .= "|$d[server_id]|"; ?>
 		<?  foreach(range('a','e') as $letter){
 				if ($d["server_id$letter"]){
 					if(strpos($list2,"|".$d["server_id$letter"]."|") === false){
 						$list2 .= "|".$d["server_id$letter"]."|";
-						echo "<li>".id2name($d["server_id$letter"]).":".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper($d["state1$letter"]);
+						echo "</li><li>".id2name($d["server_id$letter"])."-".strtoupper($d["state1$letter"]).":".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType);
 						if($d["svrPrint$letter"]==1){ echo "PRINTED";}
-						echo "</li>";
+					}else{
+						echo "-".strtoupper($d["state1$letter"]);
 					}
 				}
-			} ?>	
+			} 
+			echo "</li>"; ?>	
 		</td>
 	</tr>
 	<? 
