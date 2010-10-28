@@ -119,6 +119,12 @@ function getEntries($id,$server,$table,$idType){
 	}
 }
 
+function justDate($dateTime){
+	$date=explode(' ',$dateTime);
+	$date=strtotime($date[0]);
+	return date('n/j/y',$date); 
+}
+
 function makeEntry($packet){
 	if ($_GET[svc] == 'Eviction'){
 		$table = 'evictionPackets';
@@ -153,7 +159,7 @@ function makeEntry($packet){
 		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Affidavit/Filing&nbsp;Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
 		<table><tr><td nowrap="nowrap">
-				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=$d['date_received']?>]</font>
+				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=justDate($d['date_received']);?>]</font>
 				<? echo "<form style='display:inline;' name='$packet' action='".$wizardLink.".php' target='_blank'><select style='background-color:CCEEFF; font-size:11px;' name='jump' onchange='this.form.submit();'><option value=''>JUMP TO WIZARD</option>";
                 if ($_GET[svc] != 'Eviction'){
 				    $i2=0;
@@ -186,15 +192,15 @@ function makeEntry($packet){
 				} ?>	
 			</td></tr></table>
 		</td>
-		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><?=$d['case_no']?> <em>(<?=$d['client_file']?>)</em></td>
+		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><small><?=$d['client_file']?></small></td>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
-			<li style="font-size:small;"><?=id2name($d['server_id'])?>:<?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?>-<?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?>
+			<li style="font-size:small;"><?=id2name($d['server_id'])?>:<br><?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?>-<?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?>
 			<? $list2 .= "|$d[server_id]|"; ?>
 		<?  foreach(range('a','e') as $letter){
 				if ($d["server_id$letter"]){
 					if(strpos($list2,"|".$d["server_id$letter"]."|") === false){
 						$list2 .= "|".$d["server_id$letter"]."|";
-						echo "</li><li style='font-size:small;'>".id2name($d["server_id$letter"]).":".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper($d["state1$letter"]);
+						echo "</li><li style='font-size:small;'>".id2name($d["server_id$letter"]).":<br>".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper($d["state1$letter"]);
 						if($d["svrPrint$letter"]==1){ echo "PRINTED";}
 					}else{
 						echo "-".strtoupper($d["state1$letter"]);
@@ -267,7 +273,7 @@ $count2 = mysql_num_rows($r2);
 	</tr>
 </table>
 <div class="noprint" style="text-align:center; font-variant:small-caps; font-size:24px; background-color:#FF0000; color:#FFFFFF; font-weight:bold;">SERVICE ALL FILES EXACTLY AS LISTED ON INSTRUCTION SHEET</div>
-<table width="100%" style="border-collapse:collapse" border="1">
+<table width="100%" style="border-collapse:collapse" border="0">
 <?
 if ($_COOKIE['psdata']['level'] != "Operations"){
 	logAction($_COOKIE['psdata']['user_id'], $_SERVER['PHP_SELF'], 'Viewing Active File Tracker');
