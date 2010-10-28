@@ -169,7 +169,7 @@ function makeEntry($packet){
 		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Affidavit/Filing&nbsp;Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
 		<table><tr><td nowrap="nowrap" style="border-right-width:0px !important;">
-				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='staff.mdwestserve.com/$dir/order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=justDate($d['date_received']);?>]</font>
+				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='http://staff.mdwestserve.com/$dir/order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=justDate($d['date_received']);?>]</font>
 				<? echo "<form style='display:inline;' name='$packet' action='".$wizardLink.".php' target='_blank'><select style='background-color:CCEEFF; font-size:11px;' name='jump' onchange='this.form.submit();'><option value=''>JUMP TO WIZARD</option>";
                 if ($_GET[svc] != 'Eviction'){
 				    $i2=0;
