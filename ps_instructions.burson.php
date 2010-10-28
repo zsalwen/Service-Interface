@@ -165,7 +165,6 @@ if ($data[lossMit] != '' && $data[lossMit] != 'N/A - OLD L' && $data[packet_id] 
     </tr>
     <tr>
     	<td colspan="6" align="center"><ul><li>You cannot make two attempts at the same property on the same day.</li>
-        <li>The Deed of Trust Address is to be attempted before any other addresses.</li>
         <li><b>posting</b> must be done <b>after</b> <u>all attempts</u> have been completed.</li>
         <li>Attempts are to be performed in order listed on service instructions.</li>
 		<li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9AM and 5PM.  Please avoid attempts between 8AM-9AM & 5PM-6PM.  "Good Faith" efforts must be made at different times of day.</b></li>
