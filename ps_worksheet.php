@@ -181,18 +181,18 @@ function makeEntry($packet){
 						$lossMitInstructions .= ", and another to <span style='color:#990000;'>".$toCounty."</span>";
 					}
 					$lossMit .= " with each defendant's service documents.";
-					echo " <div style='display:inline-block; font-weight:bold; width:270px; font-size:10px; padding:0px; border: double 2px; background-color:FFFFFF; line-height: 9px;'>".strtoupper($lossMitInstructions)."</div> "; 
+					echo " <div style='display:inline-block; font-weight:bold; width:250px; font-size:10px; padding:0px; border: double 2px; background-color:FFFFFF; line-height: 9px;'>".strtoupper($lossMitInstructions)."</div> "; 
 				} ?>			
 		</td>
 		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><?=$d['case_no']?> <em>(<?=$d['client_file']?>)</em></td>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
-			<li><?=id2name($d['server_id'])?>-<?=strtoupper($d['state1'])?>:<?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?> <? if($d[svrPrint]==1){ echo "PRINTED";}?>
+			<li style="font-size:small;"><?=id2name($d['server_id'])?>:<?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?>-<?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?>
 			<? $list2 .= "|$d[server_id]|"; ?>
 		<?  foreach(range('a','e') as $letter){
 				if ($d["server_id$letter"]){
 					if(strpos($list2,"|".$d["server_id$letter"]."|") === false){
 						$list2 .= "|".$d["server_id$letter"]."|";
-						echo "</li><li>".id2name($d["server_id$letter"])."-".strtoupper($d["state1$letter"]).":".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType);
+						echo "</li><li style='font-size:small;'>".id2name($d["server_id$letter"]).":".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper($d["state1$letter"]);
 						if($d["svrPrint$letter"]==1){ echo "PRINTED";}
 					}else{
 						echo "-".strtoupper($d["state1$letter"]);
