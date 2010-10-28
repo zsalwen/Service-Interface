@@ -108,7 +108,7 @@ function county2envelope2($county){
 }
 
 function getEntries($id,$server,$table,$idType){
-	$r=@mysql_query("SELECT * FROM $table WHERE $idType='$id' AND serverID='$server'");
+	$r=@mysql_query("SELECT history_id FROM $table WHERE $idType='$id' AND serverID='$server'");
 	$c=mysql_num_rows($r);
 	if ($c > 1){
 		return "$c ENTRIES";
