@@ -670,32 +670,32 @@ if ($_GET[server]){
 			if ($stop < $start){
 				echo "<br><br><br><center><h1 style='color:#FF0000; font-size:48px;'>THAT RANGE OF AFFIDAVITS CANNOT BE DISPLAYED.</h1></center>";
 			}
-			$q10="SELECT eviction_id FROM evictionPackets where (server_id='$serveID' OR server_ida='$serveID' OR server_idb='$serveID' OR server_idc='$serveID' OR server_idd='$serveID' OR server_ide='$serveID') AND eviction_id >= '$start' AND eviction_id <= '$stop' AND process_status <> 'CANCELLED' AND affidavit_status='SERVICE CONFIRMED' AND filing_status <> 'PREP TO FILE' AND filing_status <> 'FILED WITH COURT' AND filing_status <> 'FILED WITH COURT - FBS' AND filing_status <> 'SEND TO CLIENT' AND affidavit_status2 <> 'AWAITING MAILING'";
+			$q10="SELECT eviction_id FROM evictionPackets where server_id='$serveID' AND eviction_id >= '$start' AND eviction_id <= '$stop' AND process_status <> 'CANCELLED' AND affidavit_status='SERVICE CONFIRMED' AND filing_status <> 'PREP TO FILE' AND filing_status <> 'FILED WITH COURT' AND filing_status <> 'FILED WITH COURT - FBS' AND filing_status <> 'SEND TO CLIENT' AND affidavit_status2 <> 'AWAITING MAILING'";
 		}else{
-			$q10="SELECT eviction_id FROM evictionPackets where (server_id='$serveID' OR server_ida='$serveID' OR server_idb='$serveID' OR server_idc='$serveID' OR server_idd='$serveID' OR server_ide='$serveID') AND eviction_id >= '$start' AND process_status <> 'CANCELLED' AND affidavit_status='SERVICE CONFIRMED' AND filing_status <> 'FILED WITH COURT' AND filing_status <> 'PREP TO FILE' AND filing_status <> 'FILED WITH COURT - FBS' AND filing_status <> 'SEND TO CLIENT' AND affidavit_status2 <> 'AWAITING MAILING'";
+			$q10="SELECT eviction_id FROM evictionPackets where server_id='$serveID' AND eviction_id >= '$start' AND process_status <> 'CANCELLED' AND affidavit_status='SERVICE CONFIRMED' AND filing_status <> 'FILED WITH COURT' AND filing_status <> 'PREP TO FILE' AND filing_status <> 'FILED WITH COURT - FBS' AND filing_status <> 'SEND TO CLIENT' AND affidavit_status2 <> 'AWAITING MAILING'";
 		}
 	}else{
-		$q10="SELECT eviction_id FROM evictionPackets where (server_id='$serveID' OR server_ida='$serveID' OR server_idb='$serveID' OR server_idc='$serveID' OR server_idd='$serveID' OR server_ide='$serveID') AND process_status <> 'CANCELLED' AND affidavit_status='SERVICE CONFIRMED' AND filing_status <> 'FILED WITH COURT' AND filing_status <> 'PREP TO FILE' AND filing_status <> 'FILED WITH COURT - FBS' AND filing_status <> 'SEND TO CLIENT' AND affidavit_status2 <> 'AWAITING MAILING'";
+		$q10="SELECT eviction_id FROM evictionPackets where server_id='$serveID' AND process_status <> 'CANCELLED' AND affidavit_status='SERVICE CONFIRMED' AND filing_status <> 'FILED WITH COURT' AND filing_status <> 'PREP TO FILE' AND filing_status <> 'FILED WITH COURT - FBS' AND filing_status <> 'SEND TO CLIENT' AND affidavit_status2 <> 'AWAITING MAILING'";
 	}
 	$r10=@mysql_query($q10) or die ("Query: $q10<br>".mysql_error());
 	while ($d10=mysql_fetch_array($r10, MYSQL_ASSOC)){
 	//echo $d10[eviction_id].'<br>';
 	$packet=$d10[eviction_id];
-	makeAffidavit($packet,"ALL");
+	makeAffidavit($packet,"ALL",$level,$user_id);
 	}
 }elseif($_GET[id] && $_GET[mail]){
 	if (strpos($_GET[def],"!")){
-		makeAffidavit($_GET[id],"MAIL!");
+		makeAffidavit($_GET[id],"MAIL!",$level,$user_id);
 	}else{
-		makeAffidavit($_GET[id],"MAIL");
+		makeAffidavit($_GET[id],"MAIL",$level,$user_id);
 	}
 }elseif ($_GET[id] && $_GET[def]){
 	makeAffidavit($_GET[id],$_GET[def]);
 }elseif($_GET[id] && !$_GET[def]){
 	if (strpos($_GET[all],"!")){
-		makeAffidavit($_GET[id],"ALL!");
+		makeAffidavit($_GET[id],"ALL!",$level,$user_id);
 	}else{
-		makeAffidavit($_GET[id],"ALL");
+		makeAffidavit($_GET[id],"ALL",$level,$user_id);
 	}
 }
 if ($_GET['autoPrint'] == 1){
