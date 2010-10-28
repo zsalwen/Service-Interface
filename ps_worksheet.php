@@ -69,7 +69,7 @@ function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
 		$start=$i;
 		$stop=$i+1;
 		if ($start != $exStart && $stop != $exStop){
-			$newList = "<td><div style='border: 1px solid black; width: 90px; font-size:11px;'><center><a href='http://service.mdwestserve.com/ps_worksheet.php?start=$start".$linkAppend."'>";
+			$newList = "<td><div style='border: 1px solid black; font-size:11px;'><center><a href='http://service.mdwestserve.com/ps_worksheet.php?start=$start".$linkAppend."'>";
 			$start=$start*1000;
 			$stop=$stop*1000;
 			$newList .= "$start-$stop</a>";
