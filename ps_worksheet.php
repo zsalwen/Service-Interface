@@ -69,7 +69,7 @@ function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
 		$start=$i;
 		$stop=$i+1;
 		if ($start != $exStart && $stop != $exStop){
-			$newList = "<td><div style='border: 1px solid black; font-size:11px;'><center><a href='http://service.mdwestserve.com/ps_worksheet.php?start=$start".$linkAppend."'>";
+			$newList = "<td style='border-right-width:0px !important;'><div style='border: 1px solid black; font-size:11px;'><center><a href='http://service.mdwestserve.com/ps_worksheet.php?start=$start".$linkAppend."'>";
 			$start=$start*1000;
 			$stop=$stop*1000;
 			$newList .= "$start-$stop</a>";
@@ -245,30 +245,30 @@ $count2 = mysql_num_rows($r2);
 <div style="text-align:center; font-size:25px;"><a href="?svc=presale<?=$all?><?=$status?>"><?=$count1?> Presale Cases</a> | <a href="?svc=Eviction<?=$all?><?=$status?>"><?=$count2?> Eviction Cases</a> | <a href="ps_standard.php"><?=$count3?> Standard Cases</a></div> 
 <table width="100%" class="noprint">
 	<tr>
-    	<td align="center"><img src="/gfx/icon.alert.jpg" height="30" border="0" /></td>
-    	<td align="center"><img src="/gfx/icon.print.jpg" height="30" border="0" /></td>
-    	<td align="center"><img src="/gfx/icon.closed.jpg" height="30" border="0" /></td>
-        <td align="center"><img src="/gfx/icon.instructions.jpg" height="30" border="0" /></td>
-        <td align="center"><img src="/gfx/icon.envelope.jpg" height="30" border="0" /></td>
-		<td align="center"><img src="/gfx/icon.green.envelope.jpg" height="30" border="0" /></td>
-    	<td align="center"><img src="/gfx/icon.pay.jpg" height="30" border="0" /></td>
+    	<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.alert.jpg" height="30" border="0" /></td>
+    	<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.print.jpg" height="30" border="0" /></td>
+    	<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.closed.jpg" height="30" border="0" /></td>
+        <td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.instructions.jpg" height="30" border="0" /></td>
+        <td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.envelope.jpg" height="30" border="0" /></td>
+		<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.green.envelope.jpg" height="30" border="0" /></td>
+    	<td align="center style='border-right-width:0px !important;'"><img src="/gfx/icon.pay.jpg" height="30" border="0" /></td>
 		<form action="<? if ($_GET[svc] == 'Eviction'){ echo "evictionAff.php";}else{ echo "liveAffidavit.php"; } ?>" target="_blank">
-		<td align="center"><input type="hidden" name="start" value="0"><input type="hidden" name="stop" value="200000"><input type="hidden" name="server" value="<?=$id?>"><input type="submit" name="submit" value="GO"></td>
+		<td align="center" style='border-right-width:0px !important;'><input type="hidden" name="start" value="0"><input type="hidden" name="stop" value="200000"><input type="hidden" name="server" value="<?=$id?>"><input type="submit" name="submit" value="GO"></td>
         </form>
 		<form action="http://service.mdwestserve.com/ps_worksheet.php">
-		<td align="center"><select name='svc'><option value='presale'>PRESALE</option><option value='Eviction'>EVICTION</option></select>&nbsp;<input name='psFile' size='6' <? if ($_GET[psFile] != ''){ echo "value='$_GET[psFile]'";}else{ echo "value='File #'";}?> onclick="value=''";>&nbsp;<input type="submit" name="submit" value="Go!"></td>
+		<td align="center" style='border-right-width:0px !important;'><select name='svc'><option value='presale'>PRESALE</option><option value='Eviction'>EVICTION</option></select>&nbsp;<input name='psFile' size='6' <? if ($_GET[psFile] != ''){ echo "value='$_GET[psFile]'";}else{ echo "value='File #'";}?> onclick="value=''";>&nbsp;<input type="submit" name="submit" value="Go!"></td>
 		</form>
     </tr>
     <tr>
-        <td align="center">Needs Corrections</td>
-    	<td align="center">Printing Approved</td>
-        <td align="center">Close Requested</td>
-        <td align="center">Service Instructions</td>
-        <td align="center">Papers to Serve</td>
-		<td align="center">Envelope Stuffings</td>
-    	<td align="center">Pay Approved</td>
-		<td align="center">Print All <?=$docType?> Affidavits</td>
-		<td align="center">Load File Detail</td>
+        <td align="center" style='border-right-width:0px !important;'>Needs Corrections</td>
+    	<td align="center" style='border-right-width:0px !important;'>Printing Approved</td>
+        <td align="center" style='border-right-width:0px !important;'>Close Requested</td>
+        <td align="center" style='border-right-width:0px !important;'>Service Instructions</td>
+        <td align="center" style='border-right-width:0px !important;'>Papers to Serve</td>
+		<td align="center" style='border-right-width:0px !important;'>Envelope Stuffings</td>
+    	<td align="center" style='border-right-width:0px !important;'>Pay Approved</td>
+		<td align="center" style='border-right-width:0px !important;'>Print All <?=$docType?> Affidavits</td>
+		<td align="center" style='border-right-width:0px !important;'>Load File Detail</td>
 	</tr>
 </table>
 <div class="noprint" style="text-align:center; font-variant:small-caps; font-size:24px; background-color:#FF0000; color:#FFFFFF; font-weight:bold;">SERVICE ALL FILES EXACTLY AS LISTED ON INSTRUCTION SHEET</div>
