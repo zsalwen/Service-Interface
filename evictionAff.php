@@ -681,7 +681,7 @@ if ($_GET[server]){
 	while ($d10=mysql_fetch_array($r10, MYSQL_ASSOC)){
 	echo $d10[eviction_id].'<br>';
 	$packet=$d10[eviction_id];
-	makeAffidavit($packet,"ALL",$level,$user_id);
+	makeAffidavit($packet,1,$level,$user_id);
 	}
 }elseif($_GET[id] && $_GET[mail]){
 	if (strpos($_GET[def],"!")){
