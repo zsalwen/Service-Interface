@@ -26,6 +26,16 @@ function mkAlert($alertStr,$entryID,$serverID,$packetID){
 	mysql_select_db('core');
 	@mysql_query("INSERT INTO ps_alert (alertStr, entryID, entryTime, serverID, packetID) VALUES ('$alertStr', '$entryID', NOW(), '$serverID', '$packetID')");
 }
+function id2name3($id){
+$q="SELECT name FROM ps_users WHERE id = '$id'";
+$r=@mysql_query($q);
+$d=mysql_fetch_array($r, MYSQL_ASSOC);
+	if ($id == '' || $d[name] == ''){
+		return "<i><blank></i>";
+	}else{
+		return $d[name];
+	}
+}
 hardLog("loaded active files list.",'contractor');
 if ($_GET[status]){
 	$id = $_GET[status];
@@ -134,6 +144,7 @@ function makeEntry($packet){
 		$field='id';
 		$wizardLink = 'ev_wizard';
 		$docType='EVICTION';
+		$dir='ev';
 	}else{
 		$table = 'ps_packets';
 		$table2 = 'ps_history';
@@ -142,6 +153,7 @@ function makeEntry($packet){
 		$field='packet';
 		$wizardLink = 'wizard';
 		$docType='PRESALE';
+		$dir='otd';
 	}
 	$q="SELECT *, TIMEDIFF(NOW(), date_received) as hours FROM $table WHERE $idType='$packet'";
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
@@ -157,7 +169,7 @@ function makeEntry($packet){
 		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Affidavit/Filing&nbsp;Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
 		<table><tr><td nowrap="nowrap" style="border-right-width:0px !important;">
-				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=justDate($d['date_received']);?>]</font>
+				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='staff.mdwestserve.com/$dir/order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=justDate($d['date_received']);?>]</font>
 				<? echo "<form style='display:inline;' name='$packet' action='".$wizardLink.".php' target='_blank'><select style='background-color:CCEEFF; font-size:11px;' name='jump' onchange='this.form.submit();'><option value=''>JUMP TO WIZARD</option>";
                 if ($_GET[svc] != 'Eviction'){
 				    $i2=0;
@@ -192,13 +204,13 @@ function makeEntry($packet){
 		</td>
 		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><small>(<?=$d['client_file']?>)<br><?=$d[case_no]?></small></td>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
-			<li style="font-size:small;"><?=id2name($d['server_id'])?>:<br><?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?>-<?=strtoupper(trim($d['state1']))?><? if($d[svrPrint]==1){ echo "PRINTED";}
+			<li style="font-size:small;"><?=id2name3($d['server_id'])?>:<br><?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?>-<?=strtoupper(trim($d['state1']))?><? if($d[svrPrint]==1){ echo "PRINTED";}
 			$list2 .= "|$d[server_id]|"; 
 			foreach(range('a','e') as $letter){
 				if ($d["server_id$letter"]){
 					if(strpos($list2,"|".$d["server_id$letter"]."|") === false){
 						$list2 .= "|".$d["server_id$letter"]."|";
-						echo "</li><li style='font-size:small;'>".id2name($d["server_id$letter"]).":<br>".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper(trim($d["state1$letter"]));
+						echo "</li><li style='font-size:small;'>".id2name3($d["server_id$letter"]).":<br>".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper(trim($d["state1$letter"]));
 						if($d["svrPrint$letter"]==1){ echo "PRINTED";}
 					}else{
 						echo "-".strtoupper($d["state1$letter"]);
@@ -324,7 +336,7 @@ if ($_GET[all] == 1){
 	$listType="$docType Active Files List";
 }
 if ($_COOKIE[psdata][level] == 'Operations' && $_GET[status] != ''){
-	$listType .= " for Server ".id2name($_GET[status]);
+	$listType .= " for Server ".id2name3($_GET[status]);
 }
 echo "</table>";
 
