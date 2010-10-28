@@ -31,7 +31,7 @@ $q="SELECT name FROM ps_users WHERE id = '$id'";
 $r=@mysql_query($q);
 $d=mysql_fetch_array($r, MYSQL_ASSOC);
 	if ($id == '' || $d[name] == ''){
-		return "<i><blank></i>";
+		return "<i>&lt;blank&gt;</i>";
 	}else{
 		return $d[name];
 	}
