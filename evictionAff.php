@@ -42,7 +42,7 @@ table { page-break-after:always;}
 p {border-style:solid; border-width:thick; border-collapse:collapse;}
 </style>
 <?
-function makeAffidavit($p,$defendant,$level,$user){
+function makeAffidavit($p,$defendant,$level,$user_id){
 	$packet = $p;
 	$def = 0;
 	$defs = defCount($packet);
@@ -518,10 +518,10 @@ function makeAffidavit($p,$defendant,$level,$user){
 	while($count < $defs){$count++;
 		if ($pageI["$count"] != ''){
 			$currentCounter++;
-			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iID==$user_id) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageI["$count"]);
 			}else{
-				echo "<script>alert('No Display Page I  def: [$count] iID: [$iID]')</script>";
+				echo "<script>alert('No Display Page I  def: [$count] currentDef: [$currentDef] iID: [$iID]')</script>";
 			}
 		}
 		if ($pageII["$count"] != ''){
@@ -531,10 +531,10 @@ function makeAffidavit($p,$defendant,$level,$user){
 			//otherwise increase counter
 				$currentCounter++;
 			}
-			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iiID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iiID==$user_id) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageII["$count"]);
 			}else{
-				echo "<script>alert('No Display Page II def: [$count] iiID: [$iiID]')</script>";
+				echo "<script>alert('No Display Page II def: [$count] currentDef: [$currentDef] iiID: [$iiID]')</script>";
 			}
 		}
 		if ($pageIII["$count"] != ''){
@@ -542,12 +542,12 @@ function makeAffidavit($p,$defendant,$level,$user){
 			if (($count==$currentDef || $currentDef=="ALL" || $currentDef=="MAIL") && $level=='Operations'){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageIII["$count"]);
 			}else{
-				echo "<script>alert('No Display Page III def: [$count]')</script>";
+				echo "<script>alert('No Display Page III def: [$count] currentDef: [$currentDef]')</script>";
 			}
 		}
 		if ($pagePD["$count"] != ''){
 			$currentCounter++;
-			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $PDID["$count"]==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $PDID["$count"]==$user_id) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pagePD["$count"]);
 			}
 		}
@@ -558,7 +558,7 @@ function makeAffidavit($p,$defendant,$level,$user){
 	while($count < $defs){$count++;
 		if ($pageI["$count"] != ''){
 			$currentCounter++;
-			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iID==$user_id) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pageI["$count"]);
 			}
 		}
@@ -569,7 +569,7 @@ function makeAffidavit($p,$defendant,$level,$user){
 			//otherwise increase counter
 				$currentCounter++;
 			}
-			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iiID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iiID==$user_id) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pageII["$count"]);
 			}
 		}
@@ -581,7 +581,7 @@ function makeAffidavit($p,$defendant,$level,$user){
 		}
 		if ($pagePD["$count"] != ''){
 			$currentCounter++;
-			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $PDID["$count"]==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $PDID["$count"]==$user_id) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pagePD["$count"]);
 			}
 		}
