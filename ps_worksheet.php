@@ -181,7 +181,7 @@ function makeEntry($packet){
 						$lossMitInstructions .= ", and another to <span style='color:#990000;'>".$toCounty."</span>";
 					}
 					$lossMit .= " with each defendant's service documents.";
-					echo " <div style='display:inline-block; font-weight:bold; width:270px; font-size:10px; padding:0px; border: double 2px; background-color:FFFFFF; line-height: 10px;'>".strtoupper($lossMitInstructions)."</div> "; 
+					echo " <div style='display:inline-block; font-weight:bold; width:270px; font-size:10px; padding:0px; border: double 2px; background-color:FFFFFF; line-height: 9px;'>".strtoupper($lossMitInstructions)."</div> "; 
 				} ?>			
 		</td>
 		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><?=$d['case_no']?> <em>(<?=$d['client_file']?>)</em></td>
