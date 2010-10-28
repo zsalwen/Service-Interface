@@ -194,7 +194,7 @@ function makeEntry($packet){
 				if ($d["server_id$letter"]){
 					if(strpos($list2,"|".$d["server_id$letter"]."|") === false){
 						$list2 .= "|".$d["server_id$letter"]."|";
-						echo "<li>".id2name($d["server_id$letter"]).":"getEntries($d["$idType"],$d["server_id$letter"],$table,$idType)."-".strtoupper($d["state1$letter"]);
+						echo "<li>".id2name($d["server_id$letter"]).":".getEntries($d["$idType"],$d["server_id$letter"],$table,$idType)."-".strtoupper($d["state1$letter"]);
 						if($d["svrPrint$letter"]==1){ echo "PRINTED";}
 						echo "</li>";
 					}
