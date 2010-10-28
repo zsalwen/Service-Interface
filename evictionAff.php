@@ -48,7 +48,7 @@ table { page-break-after:always;}
 p {border-style:solid; border-width:thick; border-collapse:collapse;}
 </style>
 <?
-function makeAffidavit($p,$defendant){
+function makeAffidavit($p,$defendant,$level,$user){
 	$packet = $p;
 	$def = 0;
 	$defs = defCount($packet);
@@ -500,7 +500,7 @@ while($count < $defs){$count++;
 	if ($pageI != ''){
 		$totalPages++;
 		if ($iID==$iiID){
-			if (($_COOKIE[psdata][level]=='Operations' || $postingID==$_COOKIE[psdata][user_id]) && ($defendant != "MAIL")){
+			if (($level=='Operations' || $postingID==$_COOKIE[psdata][user_id]) && ($defendant != "MAIL")){
 				$contents .= "<tr bgcolor='".row_color($totalPages,'#FFFFFF','#cccccc')."'><td class='a'><input type='checkbox' DISABLED checked='yes'></td><td class='a'>Page $totalPages of [PAGE]</td><td class='a'>".id2name($postingID)."</td><td class='a'>ATTEMPTS & POSTING</td><td class='a'>".$d1[address1].", ".$d1[city1].", ".$d1[state1]." ".$d1[zip1]."</td></tr>";
 			$checked=1;
 			}else{
@@ -512,7 +512,7 @@ while($count < $defs){$count++;
 			}
 			}
 		}else{
-			if (($_COOKIE[psdata][level]=='Operations' || $iID==$_COOKIE[psdata][user_id]) && ($defendant != "MAIL")){
+			if (($level=='Operations' || $iID==$_COOKIE[psdata][user_id]) && ($defendant != "MAIL")){
 				$contents .= "<tr bgcolor='".row_color($totalPages,'#FFFFFF','#cccccc')."'><td class='a'><input type='checkbox' DISABLED checked='yes'></td><td class='a'>Page $totalPages of [PAGE]</td><td class='a'>".id2name($iID)."</td><td class='a'>ATTEMPTING TO SERVE </td><td class='a'>".$d1[address1].", ".$d1[city1].", ".$d1[state1]." ".$d1[zip1]."</td></tr>";
 			$checked=1;
 			}else{
@@ -531,7 +531,7 @@ while($count < $defs){$count++;
 		}else{
 		//otherwise increase counter
 			$totalPages++;
-			if (($_COOKIE[psdata][level]=='Operations' || $postingID==$_COOKIE[psdata][user_id]) && ($defendant != "MAIL")){
+			if (($level=='Operations' || $postingID==$_COOKIE[psdata][user_id]) && ($defendant != "MAIL")){
 				$contents .= "<tr bgcolor='".row_color($totalPages,'#FFFFFF','#cccccc')."'><td class='a'><input type='checkbox' DISABLED checked='yes'></td><td class='a'>Page $totalPages of [PAGE]</td><td class='a'>".id2name($postingID)."</td><td class='a'>POSTING </td><td class='a'>".$d1[address1].", ".$d1[city1].", ".$d1[state1]." ".$d1[zip1]."</td></tr>";
 			$checked=1;
 			}else{
@@ -547,7 +547,7 @@ while($count < $defs){$count++;
 	if ($pageIII != ''){
 		$totalPages++;
 		$add1x = $d1["address1"].' '.$d1["city1"].', '.$d1["state1"].' '.$d1["zip1"];
-		if ($defendant=="MAIL" || $_COOKIE[psdata][level]=='Operations' || $iiiID==$_COOKIE[psdata][user_id]){
+		if ($defendant=="MAIL" || $level=='Operations' || $iiiID==$_COOKIE[psdata][user_id]){
 			$contents .= "<tr bgcolor='".row_color($totalPages,'#FFFFFF','#cccccc')."'><td class='a'><input type='checkbox' DISABLED checked='yes'></td><td class='a'>Page $totalPages of [PAGE]</td><td class='a'>".id2name($iiiID)."</td><td class='a'>MAILING </td><td class='a'>$add1x</td></tr>";
 			$checked=1;
 		}else{
@@ -562,7 +562,7 @@ while($count < $defs){$count++;
 	if ($pagePD != ''){
 		$totalPages++;
 		$defName="name".$count;
-		if (($_COOKIE[psdata][level]=='Operations' || $PDID==$_COOKIE[psdata][user_id]) && ($defendant != "MAIL")){
+		if (($level=='Operations' || $PDID==$_COOKIE[psdata][user_id]) && ($defendant != "MAIL")){
 			$contents .= "<tr bgcolor='".row_color($totalPages,'#FFFFFF','#cccccc')."'><td class='a'><input type='checkbox' DISABLED checked='yes'></td><td class='a'>Page $totalPages of [PAGE]</td><td class='a'>".id2name($PDID)."</td><td class='a'>PERSONAL DELIVERY</b></td><td class='a'>".$PDADD."</td></tr>";
 			$checked=1;
 		}else{
@@ -587,7 +587,7 @@ while($count < $defs){$count++;
 	while($count2 < $defs){$count2++;
 		if ($pageI["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$currentDef || $currentDef=="ALL") && ($_COOKIE[psdata][level]=='Operations' || $iID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count2==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageI["$count2"]);
 			}
 		}
@@ -598,19 +598,19 @@ while($count < $defs){$count++;
 			//otherwise increase counter
 				$currentCounter++;
 			}
-			if (($count2==$currentDef || $currentDef=="ALL") && ($_COOKIE[psdata][level]=='Operations' || $iiID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count2==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iiID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageII["$count2"]);
 			}
 		}
 		if ($pageIII["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$currentDef || $currentDef=="ALL" || $currentDef=="MAIL") && $_COOKIE[psdata][level]=='Operations'){
+			if (($count2==$currentDef || $currentDef=="ALL" || $currentDef=="MAIL") && $level=='Operations'){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageIII["$count2"]);
 			}
 		}
 		if ($pagePD["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$currentDef || $currentDef=="ALL") && ($_COOKIE[psdata][level]=='Operations' || $PDID["$count2"]==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count2==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $PDID["$count2"]==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pagePD["$count2"]);
 			}
 		}
@@ -621,7 +621,7 @@ while($count < $defs){$count++;
 	while($count2 < $defs){$count2++;
 		if ($pageI["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$currentDef || $currentDef=="ALL") && ($_COOKIE[psdata][level]=='Operations' || $iID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count2==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pageI["$count2"]);
 			}
 		}
@@ -632,23 +632,33 @@ while($count < $defs){$count++;
 			//otherwise increase counter
 				$currentCounter++;
 			}
-			if (($count2==$currentDef || $currentDef=="ALL") && ($_COOKIE[psdata][level]=='Operations' || $iiID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count2==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iiID==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pageII["$count2"]);
 			}
 		}
 		if ($pageIII["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$currentDef || $currentDef=="ALL" || $currentDef=="MAIL") && $_COOKIE[psdata][level]=='Operations'){
+			if (($count2==$currentDef || $currentDef=="ALL" || $currentDef=="MAIL") && $level=='Operations'){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pageIII["$count2"]);
 			}
 		}
 		if ($pagePD["$count2"] != ''){
 			$currentCounter++;
-			if (($count2==$currentDef || $currentDef=="ALL") && ($_COOKIE[psdata][level]=='Operations' || $PDID["$count2"]==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
+			if (($count2==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $PDID["$count2"]==$_COOKIE[psdata][user_id]) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 2 (Affidavit $currentCounter of $totalPages)",$pagePD["$count2"]);
 			}
 		}
 	}
+}
+if ($_GET[level]){
+	$level=$_GET[level];
+}else{
+	$level=$_COOKIE[psdata][level];
+}
+if ($_GET[user_id]){
+	$user_id=$_GET[user_id];
+}else{
+	$user_id=$_COOKIE[psdata][user_id];
 }
 //execute affidavit code depending on inputs
 if ($_GET[server]){
