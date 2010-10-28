@@ -251,7 +251,7 @@ $count2 = mysql_num_rows($r2);
         <td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.instructions.jpg" height="30" border="0" /></td>
         <td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.envelope.jpg" height="30" border="0" /></td>
 		<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.green.envelope.jpg" height="30" border="0" /></td>
-    	<td align="center style='border-right-width:0px !important;'"><img src="/gfx/icon.pay.jpg" height="30" border="0" /></td>
+    	<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.pay.jpg" height="30" border="0" /></td>
 		<form action="<? if ($_GET[svc] == 'Eviction'){ echo "evictionAff.php";}else{ echo "liveAffidavit.php"; } ?>" target="_blank">
 		<td align="center" style='border-right-width:0px !important;'><input type="hidden" name="start" value="0"><input type="hidden" name="stop" value="200000"><input type="hidden" name="server" value="<?=$id?>"><input type="submit" name="submit" value="GO"></td>
         </form>
@@ -260,15 +260,15 @@ $count2 = mysql_num_rows($r2);
 		</form>
     </tr>
     <tr>
-        <td align="center" style='border-right-width:0px !important;'>Needs Corrections</td>
-    	<td align="center" style='border-right-width:0px !important;'>Printing Approved</td>
-        <td align="center" style='border-right-width:0px !important;'>Close Requested</td>
-        <td align="center" style='border-right-width:0px !important;'>Service Instructions</td>
-        <td align="center" style='border-right-width:0px !important;'>Papers to Serve</td>
-		<td align="center" style='border-right-width:0px !important;'>Envelope Stuffings</td>
-    	<td align="center" style='border-right-width:0px !important;'>Pay Approved</td>
-		<td align="center" style='border-right-width:0px !important;'>Print All <?=$docType?> Affidavits</td>
-		<td align="center" style='border-right-width:0px !important;'>Load File Detail</td>
+        <td align="center" style='border:0px !important;'>Needs Corrections</td>
+    	<td align="center" style='border:0px !important;'>Printing Approved</td>
+        <td align="center" style='border:0px !important;'>Close Requested</td>
+        <td align="center" style='border:0px !important;'>Service Instructions</td>
+        <td align="center" style='border:0px !important;'>Papers to Serve</td>
+		<td align="center" style='border:0px !important;'>Envelope Stuffings</td>
+    	<td align="center" style='border:0px !important;'>Pay Approved</td>
+		<td align="center" style='border:0px !important;'>Print All <?=$docType?> Affidavits</td>
+		<td align="center" style='border:0px !important;'>Load File Detail</td>
 	</tr>
 </table>
 <div class="noprint" style="text-align:center; font-variant:small-caps; font-size:24px; background-color:#FF0000; color:#FFFFFF; font-weight:bold;">SERVICE ALL FILES EXACTLY AS LISTED ON INSTRUCTION SHEET</div>
