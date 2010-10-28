@@ -188,13 +188,13 @@ function makeEntry($packet){
 		</td>
 		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><?=$d['case_no']?> <em>(<?=$d['client_file']?>)</em></td>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
-			<li><?=id2name($d['server_id'])?>:<?=getEntries($d["$idType"],$d["server_id$letter"],$table,$idType)?>-<?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?></li>
+			<li><?=id2name($d['server_id'])?>:<?=getEntries($d[$idType],$d["server_id$letter"],$table,$idType)?>-<?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?></li>
 			<? $list2 .= "|$d[server_id]|"; ?>
 		<?  foreach(range('a','e') as $letter){
 				if ($d["server_id$letter"]){
 					if(strpos($list2,"|".$d["server_id$letter"]."|") === false){
 						$list2 .= "|".$d["server_id$letter"]."|";
-						echo "<li>".id2name($d["server_id$letter"]).":".getEntries($d["$idType"],$d["server_id$letter"],$table,$idType)."-".strtoupper($d["state1$letter"]);
+						echo "<li>".id2name($d["server_id$letter"]).":".getEntries($d[$idType],$d["server_id$letter"],$table,$idType)."-".strtoupper($d["state1$letter"]);
 						if($d["svrPrint$letter"]==1){ echo "PRINTED";}
 						echo "</li>";
 					}
