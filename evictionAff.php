@@ -627,7 +627,7 @@ if ($_GET[server]){
 		makeAffidavit($_GET[id],"MAIL",$level,$user_id);
 	}
 }elseif ($_GET[id] && $_GET[def]){
-	makeAffidavit($_GET[id],$_GET[def]);
+	makeAffidavit($_GET[id],$_GET[def],$level,$user_id);
 }elseif($_GET[id] && !$_GET[def]){
 	if (strpos($_GET[all],"!")){
 		makeAffidavit($_GET[id],"ALL!",$level,$user_id);
