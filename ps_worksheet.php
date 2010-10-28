@@ -76,7 +76,7 @@ function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
 			$q2="SELECT $idType FROM $table WHERE (server_id='$server' OR server_ida='$server' OR server_idb='$server' OR server_idc='$server' OR server_idd='$server' OR server_ide='$server') AND $idType >= '$start' AND $idType < '$stop'";
 			$r2=@mysql_query($q2) or die ("Query $q2<br>".mysql_error());
 			$count = mysql_num_rows($r2);
-			$newList .= "-($count)</center></div></td>";
+			$newList .= "<br>($count)</center></div></td>";
 			if ($count > 0){$listCount++;
 				$list .= $newList;
 			}
@@ -84,7 +84,7 @@ function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
 	}
 	$list .= "</tr></table>";
 	if ($listCount > 1){
-		$header .= "<td colspan='$listCount' align='center' style='font-weight:bold;font-variant:small-caps;'>FILE RANGE LINKS</td></tr><tr>";
+		$header .= "<td colspan='$listCount' align='center' style='font-weight:bold;font-variant:small-caps; border-right-width:0px !important;'>FILE RANGE LINKS</td></tr><tr>";
 		return $header.$list;
 	}
 }
@@ -190,15 +190,15 @@ function makeEntry($packet){
 				} ?>	
 			</td></tr></table>
 		</td>
-		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><small><?=$d['client_file']?></small></td>
+		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><small>(<?=$d['client_file']?>)<br><?=$d[case_no]?></small></td>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
-			<li style="font-size:small;"><?=id2name($d['server_id'])?>:<br><?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?>-<?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?>
-			<? $list2 .= "|$d[server_id]|"; ?>
-		<?  foreach(range('a','e') as $letter){
+			<li style="font-size:small;"><?=id2name($d['server_id'])?>:<br><?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?>-<?=strtoupper(trim($d['state1']))?><? if($d[svrPrint]==1){ echo "PRINTED";}
+			$list2 .= "|$d[server_id]|"; 
+			foreach(range('a','e') as $letter){
 				if ($d["server_id$letter"]){
 					if(strpos($list2,"|".$d["server_id$letter"]."|") === false){
 						$list2 .= "|".$d["server_id$letter"]."|";
-						echo "</li><li style='font-size:small;'>".id2name($d["server_id$letter"]).":<br>".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper($d["state1$letter"]);
+						echo "</li><li style='font-size:small;'>".id2name($d["server_id$letter"]).":<br>".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper(trim($d["state1$letter"]));
 						if($d["svrPrint$letter"]==1){ echo "PRINTED";}
 					}else{
 						echo "-".strtoupper($d["state1$letter"]);
@@ -225,7 +225,7 @@ function makeEntry($packet){
 <style>
 td.psc { color:#FFFFFF; background-color: #6699cc;}
 td.psc:hover { color:#000000; background-color: #666699; cursor:pointer; font-size:16px;}
-li,ol,table,tr,td {padding:0px;}
+li,ol,table,tr,td, body {padding:0px;}
 ol {display:inline;}
 td {border-right:1px solid black;}
 </style>
