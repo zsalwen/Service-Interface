@@ -162,7 +162,7 @@ function makeEntry($packet){
                 if ($_GET[svc] != 'Eviction'){
 				    $i2=0;
 				    while ($i2 < 6){$i2++;
-						if ($d["name$i2"]){ echo "<option value='".$d[$idType]."-$i2'>".$i2.". ".substr($d["name$i2"],40)."</option>";}
+						if ($d["name$i2"]){ echo "<option value='".$d[$idType]."-$i2'>".$i2.". ".substr($d["name$i2"],0,40)."</option>";}
 				    }
 	            }else{
 					echo "<option value='".$d[$idType]."-1'>1. OCCUPANT</option>";
