@@ -228,6 +228,7 @@ function makeEntry($packet){
 td.psc { color:#FFFFFF; background-color: #6699cc;}
 td.psc:hover { color:#000000; background-color: #666699; cursor:pointer; font-size:16px;}
 li,ol,table,tr,td {padding:0px;}
+td{border-right:1px solid black;}
 ol {display:inline;}
 </style>
 <?
@@ -273,7 +274,7 @@ $count2 = mysql_num_rows($r2);
 	</tr>
 </table>
 <div class="noprint" style="text-align:center; font-variant:small-caps; font-size:24px; background-color:#FF0000; color:#FFFFFF; font-weight:bold;">SERVICE ALL FILES EXACTLY AS LISTED ON INSTRUCTION SHEET</div>
-<table width="100%" style="border-collapse:collapse" border="0">
+<table width="100%" style="border-collapse:collapse; padding:0px !important;" border="0">
 <?
 if ($_COOKIE['psdata']['level'] != "Operations"){
 	logAction($_COOKIE['psdata']['user_id'], $_SERVER['PHP_SELF'], 'Viewing Active File Tracker');
