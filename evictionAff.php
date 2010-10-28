@@ -521,7 +521,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iID==$user_id) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageI["$count"]);
 			}else{
-				echo "<script>alert('No Display Page I  count: [$count] currentDef: [$currentDef] iID: [$iID] level: [$level]')</script>";
+				//echo "<script>alert('No Display Page I  count: [$count] currentDef: [$currentDef] iID: [$iID] level: [$level]')</script>";
 			}
 		}
 		if ($pageII["$count"] != ''){
@@ -534,7 +534,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			if (($count==$currentDef || $currentDef=="ALL") && ($level=='Operations' || $iiID==$user_id) && ($currentDef != "MAIL")){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageII["$count"]);
 			}else{
-				echo "<script>alert('No Display Page II count: [$count] currentDef: [$currentDef] iiID: [$iiID] level: [$level]')</script>";
+				//echo "<script>alert('No Display Page II count: [$count] currentDef: [$currentDef] iiID: [$iiID] level: [$level]')</script>";
 			}
 		}
 		if ($pageIII["$count"] != ''){
@@ -542,7 +542,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			if (($count==$currentDef || $currentDef=="ALL" || $currentDef=="MAIL") && $level=='Operations'){
 				echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageIII["$count"]);
 			}else{
-				echo "<script>alert('No Display Page III count: [$count] currentDef: [$currentDef] level: [$level]')</script>";
+				//echo "<script>alert('No Display Page III count: [$count] currentDef: [$currentDef] level: [$level]')</script>";
 			}
 		}
 		if ($pagePD["$count"] != ''){
