@@ -111,11 +111,11 @@ function getEntries($id,$server,$table,$idType){
 	$r=@mysql_query("SELECT history_id FROM $table WHERE $idType='$id' AND serverID='$server'");
 	$c=mysql_num_rows($r);
 	if ($c > 1){
-		return "$c ENTRIES";
+		return " <small>$c ENTRIES</small> ";
 	}elseif($c == 1){
-		return "1 ENTRY";
+		return " <small>1 ENTRY</small> ";
 	}else{
-		return "NO ENTRIES";
+		return " <small>NO ENTRIES</small> ";
 	}
 }
 
@@ -188,13 +188,13 @@ function makeEntry($packet){
 		</td>
 		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><?=$d['case_no']?> <em>(<?=$d['client_file']?>)</em></td>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
-			<li><?=id2name($d['server_id'])?>:<?=getEntries($d[$idType],$d["server_id$letter"],$table,$idType)?>-<?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?></li>
+			<li><?=id2name($d['server_id'])?>:<?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?>-<?=strtoupper($d['state1'])?> <? if($d[svrPrint]==1){ echo "PRINTED";}?></li>
 			<? $list2 .= "|$d[server_id]|"; ?>
 		<?  foreach(range('a','e') as $letter){
 				if ($d["server_id$letter"]){
 					if(strpos($list2,"|".$d["server_id$letter"]."|") === false){
 						$list2 .= "|".$d["server_id$letter"]."|";
-						echo "<li>".id2name($d["server_id$letter"]).":".getEntries($d[$idType],$d["server_id$letter"],$table,$idType)."-".strtoupper($d["state1$letter"]);
+						echo "<li>".id2name($d["server_id$letter"]).":".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper($d["state1$letter"]);
 						if($d["svrPrint$letter"]==1){ echo "PRINTED";}
 						echo "</li>";
 					}
