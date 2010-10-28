@@ -152,19 +152,18 @@ function makeEntry($packet){
 		</td>    
 		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Affidavit/Filing&nbsp;Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
-			<table><tr><td nowrap="nowrap">
-				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=$d['date_received']?>]</font>
+				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=$d['date_received']?>]</font><br>
 				<? echo "<form style='display:inline;' name='$packet' action='".$wizardLink.".php' target='_blank'><select style='background-color:CCEEFF; font-size:11px;' name='jump' onchange='this.form.submit();'><option value=''>JUMP TO WIZARD</option>";
-                                if ($_GET[svc] != 'Eviction'){
+                if ($_GET[svc] != 'Eviction'){
 				    $i2=0;
 				    while ($i2 < 6){$i2++;
-					if ($d["name$i2"]){ echo "<option value='".$d[$idType]."-$i2'>".$i2.". ".$d["name$i2"]."</option>";}
+						if ($d["name$i2"]){ echo "<option value='".$d[$idType]."-$i2'>".$i2.". ".$d["name$i2"]."</option>";}
 				    }
-	                        }else{
-                                    echo "<option value='".$d[$idType]."-1'>1. OCCUPANT</option>";
-}
+	            }else{
+					echo "<option value='".$d[$idType]."-1'>1. OCCUPANT</option>";
+				}
 				echo "</select></form>";  ?>
-			   </td></tr><tr><td>
+			   </td><td style="border-top:solid 1px #000000;" align="left" valign="top">
 				<? if ($d['payAuth'] == 1){?><img src="/gfx/icon.pay.jpg" height="40" border="0" /><? }?>
 				<? if ($d['affidavit_status'] == "NEED CORRECTION"){?><a href="ps_corrections.php?server=<?=$id?>"><img src="/gfx/icon.alert.jpg" height="40" border="0" /></a><? }?>
 				<? if ($d['affidavit_status'] == "SERVICE CONFIRMED"){ ?><a href="markPrinted.php?print=<?=$_COOKIE[psdata][user_id]?>&packet=<?=$d[$idType]?>&all=<?=$_GET[all]?>&status=<?=$id?>&svc=<?=$_GET[svc]?>" target="_blank"><img src="/gfx/icon.print.jpg" height="40" border="0" /></a><? }?>		
@@ -184,7 +183,6 @@ function makeEntry($packet){
 					$lossMit .= " with each defendant's service documents.";
 					echo " <div style='display:inline-block; font-weight:bold; width:300px; font-size:11px; padding:0px; border: double 2px; background-color:FFFFFF;'>".strtoupper($lossMitInstructions)."</div> "; 
 				} ?>			
-			</td></tr></table>
 		</td>
 		<td style="border-top:solid 1px #000000;" align="left" valign="top"><?=$d['circuit_court']?><br /><?=$d['case_no']?> <em>(<?=$d['client_file']?>)</em></td>
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
