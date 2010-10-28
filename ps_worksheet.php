@@ -145,20 +145,18 @@ function makeEntry($packet){
 	}
 	$q="SELECT *, TIMEDIFF(NOW(), date_received) as hours FROM $table WHERE $idType='$packet'";
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
-	$d=mysql_fetch_array($r,MYSQL_ASSOC);	?>
+	$d=mysql_fetch_array($r,MYSQL_ASSOC);
+	if ($_GET[status] && $_COOKIE[psdata][level] == 'Operations'){
+		$id = $_GET[status];
+	}else{
+		$id = $_COOKIE[psdata][user_id];
+	}
+	?>  
 	<tr bgcolor="<?=colorCode(stripHours($d[hours]))?>">
-		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">	
-		<?
-		if ($_GET[status] && $_COOKIE[psdata][level] == 'Operations'){
-			$id = $_GET[status];
-		}else{
-			$id = $_COOKIE[psdata][user_id];
-		}
-		?>
-		</td>    
+		
 		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Affidavit/Filing&nbsp;Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
-		<table border='0'><tr><td nowrap="nowrap" style='border-right-width:0px;'>
+		<table><tr><td nowrap="nowrap">
 				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=justDate($d['date_received']);?>]</font>
 				<? echo "<form style='display:inline;' name='$packet' action='".$wizardLink.".php' target='_blank'><select style='background-color:CCEEFF; font-size:11px;' name='jump' onchange='this.form.submit();'><option value=''>JUMP TO WIZARD</option>";
                 if ($_GET[svc] != 'Eviction'){
@@ -170,7 +168,7 @@ function makeEntry($packet){
 					echo "<option value='".$d[$idType]."-1'>1. OCCUPANT</option>";
 				}
 				echo "</select></form>";  ?>
-			   </td></tr><tr><td style='border-right-width:0px;>
+			   </td></tr><tr><td>
 				<? if ($d['payAuth'] == 1){?><img src="/gfx/icon.pay.jpg" height="35" border="0" /><? }?>
 				<? if ($d['affidavit_status'] == "NEED CORRECTION"){?><a href="ps_corrections.php?server=<?=$id?>"><img src="/gfx/icon.alert.jpg" height="35" border="0" /></a><? }?>
 				<? if ($d['affidavit_status'] == "SERVICE CONFIRMED"){ ?><a href="markPrinted.php?print=<?=$_COOKIE[psdata][user_id]?>&packet=<?=$d[$idType]?>&all=<?=$_GET[all]?>&status=<?=$id?>&svc=<?=$_GET[svc]?>" target="_blank"><img src="/gfx/icon.print.jpg" height="35" border="0" /></a><? }?>		
@@ -228,7 +226,6 @@ function makeEntry($packet){
 td.psc { color:#FFFFFF; background-color: #6699cc;}
 td.psc:hover { color:#000000; background-color: #666699; cursor:pointer; font-size:16px;}
 li,ol,table,tr,td {padding:0px;}
-td{border-right:1px solid black;}
 ol {display:inline;}
 </style>
 <?
@@ -274,7 +271,7 @@ $count2 = mysql_num_rows($r2);
 	</tr>
 </table>
 <div class="noprint" style="text-align:center; font-variant:small-caps; font-size:24px; background-color:#FF0000; color:#FFFFFF; font-weight:bold;">SERVICE ALL FILES EXACTLY AS LISTED ON INSTRUCTION SHEET</div>
-<table width="100%" style="border-collapse:collapse; padding:0px !important;" border="0">
+<table width="100%" style="border-collapse:collapse; padding:0px !important;" border="1">
 <?
 if ($_COOKIE['psdata']['level'] != "Operations"){
 	logAction($_COOKIE['psdata']['user_id'], $_SERVER['PHP_SELF'], 'Viewing Active File Tracker');
