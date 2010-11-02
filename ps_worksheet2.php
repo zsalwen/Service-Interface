@@ -57,11 +57,9 @@ return $hours[0];
 }
 
 function colorCode($hours){
-if ($hours <= 24){ return "ff0000"; }
-if ($hours > 24 && $hours <= 48){ return "ffFF00"; }
-if ($hours > 168){ return "00FF00"; }
-
-return "FFFFFF";
+if ($hours <= 1){ return "ff0000"; }
+if ($hours > 1 && $hours <= 24){ return "ffFF00"; }
+if ($hours > 48){ return "00FF00"; }
 }
 
 function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
