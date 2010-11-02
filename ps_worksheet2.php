@@ -57,9 +57,9 @@ return $hours[0];
 }
 
 function colorCode($hours){
-if ($hours <= 120){ return "00FF00"; }
+if ($hours > 168){ return "00FF00"; }
 if ($hours > 120 && $hours <= 168){ return "ffFF00"; }
-if ($hours > 168){ return "ff0000"; }
+if ($hours <= 120){ return "ff0000"; }
 return "FFFFFF";
 }
 
