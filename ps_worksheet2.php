@@ -58,7 +58,7 @@ return $hours[0];
 
 function colorCode($hours){
 if ($hours <= 1){ return "ff0000"; }
-if ($hours > 1 && $hours <= 24){ return "ffFF00"; }
+if ($hours > 1 && $hours <= 48){ return "ffFF00"; }
 if ($hours > 48){ return "00FF00"; }
 }
 
