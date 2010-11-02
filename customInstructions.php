@@ -219,7 +219,7 @@ if ($data2 == ''){
 					}
 				}
 				if ($data2[allowPosting] == 'checked'){
-					if ($data[avoidDOT] == 'checked'){
+					if ($data[avoidDOT] == 'checked' && $data2["customA$i"] == ''){
 						echo strtoupper("<li>After all other attempts have been made, ".id2name($data[server_id])." is to post documents for $name at $add.  <b>PLEASE DO NOT MAKE ANY ATTEMPTS AT THIS ADDRESS, SIMPLY POST DOCUMENTS. IF YOU ENCOUNTER A PARTY OF SUITABLE DISCRETION, DO NOT DELIVER PAPERS, BUT CONTACT OUR OFFICE INSTEAD. ALSO, CONTACT OUR OFFICE UNLESS YOU ARE ABSOLUTELY SURE YOU ARE AUTHORIZED TO PROCEED WITH POSTING.</b></li>");
 					}elseif ($data2[postSeparateDay] == 'checked'){
 						echo strtoupper("<li>After all other attempts have been made, ".id2name($data[server_id])." is to post documents for $name at $add.  <b>This must be done on a separate day from any other attempts made at $add.</b></li>");
