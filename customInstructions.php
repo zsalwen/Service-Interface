@@ -212,7 +212,7 @@ if ($data2 == ''){
 					}
 				}
 				if ($data2["customA$i"] != ''){$addCount++;
-					if ($data[avoidDOT] == 'checked'){
+					if ($data[avoidDOT] == 'checked' && $addCount > 1){
 						echo strtoupper("<li>".id2name($data[server_id])." is <b>NOT</b> to attempt service on $name at $add.</li>");
 					}else{
 						echo strtoupper("<li>".id2name($data[server_id])." is to make ".$data2[attempts]." service attempts on $name at $add on different days.</li>");
