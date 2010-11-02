@@ -168,10 +168,12 @@ function makeEntry($packet){
 	?>  
 	<tr bgcolor="<?=colorCode($hours)?>">
 		
-		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Affidavit/Filing&nbsp;Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Received: <?=justDate($d['date_received']);?><br>Due: <?=justDate($d[estFileDate])?>
+		</td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
 		<table><tr><td nowrap="nowrap" style="border-right-width:0px !important;">
-				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='http://staff.mdwestserve.com/$dir/order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=justDate($d['date_received']);?>]</font>
+				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='http://staff.mdwestserve.com/$dir/order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big></font>
 				<? echo "<form style='display:inline;' name='$packet' action='".$wizardLink.".php' target='_blank'><select style='background-color:CCEEFF; font-size:11px;' name='jump' onchange='this.form.submit();'><option value=''>JUMP TO WIZARD</option>";
                 if ($_GET[svc] != 'Eviction'){
 				    $i2=0;
@@ -294,7 +296,7 @@ if ($_COOKIE['psdata']['level'] != "Operations"){
 $q= "select * from $table where (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')";
 //if viewing assigned files...
 if ($_GET[all] != 1  && $_GET[psFile] == ''){
-	$q .= " and (process_status = 'ASSIGNED' or process_status = 'READY') ORDER BY estFileDate ASC";
+	$q .= " and (process_status = 'ASSIGNED' or process_status = 'READY') ORDER BY estFileDate, $idType ASC";
 //or viewing a specific single file
 }elseif($_GET[psFile] != ''){
 	//allow Operations to view details of any file
