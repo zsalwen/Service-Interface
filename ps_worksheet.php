@@ -57,10 +57,9 @@ return $hours[0];
 }
 
 function colorCode($hours){
-if ($hours <= 120){ return "00FF00"; }
-if ($hours > 120 && $hours <= 168){ return "ffFF00"; }
-if ($hours > 168){ return "ff0000"; }
-return "FFFFFF";
+if ($hours <= 1){ return "ff0000"; }
+if ($hours > 1 && $hours <= 48){ return "ffFF00"; }
+if ($hours > 48){ return "00FF00"; }
 }
 
 function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
@@ -155,7 +154,7 @@ function makeEntry($packet){
 		$docType='PRESALE';
 		$dir='otd';
 	}
-	$q="SELECT *, TIMEDIFF(NOW(), date_received) as hours FROM $table WHERE $idType='$packet'";
+	$q="SELECT *, DATEDIFF(estFileDate, CURDATE()) as hours FROM $table WHERE $idType='$packet'";
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	if ($_GET[status] && $_COOKIE[psdata][level] == 'Operations'){
@@ -163,8 +162,11 @@ function makeEntry($packet){
 	}else{
 		$id = $_COOKIE[psdata][user_id];
 	}
+	//calculate due date of 5pm on day previous to estFileDate
+	$curHour=date('G');
+	$hours=(($d[hours]-1)*24)+7+$curHour;
 	?>  
-	<tr bgcolor="<?=colorCode(stripHours($d[hours]))?>">
+	<tr bgcolor="<?=colorCode($hours)?>">
 		
 		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Affidavit/Filing&nbsp;Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
@@ -292,7 +294,7 @@ if ($_COOKIE['psdata']['level'] != "Operations"){
 $q= "select * from $table where (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')";
 //if viewing assigned files...
 if ($_GET[all] != 1  && $_GET[psFile] == ''){
-	$q .= " and (process_status = 'ASSIGNED' or process_status = 'READY') ORDER BY package_id, $idType";
+	$q .= " and (process_status = 'ASSIGNED' or process_status = 'READY') ORDER BY estFileDate, $idType ASC";
 //or viewing a specific single file
 }elseif($_GET[psFile] != ''){
 	//allow Operations to view details of any file
