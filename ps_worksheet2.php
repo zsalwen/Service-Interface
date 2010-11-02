@@ -134,6 +134,11 @@ function justDate($dateTime){
 	return date('n/j/y',$date); 
 }
 
+function fileDate($date){
+	$date=strtotime($date)-86400;
+	return date('n/j/y',$date); 
+}
+
 function makeEntry($packet){
 	if ($_GET[svc] == 'Eviction'){
 		$table = 'evictionPackets';
@@ -167,9 +172,7 @@ function makeEntry($packet){
 	$hours=(($d[hours]-1)*24)+7+$curHour;
 	?>  
 	<tr bgcolor="<?=colorCode($hours)?>">
-		
-		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
-		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Received: <?=justDate($d['date_received']);?><br>Due: <?=justDate($d[estFileDate])?>
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Start: <?=justDate($d['date_received']);?><br>Due: <?=fileDate($d[estFileDate])?>
 		</td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
 		<table><tr><td nowrap="nowrap" style="border-right-width:0px !important;">
@@ -220,9 +223,10 @@ function makeEntry($packet){
 						echo "-".strtoupper($d["state1$letter"]);
 					}
 				}
-			} 
+			}
 			echo "</li>"; ?>	
 		</td>
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
 	</tr>
 	<? 
 }
