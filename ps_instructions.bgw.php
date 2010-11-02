@@ -107,6 +107,11 @@ foreach(range('e','a') as $letter){
 		<li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9AM and 5PM.  Please avoid attempts between 8AM-9AM & 5PM-6PM.  "Good Faith" efforts must be made at different times of day.</b></li>
         <li>Photographs are required for <b>posting</b>s as well as <b>attempt</b>s.</li>
 		<li>If the address is a business, appears vacant, or the defendants are not known at the address, do not make a second attempt, but instead notify the office as soon as possible, and we will determine how to proceed.</li>
+		<li>Personal delivery can only be achieved in the following manner:
+<pre>	1.  Direct Delivery to the defendants themselves.<br>
+-OR-	2.  Substitute Delivery to someone <b>over the age of 18</b> who resides with
+	the defendant in question <i>at the address being served</i>.</pre>
+		<b>All personal delivery affidavits <b>REQUIRE</b> a physical description of the individual served.</b></li>
 		<li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished before <?=$estFileDate?></b></li></div></td>
     </tr>
 </table>
