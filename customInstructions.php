@@ -124,7 +124,7 @@ if ($data2 == ''){
 	$result=@mysql_query($query);
 	$data=mysql_fetch_array($result,MYSQL_ASSOC);
 	$deadline=strtotime($data[date_received]);
-	$received=date('m/d/Y',$deadline);
+	$received=date('n/j/y',$deadline);
 	$estFileDate=fileDate($data[estFileDate]);
 	?>
 	<style>

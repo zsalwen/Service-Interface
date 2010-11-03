@@ -11,7 +11,7 @@ $query="SELECT * FROM evictionPackets WHERE eviction_id = '$eviction'";
 $result=@mysql_query($query);
 $data=mysql_fetch_array($result,MYSQL_ASSOC);
 $deadline=strtotime($data[date_received]);
-$received=date('m/d/Y',$deadline);
+$received=date('n/j/y',$deadline);
 $deadline=$deadline+432000;
 $estFileDate=fileDate($data[estFileDate]);
 $server_notes=$data[server_notes];

@@ -31,7 +31,7 @@ $query="SELECT * FROM ps_packets WHERE packet_id = '$packet'";
 $result=@mysql_query($query);
 $data=mysql_fetch_array($result,MYSQL_ASSOC);
 $deadline=strtotime($data[date_received]);
-$received=date('m/d/Y',$deadline);
+$received=date('n/j/y',$deadline);
 $deadline=$deadline+432000;
 $deadline=date('m/d/Y',$deadline);
 $estFileDate=fileDate($data[estFileDate]);
