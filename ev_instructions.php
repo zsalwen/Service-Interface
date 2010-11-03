@@ -18,7 +18,7 @@ $server_notes=$data[server_notes];
 $add1x = $data["address1"].' '.$data["city1"].', '.$data["state1"].' '.$data["zip1"];
 ?>
 <style>body { margin:0px; padding:0px;}</style>
-<img style="position:absolute; left:0px; top:0px; width:100px; height:100px;" src="small.logo.gif" class="logo">
+<img style="position:absolute; left:0px; top:0px; width:100px; height:100px;" src="http://staff.mdwestserve.com/small.logo.gif" class="logo">
 <table align="center" width="700px" style="font-variant:small-caps;" border="0">
 	<tr>
     	<td valign="bottom" align="center" style="font-size:22px; font-variant:small-caps;" height="50px;">MDWestServe, Inc.<br>Day: 410-828-4568 || Night: 443-386-2584<br>Service Type 'A' For Eviction <?=$_GET[id]?></td>
