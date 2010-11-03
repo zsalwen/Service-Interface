@@ -1,5 +1,5 @@
 <? if (!$dname){ echo "<h1>NO DEFENDANT</h1>";} 
-	if ($ddr[affidavit_status] != "IN PROGRESS" && $ddr[affidavit_status] != "NEED CORRECTION"){
+	if ($ddr[affidavit_status] == "IN PROGRESS"){
 		$instructions = "SELECT AN ACTION SUCH AS:<br>
 		<ul><li>Mailing and Posting (to enter service attempts or document postings),</li>
 		<li>Personal Delivery (to make entries for if the service documents were left with the defendant or a co-resident),</li>
