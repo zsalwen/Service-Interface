@@ -202,6 +202,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$d4=mysql_fetch_array($r4, MYSQL_ASSOC);
 	$posting = $d4[action_str];
 	$iiID = $d4[serverID];
+	$iiID2["$def"] = $d4[serverID];
 
 	$q4="SELECT * from ps_history where packet_id = '$packet' AND defendant_id = '$def' and action_type = 'First Class C.R.R. Mailing' and onAffidavit='checked'";
 	$r4=@mysql_query($q4) or die(mysql_error());
@@ -976,6 +977,9 @@ error_log("[".date('h:iA n/j/y')."] ".$_COOKIE[psdata][name]." Affidavits for OT
             }else{
             //otherwise increase counter
                 $currentCounter++;
+				if ($iiID=='' && $iID != ''){
+					$iiID=$iiID2["$count2"];
+				}
             }
             if (($count2==$defendant || $defendant=="ALL" || $defendant=="SERVER") && ($level=='Operations' || $iiID==$user_id) && ($defendant != "MAIL")){
                 echo str_replace("[PAGE]","Set 1 (Affidavit $currentCounter of $totalPages)",$pageII["$count2"]);
