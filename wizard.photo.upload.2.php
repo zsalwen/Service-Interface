@@ -28,12 +28,27 @@ $target_path = $file_path."/".$defendant.".".$_POST[photo].".".time().".jpg";
 if (move_uploaded_file($_FILES['upload']['tmp_name'], $target_path)){"file <b>NOT</b> saved...($target_path)<br>"; }else{ echo "file saved...($target_path)<br>"; }
 
 $link = "http://mdwestserve.com/ps/photographs/".$packet."/".$defendant.".".$_POST[photo].".".time().".jpg";
-$query = "UPDATE ps_packets SET photo".$defendant.$_POST[photo]." ='$link', photoStatus='PHOTO UPLOADED' where packet_id = '$packet'";
-$user = $_COOKIE[psdata][user_id];
-$addressID=alpha2ID($_POST[photo]);
-$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress) VALUES ('$packet','$defendant','$addressID','$user','$target_path','$link')";
-@mysql_query($query);
-@mysql_query($query2);
+if ($defendant == "ALL"){
+	$i=0;
+	while ($i < 6){$i++;
+		if ($ddr["name$i"]){
+				$query = "UPDATE ps_packets SET photo".$i.$_POST[photo]." ='$link', photoStatus='PHOTO UPLOADED' where packet_id = '$packet'";
+				$user = $_COOKIE[psdata][user_id];
+				$addressID=alpha2ID($_POST[photo]);
+				$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress) VALUES ('$packet','$i','$addressID','$user','$target_path','$link')";
+				@mysql_query($query);
+				@mysql_query($query2);
+
+		}
+	}
+}else{
+	$query = "UPDATE ps_packets SET photo".$defendant.$_POST[photo]." ='$link', photoStatus='PHOTO UPLOADED' where packet_id = '$packet'";
+	$user = $_COOKIE[psdata][user_id];
+	$addressID=alpha2ID($_POST[photo]);
+	$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress) VALUES ('$packet','$defendant','$addressID','$user','$target_path','$link')";
+	@mysql_query($query);
+	@mysql_query($query2);
+}
 // do all watermarking here!
 include 'wizard.photo.watermark.php';
 // send html with img tags....

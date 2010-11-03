@@ -4,7 +4,11 @@
 		<ul><li>Mailing and Posting (to enter service attempts or document postings),</li>
 		<li>Personal Delivery (to make entries for if the service documents were left with the defendant or a co-resident),</li>
 		<li>an Invalid Address (if an address, to the best of your knowledge, does not exist),</li>
-		<li>or the Photo Manager (to upload service photos).</li></ul>";
+		<li>or the Photo Manager (to upload service photos).</li>";
+		if ($defendant == 'ALL'){
+			$instructions .= "<li><b>PERSONAL DELIVERY ENTRIES MUST BE MADE SEPARATELY FOR EACH DEFENDANT.</li>";
+		}
+		$instructions .= "</ul>";
 	}else{
 				$instructions = "SELECT AN ACTION SUCH AS:<br>
 		<ul><li>Printing the Affidavits (remember to print two copies per defendant),</li>
@@ -21,8 +25,6 @@
 <div class="nav"><input onClick="submitLoader()" type="radio" name="service_type" value="MAILING AND POSTING" /> MAILING AND POSTING</div>
 <? if ($defendant != "ALL"){ ?>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="service_type" value="PERSONAL DELIVERY" /> PERSONAL DELIVERY</div>
-<? }else{ ?>
-<div style='background-image:url(/gfx/next.gif); background-repeat:no-repeat; padding-left:30px; width:400px;  background-color:#FF9999; border:solid 1px #FF0000;'><i>PERSONAL DELIVERY</i>-<small>NO MULTIPLE DEFENDANT ENTRY</small></div>
 <? } ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="MAKE CORRECTION" /> MAKE CORRECTIONS</div>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="CHANGE SIGNATORY" /> CHANGE SIGNATORY</div>
