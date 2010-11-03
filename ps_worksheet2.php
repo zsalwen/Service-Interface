@@ -188,7 +188,7 @@ function makeEntry($packet){
 						}
 				    }
 					if ($defCount > 1){
-						echo "<option value='ALL'>ALL DEFENDANTS</option>";
+						echo "<option value='".$d[$idType]."-ALL'>ALL DEFENDANTS</option>";
 					}
 					echo $optList;
 	            }else{
