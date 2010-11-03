@@ -146,7 +146,7 @@ if ($data2 == ''){
 		font-size:12px;
 	}
 	</style>
-	<img style="position:absolute; left:0px; top:0px; width:100px; height:100px;" src="http://service.mdwestserve.com/smallLogo.jpg" class="logo">
+	<img style="position:absolute; left:0px; top:0px; width:100px; height:100px;" src="http://staff.mdwestserve.com/small.logo.gif" class="logo">
 	<table align="center" style="font-variant:small-caps; font-size:14px; width:700px;" border="0">
 		<tr>
 			<td valign="bottom" align="center" style="font-size:22px; font-variant:small-caps;" height="50px;">MDWestServe, Inc.<br><?=$data2[contact]?><br>Service Instructions For Packet <?=$_GET[packet]?></td>
