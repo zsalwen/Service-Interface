@@ -19,14 +19,13 @@
 	}
  }else{?>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="service_type" value="MAILING AND POSTING" /> MAILING AND POSTING</div>
-<div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="INVALID ADDRESS" /> INVALID ADDRESS <em>{NEW}</em></div>
 <? if ($defendant != "ALL"){ ?>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="service_type" value="PERSONAL DELIVERY" /> PERSONAL DELIVERY</div>
 <? }else{ ?>
-<div class="nav2"><i>PERSONAL DELIVERY</i>-NO MULTIPLE DEFENDANT ENTRY</div>
+<div style='background-image:url(/gfx/next.gif); background-repeat:no-repeat; padding-left:30px; width:400px;  background-color:#FF9999; border:solid 1px #FF0000;'><i>PERSONAL DELIVERY</i>-<small>NO MULTIPLE DEFENDANT ENTRY</small></div>
 <? } ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="MAKE CORRECTION" /> MAKE CORRECTIONS</div>
-<div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="CHANGE SIGNATORY" /> CHANGE SIGNATORY <em>{NEW}</em></div>
+<div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="CHANGE SIGNATORY" /> CHANGE SIGNATORY</div>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="i" value="close.1" /> REQUEST CLOSE</div>
 <? }?>
 <div class="nav0"><input onClick="submitLoader()" Checked type="radio" name="i" value="2" /> NEXT</div>
