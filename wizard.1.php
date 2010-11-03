@@ -6,7 +6,7 @@
 		<li>an Invalid Address (if an address, to the best of your knowledge, does not exist),</li>
 		<li>or the Photo Manager (to upload service photos).</li>";
 		if ($defendant == 'ALL'){
-			$instructions .= "<li><b>PERSONAL DELIVERY ENTRIES MUST BE MADE SEPARATELY FOR EACH DEFENDANT.</li>";
+			$instructions .= "<li><b>PERSONAL DELIVERY ENTRIES MUST BE MADE SEPARATELY FOR EACH DEFENDANT.</b></li>";
 		}
 		$instructions .= "</ul>";
 	}else{
