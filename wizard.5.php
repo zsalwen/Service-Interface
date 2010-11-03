@@ -86,9 +86,29 @@ if ($_POST[served] == "CHANGE SIGNATORY"){
 	}
 }else{
 	if($_COOKIE[psdata][level]=="Operations"){
-	$qd=@mysql_query("INSERT into ps_history (packet_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, resident, residentDesc, address, sort_value ) VALUES ('$packet', '$defendant', '$type', '$history', '$_POST[opServer]', NOW(), '$_POST[served]', '$_POST[name]', '$defendant_detail', '$_POST[serve_address]', '$sort')") or die("Query: $qd<br>".mysql_error());
+		if ($defendant == 'ALL'){
+			//if server selected "ALL DEFENDANTS", make separate entries for all defendants
+			$i=0;
+			while ($i < 6){$i++;
+				if ($ddr["name$i"]){
+					$qd=@mysql_query("INSERT into ps_history (packet_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, resident, residentDesc, address, sort_value ) VALUES ('$packet', '$i', '$type', '$history', '$_POST[opServer]', NOW(), '$_POST[served]', '$_POST[name]', '$defendant_detail', '$_POST[serve_address]', '$sort')") or die("Query: $qd<br>".mysql_error());
+				}
+			}
+		}else{
+			$qd=@mysql_query("INSERT into ps_history (packet_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, resident, residentDesc, address, sort_value ) VALUES ('$packet', '$defendant', '$type', '$history', '$_POST[opServer]', NOW(), '$_POST[served]', '$_POST[name]', '$defendant_detail', '$_POST[serve_address]', '$sort')") or die("Query: $qd<br>".mysql_error());
+		}
 	}else{
-	$qd=@mysql_query("INSERT into ps_history (packet_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, resident, residentDesc, address ) VALUES ('$packet', '$defendant', '$type', '$history', '$server', NOW(), '$_POST[served]', '$_POST[name]', '$defendant_detail', '$_POST[serve_address]')") or die("Query: $qd<br>".mysql_error());
+		if ($defendant == 'ALL'){
+			//if server selected "ALL DEFENDANTS", make separate entries for all defendants
+			$i=0;
+			while ($i < 6){$i++;
+				if ($ddr["name$i"]){
+					$qd=@mysql_query("INSERT into ps_history (packet_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, resident, residentDesc, address ) VALUES ('$packet', '$i', '$type', '$history', '$server', NOW(), '$_POST[served]', '$_POST[name]', '$defendant_detail', '$_POST[serve_address]')") or die("Query: $qd<br>".mysql_error());
+				}
+			}
+		}else{
+			$qd=@mysql_query("INSERT into ps_history (packet_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, resident, residentDesc, address ) VALUES ('$packet', '$defendant', '$type', '$history', '$server', NOW(), '$_POST[served]', '$_POST[name]', '$defendant_detail', '$_POST[serve_address]')") or die("Query: $qd<br>".mysql_error());
+		}
 	}
 }
 
