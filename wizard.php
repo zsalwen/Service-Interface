@@ -261,6 +261,7 @@ function serverFiled($county, $server){
 	}
 }
 function photoCount($packet,$defendant){
+	if ($defendant == 'ALL'){ $defendant=1;}
 	$count=0;
 	$q="SELECT photo1a, photo2a, photo3a, photo4a, photo5a, photo6a, photo1b, photo2b, photo3b, photo4b, photo5b, photo6b, photo1c, photo2c, photo3c, photo4c, photo5c, photo6c, photo1d, photo2d, photo3d, photo4d, photo5d, photo6d, photo1e, photo2e, photo3e, photo4e, photo5e, photo6e, photo1f, photo2f, photo3f, photo4f, photo5f, photo6f, photo1g, photo2g, photo3g, photo4g, photo5g, photo6g, photo1h, photo2h, photo3h, photo4h, photo5h, photo6h, photo1i, photo2i, photo3i, photo4i, photo5i, photo6i, photo1j, photo2j, photo3j, photo4j, photo5j, photo6j, photo1k, photo2k, photo3k, photo4k, photo5k, photo6k, photo1l, photo2l, photo3l, photo4l, photo5l, photo6l, photo1m, photo2m, photo3m, photo4m, photo5m, photo6m FROM ps_packets WHERE packet_id='$packet'";
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
@@ -289,7 +290,13 @@ function historyList($packet,$attorneys_id){
 mysql_select_db ('core');
 $qqr = @mysql_query("SELECT * from ps_packets where packet_id = '$packet'");
 $ddr = mysql_fetch_array($qqr, MYSQL_ASSOC);
-$dname = $ddr["name$defendant"];
+if ($defendant != 'ALL'){
+	$dname = $ddr["name$defendant"];
+}else{
+	$dname = "ALL DEFENDANTS";
+	$defendant=1;
+	$all=1;
+}
 $daddy = $ddr["address$defendant"].', '.$ddr["city$defendant"].', '.$ddr["state$defendant"].' '.$ddr["zip$defendant"].' - <b>'.initals(id2name($ddr[server_id])).'</b>';
 $vera=$defendant.'a';
 $verb=$defendant.'b';
@@ -382,6 +389,7 @@ hardLog(' ['.$i.'] '.$_POST[served].' '.$_POST[service_type].' '.$_POST[parts],'
 <table align="center" style="padding:0px;"><tr><td>
 <form enctype="multipart/form-data" id="wizard" name="wizard" onSubmit="hideshow(document.getElementById('loading'))" method="post">
 <fieldset style="background-color:#FFFFFF;"><legend style=" background-color:#FFFFCC; border:double 1px #999999; padding:0px;">
+<? if ($all == 1){ $defendant='ALL';}?>
 DEFENDANT: <a href="wizard.php?jump=<?=$packet?>-1<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '1'){ echo "<b>1</b>";}else{ echo "1";}?></a>
 <? if ($ddr[name2]){?> <a href="wizard.php?jump=<?=$packet?>-2<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '2'){ echo "<b>2</b>";}else{ echo "2";}?></a> <? } ?>
 <? if ($ddr[name3]){?> <a href="wizard.php?jump=<?=$packet?>-3<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '3'){ echo "<b>3</b>";}else{ echo "3";}?></a> <? } ?>
@@ -404,8 +412,8 @@ DEFENDANT: <a href="wizard.php?jump=<?=$packet?>-1<? if ($mailDate){ echo "&mail
 <? } ?>
 <? if ($_GET[mailDate]){  ?>
 <input type="hidden" name="mailDate" value="<?=$_GET[mailDate]?>">
-<? } ?>
-<? $photoCount=photoCount($ddr[packet_id],$defendant); ?>
+<? }
+$photoCount=photoCount($ddr[packet_id],$defendant); ?>
 </form></td></tr>
 <tr><td>
 <fieldset style="padding:0px;"><legend style="background-color:#FFFFCC;"><a onClick="hideshow(document.getElementById('timeline'))">Service Log</a><? if ($_COOKIE[psdata][level] == 'Operations'){?> | <a onClick="hideshow(document.getElementById('photos'))">Photos (<?=$photoCount;?>)</a> | <a onClick="hideshow(document.getElementById('notes'))">Notes</a><? } ?></legend>

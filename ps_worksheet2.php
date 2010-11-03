@@ -179,10 +179,18 @@ function makeEntry($packet){
 				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='http://staff.mdwestserve.com/$dir/order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big></font>
 				<? echo "<form style='display:inline;' name='$packet' action='".$wizardLink.".php' target='_blank'><select style='background-color:CCEEFF; font-size:11px;' name='jump' onchange='this.form.submit();'><option value=''>JUMP TO WIZARD</option>";
                 if ($_GET[svc] != 'Eviction'){
+					$optList='';
 				    $i2=0;
 				    while ($i2 < 6){$i2++;
-						if ($d["name$i2"]){ echo "<option value='".$d[$idType]."-$i2'>".$i2.". ".substr($d["name$i2"],0,40)."</option>";}
+						if ($d["name$i2"]){
+							$defCount++;
+							$optList .= "<option value='".$d[$idType]."-$i2'>".$i2.". ".substr($d["name$i2"],0,40)."</option>";
+						}
 				    }
+					if ($defCount > 1){
+						echo "<option value='ALL'>ALL DEFENDANTS</option>";
+					}
+					echo $optList;
 	            }else{
 					echo "<option value='".$d[$idType]."-1'>1. OCCUPANT</option>";
 				}
