@@ -51,6 +51,10 @@ function id2attorneyName($id){
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
 	return $d[full_name];
 }
+function fileDate($date){
+	$date=strtotime($date)-86400;
+	return date('n/j/y',$date); 
+}
 if ($_GET[autoSave] == 1){
 	ob_start();
 }
@@ -121,8 +125,7 @@ if ($data2 == ''){
 	$data=mysql_fetch_array($result,MYSQL_ASSOC);
 	$deadline=strtotime($data[date_received]);
 	$received=date('m/d/Y',$deadline);
-	$estFileDate=strtotime($data[estFileDate]);
-	$estFileDate=date('m/d/Y',$estFileDate);
+	$estFileDate=fileDate($data[estFileDate]);
 	?>
 	<style>
 	body {
@@ -254,7 +257,7 @@ if ($data2 == ''){
 -OR-	2.  Substitute Delivery to someone <b>over the age of 18</b> who resides with
 	the defendant in question <i>at the address being served</i>.</pre>
 		<b>All personal delivery affidavits <b>REQUIRE</b> a physical description of the individual served.</b></li>
-		<li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished before <?=$estFileDate?></b></li>
+		<li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished by <?=$estFileDate?></b></li>
 		</fieldset></div></td>
 		</tr>
 	</table>

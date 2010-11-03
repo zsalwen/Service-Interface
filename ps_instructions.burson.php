@@ -16,7 +16,10 @@ function county2envelope2($county){
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	return $d[to1];
 }
-
+function fileDate($date){
+	$date=strtotime($date)-86400;
+	return date('n/j/y',$date); 
+}
 function id2attorneyName($id){
 	$q="SELECT full_name FROM attorneys WHERE attorneys_id = '$id'";
 	$r=@mysql_query($q);
@@ -38,8 +41,7 @@ $deadline=strtotime($data[date_received]);
 $received=date('m/d/Y',$deadline);
 $deadline=$deadline+432000;
 $deadline=date('m/d/Y',$deadline);
-$estFileDate=strtotime($data[estFileDate]);
-$estFileDate=date('m/d/Y',$estFileDate);
+$estFileDate=fileDate($data[estFileDate]);
 ?>
 <style>body { margin:0px; padding:0px; width:600px;}</style>
 <img style="position:absolute; left:0px; top:0px; width:100px; height:100px;" src="http://service.mdwestserve.com/smallLogo.jpg" class="logo">
@@ -174,7 +176,7 @@ if ($data[lossMit] != '' && $data[lossMit] != 'N/A - OLD L' && $data[packet_id] 
 -OR-	2.  Substitute Delivery to someone <b>over the age of 18</b> who resides with
 	the defendant in question <i>at the address being served</i>.</pre>
 		<b>All personal delivery affidavits <b>REQUIRE</b> a physical description of the individual served.</b></li>
-		<li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished before <?=$estFileDate?></b></li></ul></td>
+		<li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished by <?=$estFileDate?></b></li></ul></td>
     </tr>
 </table>
 </td></tr></table>

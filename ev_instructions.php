@@ -1,5 +1,9 @@
 <?
 include 'common.php';
+function fileDate($date){
+	$date=strtotime($date)-86400;
+	return date('n/j/y',$date); 
+}
 $user = $_COOKIE[psdata][user_id];
 $eviction = $_GET[id];
 logAction($_COOKIE[psdata][user_id], $_SERVER['PHP_SELF'], 'Viewing Service Instructions for Packet '.$eviction);
@@ -9,8 +13,7 @@ $data=mysql_fetch_array($result,MYSQL_ASSOC);
 $deadline=strtotime($data[date_received]);
 $received=date('m/d/Y',$deadline);
 $deadline=$deadline+432000;
-$estFileDate=strtotime($data[estFileDate]);
-$estFileDate=date('m/d/Y',$estFileDate);
+$estFileDate=fileDate($data[estFileDate]);
 $server_notes=$data[server_notes];
 $add1x = $data["address1"].' '.$data["city1"].', '.$data["state1"].' '.$data["zip1"];
 ?>
@@ -32,7 +35,7 @@ $add1x = $data["address1"].' '.$data["city1"].', '.$data["state1"].' '.$data["zi
 		<?=id2name($data[server_id])?> is to post <?=$add1x?>.</li></ol>
 		</ol></td></tr>
 		<tr>
-			<td align='center'><fieldset><legend>Staff Instructions to Server</legend><li>In The Event Of Posting, Write The Date And Time Of Posting On The Documents Being Left. Please Ensure That This Date Is Also Visible In The Posting Picture.</li><li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9 AM and 5 PM.  "Good Faith" efforts must be made at different times of day.</b></li><li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished before <?=$estFileDate?></b></li><?=strtoupper($server_notes);?></fieldset></td>
+			<td align='center'><fieldset><legend>Staff Instructions to Server</legend><li>In The Event Of Posting, Write The Date And Time Of Posting On The Documents Being Left. Please Ensure That This Date Is Also Visible In The Posting Picture.</li><li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9 AM and 5 PM.  "Good Faith" efforts must be made at different times of day.</b></li><li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished by <?=$estFileDate?></b></li><?=strtoupper($server_notes);?></fieldset></td>
 		</tr>
 </table>
 <? 

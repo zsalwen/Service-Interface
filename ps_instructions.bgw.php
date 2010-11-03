@@ -16,7 +16,10 @@ function county2envelope2($county){
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	return $d[to1];
 }
-
+function fileDate($date){
+	$date=strtotime($date)-86400;
+	return date('n/j/y',$date); 
+}
 if ($_GET[autoSave] == 1){
 	ob_start();
 }
@@ -31,8 +34,7 @@ $deadline=strtotime($data[date_received]);
 $received=date('m/d/Y',$deadline);
 $deadline=$deadline+432000;
 $deadline=date('m/d/Y',$deadline);
-$estFileDate=strtotime($data[estFileDate]);
-$estFileDate=date('m/d/Y',$estFileDate);
+$estFileDate=fileDate($data[estFileDate]);
 ?>
 <style>
 body { margin:0px; padding:0px;}
@@ -112,7 +114,7 @@ foreach(range('e','a') as $letter){
 -OR-	2.  Substitute Delivery to someone <b>over the age of 18</b> who resides with
 	the defendant in question <i>at the address being served</i>.</pre>
 		<b>All personal delivery affidavits <b>REQUIRE</b> a physical description of the individual served.</b></li>
-		<li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished before <?=$estFileDate?></b></li></div></td>
+		<li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished by <?=$estFileDate?></b></li></div></td>
     </tr>
 </table>
 </tr></td></table>
