@@ -47,7 +47,7 @@ $estFileDate=fileDate($data[estFileDate]);
 body { margin:0px; padding:0px;}
 li {font-size:12px;}
 </style>
-<img style="position:absolute; left:0px; top:0px; width:100px; height:100px;" src="http://service.mdwestserve.com/smallLogo.jpg" class="logo">
+<img style="position:absolute; left:0px; top:0px; width:100px; height:100px;" src="http://staff.mdwestserve.com/small.logo.gif" class="logo">
 <table align="center" width="700px" style="font-variant:small-caps;" border="0">
 	<tr>
     	<td valign="bottom" align="center" style="font-size:18px; font-variant:small-caps;" height="50px;">MDWestServe, Inc.<br>410-828-4568<br>Service Type 'A' For Packet <?=$_GET[packet]?></td>
