@@ -6,7 +6,7 @@ if ($_COOKIE[psdata][level] == 'Operations'){
 	foreach ($_GET as $var => $value){
 		$varList .= "$var=$value&amp;";
 	}
-	$varList=substr($varList,0,-1);
+	$varList=substr($varList,0,-5);
 	echo "$varList<hr>";
 }
 include 'obAffidavit.php';
