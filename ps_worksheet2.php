@@ -307,7 +307,7 @@ if ($_COOKIE['psdata']['level'] != "Operations"){
 $q= "select * from $table where (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')";
 //if viewing assigned files...
 if ($_GET[all] != 1  && $_GET[psFile] == ''){
-	$q .= " and (process_status = 'ASSIGNED' or process_status = 'READY') ORDER BY estFileDate, $idType ASC";
+	$q .= " and (process_status = 'ASSIGNED' or process_status = 'READY') ORDER BY estFileDate ASC";
 //or viewing a specific single file
 }elseif($_GET[psFile] != ''){
 	//allow Operations to view details of any file
