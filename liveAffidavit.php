@@ -1,5 +1,5 @@
 <?
-if ($_COOKIE[psdata][level] == 'Operations'){
+/*if ($_COOKIE[psdata][level] == 'Operations'){
 	echo "<pre>";
 	echo htmlspecialchars(print_r($_GET, true));
 	echo "</pre><hr>";
@@ -8,9 +8,12 @@ if ($_COOKIE[psdata][level] == 'Operations'){
 	}
 	$varList=substr($varList,0,-5);
 	echo "$varList<hr>";
-}
+}*/
 include 'obAffidavit.php';
 if ($_GET[ev] == "YES"){
 	include "http://service.mdwestserve.com/evictionAff.php?$varList";
+}
+if ($_COOKIE[psdata][level] == 'Operations'){
+	echo "http://service.mdwestserve.com/evictionAff.php?$varList";
 }
 ?>
