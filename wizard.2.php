@@ -108,9 +108,17 @@ I, [SERVER NAME], SEARCHED THE UNITED STATES POSTAL SERVICE DATABASE AND THE DEP
 	$instructions = "THIS PAGE ALLOWS A SERVER TO REMOVE ANY AFFIDAVIT ENTRIES THAT ARE CHECKED:<br>";
 	echo "<br>".$instructions;
 if ($_COOKIE[psdata][level] == "Operations"){
-$history_items = @mysql_query("select * from ps_history where packet_id='$packet' and defendant_id='$defendant'") or die(mysql_error());
+	if ($defendant == "ALL"){
+		$history_items = @mysql_query("select * from ps_history where packet_id='$packet'") or die(mysql_error());
+	}else{
+		$history_items = @mysql_query("select * from ps_history where packet_id='$packet' and defendant_id='$defendant'") or die(mysql_error());
+	}
 }else{
-$history_items = @mysql_query("select * from ps_history where packet_id='$packet' and defendant_id='$defendant' and serverID='".$_COOKIE[psdata][user_id]."'") or die(mysql_error());
+	if ($defendant == "ALL"){
+		$history_items = @mysql_query("select * from ps_history where packet_id='$packet' and serverID='".$_COOKIE[psdata][user_id]."'") or die(mysql_error());
+	}else{
+		$history_items = @mysql_query("select * from ps_history where packet_id='$packet' and defendant_id='$defendant' and serverID='".$_COOKIE[psdata][user_id]."'") or die(mysql_error());
+	}
 }
 while ($item=mysql_fetch_array($history_items, MYSQL_ASSOC)){
 ?>
