@@ -307,7 +307,7 @@ if ($_COOKIE['psdata']['level'] != "Operations"){
 $q= "select * from $table where (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')";
 //if viewing assigned files...
 if ($_GET[all] != 1  && $_GET[psFile] == ''){
-	$q .= " and (process_status = 'ASSIGNED' or process_status = 'READY') ORDER BY estFileDate ASC";
+	$q .= " and (process_status = 'ASSIGNED' or process_status = 'READY') ORDER BY estFileDate, $idType ASC";
 //or viewing a specific single file
 }elseif($_GET[psFile] != ''){
 	//allow Operations to view details of any file
@@ -332,7 +332,7 @@ if ($_GET[all] != 1  && $_GET[psFile] == ''){
 	echo $rangeLinks;
 	$start=$i*1000;
 	$stop=($i+1)*1000;
-	$q .= " AND $idType >= $start AND $idType < $stop ORDER BY package_id, $idType";
+	$q .= " AND $idType >= $start AND $idType < $stop ORDER BY estFileDate, $idType";
 }
 $r=@mysql_query($q) or die("Query: $q<br>".mysql_error());
 $i=0;
