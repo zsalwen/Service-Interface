@@ -1,11 +1,11 @@
 <?
-include 'functions.php';
+include_once 'functions.php';
 @mysql_connect ();
 mysql_select_db ('core');
 // start output buffering
 	$subtract='0';
 
-function defCount($eviction_id){
+function EVdefCount($eviction_id){
 	$c=0;
 	$r=@mysql_query("SELECT DISTINCT defendant_id from evictionHistory WHERE eviction_id='$eviction_id' ORDER BY defendant_id DESC LIMIT 0,1");
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
@@ -42,10 +42,10 @@ table { page-break-after:always;}
 p {border-style:solid; border-width:thick; border-collapse:collapse;}
 </style>
 <?
-function makeAffidavit($p,$defendant,$level,$user_id){
+function EVmakeAffidavit($p,$defendant,$level,$user_id){
 	$packet = $p;
 	$def = 0;
-	$defs = defCount($packet);
+	$defs = EVdefCount($packet);
 	if (strpos($defendant,"!")){
 		$overRide=1;
 	}
@@ -618,21 +618,21 @@ if ($_GET[server]){
 	while ($d10=mysql_fetch_array($r10, MYSQL_ASSOC)){
 	//echo $d10[eviction_id].'<br>';
 	$packet=$d10[eviction_id];
-	makeAffidavit($packet,"ALL",$level,$user_id);
+	EVmakeAffidavit($packet,"ALL",$level,$user_id);
 	}
 }elseif($_GET[id] && $_GET[mail]){
 	if (strpos($_GET[def],"!")){
-		makeAffidavit($_GET[id],"MAIL!",$level,$user_id);
+		EVmakeAffidavit($_GET[id],"MAIL!",$level,$user_id);
 	}else{
-		makeAffidavit($_GET[id],"MAIL",$level,$user_id);
+		EVmakeAffidavit($_GET[id],"MAIL",$level,$user_id);
 	}
 }elseif ($_GET[id] && $_GET[def]){
-	makeAffidavit($_GET[id],$_GET[def],$level,$user_id);
+	EVmakeAffidavit($_GET[id],$_GET[def],$level,$user_id);
 }elseif($_GET[id] && !$_GET[def]){
 	if (strpos($_GET[all],"!")){
-		makeAffidavit($_GET[id],"ALL!",$level,$user_id);
+		EVmakeAffidavit($_GET[id],"ALL!",$level,$user_id);
 	}else{
-		makeAffidavit($_GET[id],"ALL",$level,$user_id);
+		EVmakeAffidavit($_GET[id],"ALL",$level,$user_id);
 	}
 }
 if ($_GET['autoPrint'] == 1){
