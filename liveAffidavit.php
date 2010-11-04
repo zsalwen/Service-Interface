@@ -9,8 +9,8 @@ if ($_COOKIE[psdata][level] == 'Operations'){
 	$varList=substr($varList,0,-5);
 	//echo "$varList<hr>";
 }
-include_once 'obAffidavit.php';
+include 'obAffidavit.php';
 if ($_GET[ev] == "YES"){
-	include "http://service.mdwestserve.com/evictionAff.php?$varList";
+	include_once "http://service.mdwestserve.com/evictionAff.php?$varList";
 }
 ?>
