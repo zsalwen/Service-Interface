@@ -13,6 +13,6 @@ if ($_COOKIE[psdata][level] == 'Operations'){
 }
 include 'obAffidavit.php';
 if ($_GET[ev] == "YES"){
-	include	"http://service.mdwestserve.com/evictionAff.php?$varList";
+	include	"evictionAff.php";
 }
 ?>
