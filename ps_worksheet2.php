@@ -234,7 +234,7 @@ function makeEntry($packet){
 			}
 			echo "</li>"; ?>	
 		</td>
-		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top"><? if ($d[rush]){ echo "<div style='background-color:FFBB00;'>Status: <b>RUSH</b></div>";}else{ echo "<div>Status</div>"; }?><?=$d[affidavit_status];?><br /><?=$d[filing_status];?></td>
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top"><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?>Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?></td>
 	</tr>
 	<? 
 }
