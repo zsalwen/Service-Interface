@@ -12,7 +12,7 @@ if ($_COOKIE[psdata][level] == 'Operations'){
 include 'obAffidavit.php';
 if ($_GET[ev] == "YES"){
 	if ((include "evictionAff.php") == 'OK'){
-		echo "<div>OK</div>":
+		echo "<div>OK</div>";
 	}else{
 		echo "<div>NO</div>";
 	}
