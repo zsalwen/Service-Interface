@@ -279,8 +279,8 @@ $count2 = mysql_num_rows($r2);
         <td align="center"><img src="/gfx/icon.envelope.jpg" height="30" border="0" /></td>
 		<td align="center"><img src="/gfx/icon.green.envelope.jpg" height="30" border="0" /></td>
     	<td align="center"><img src="/gfx/icon.pay.jpg" height="30" border="0" /></td>
-		<form action="<? if ($_GET[svc] == 'Eviction'){ echo "evictionAff.php";}else{ echo "liveAffidavit.php"; } ?>" target="_blank">
-		<td align="center"><input type="hidden" name="start" value="0"><input type="hidden" name="stop" value="200000"><input type="hidden" name="server" value="<?=$id?>"><input type="submit" name="submit" value="GO"></td>
+		<form action="liveAffidavit.php" target="_blank">
+		<td align="center"><input type="hidden" name="start" value="0"><input type="hidden" name="stop" value="200000"><input type="hidden" name="server" value="<?=$id?>"><input type="hidden" name="ev" value="YES"><input type="submit" name="submit" value="GO"></td>
         </form>
 		<form action="http://service.mdwestserve.com/ps_worksheet.php">
 		<td align="center"><select name='svc'><option value='presale'>PRESALE</option><option value='Eviction'>EVICTION</option></select>&nbsp;<input name='psFile' size='6' <? if ($_GET[psFile] != ''){ echo "value='$_GET[psFile]'";}else{ echo "value='File #'";}?> onclick="value=''";>&nbsp;<input type="submit" name="submit" value="Go!"></td>
@@ -294,7 +294,7 @@ $count2 = mysql_num_rows($r2);
         <td align="center" style='border:0px !important;'>Papers to Serve</td>
 		<td align="center" style='border:0px !important;'>Envelope Stuffings</td>
     	<td align="center" style='border:0px !important;'>Pay Approved</td>
-		<td align="center" style='border:0px !important;'>Print All <?=$docType?> Affidavits</td>
+		<td align="center" style='border:0px !important;'>Print Presale & Eviction Affidavits</td>
 		<td align="center" style='border:0px !important;'>Load File Detail</td>
 	</tr>
 </table>
