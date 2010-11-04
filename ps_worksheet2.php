@@ -172,7 +172,7 @@ function makeEntry($packet){
 	$hours=(($d[hours]-1)*24)+7+$curHour;
 	?>  
 	<tr bgcolor="<?=colorCode($hours)?>">
-		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Start: <?=justDate($d['date_received']);?><br>Due: <?=fileDate($d[estFileDate])?>
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Start: <?=justDate($d['date_received']);?><br>Due: <?=fileDate($d[estFileDate])?><? if ($d[rush]){ echo "<div style='background-color:FFBB00;'>Status: <b>RUSH</b></span>";}else{ echo "<div>Status</div>"; }?><?=$d[affidavit_status];?><br /><?=$d[filing_status];?>
 		</td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
 		<table><tr><td nowrap="nowrap">
@@ -234,7 +234,6 @@ function makeEntry($packet){
 			}
 			echo "</li>"; ?>	
 		</td>
-		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
 	</tr>
 	<? 
 }
