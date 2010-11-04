@@ -4,13 +4,15 @@ if ($_COOKIE[psdata][level] == 'Operations'){
 	echo htmlspecialchars(print_r($_GET, true));
 	echo "</pre><hr>";*/
 	foreach ($_GET as $var => $value){
-		$varList .= "$var=$value&amp;";
+		if ($var != "ev"){
+			$varList .= "$var=$value&amp;";
+		}
 	}
 	$varList=substr($varList,0,-5);
 	//echo "$varList<hr>";
 }
 include 'obAffidavit.php';
 if ($_GET[ev] == "YES"){
-	include_once "http://service.mdwestserve.com/evictionAff.php?$varList";
+	include	"http://service.mdwestserve.com/evictionAff.php?$varList";
 }
 ?>
