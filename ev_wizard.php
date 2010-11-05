@@ -291,11 +291,6 @@ table, tr, td {padding:0px;}
 .nav3 { background-image:url(/gfx/next.gif); background-repeat:no-repeat; padding-left:30px; width:300px;  background-color:#FFFFCC; border:solid 1px #FFFF00;}
 .nav4 { background-image:url(/gfx/next.gif); background-repeat:no-repeat; padding-left:30px; width:300px;  background-color:#00CCFF; border:solid 1px #00FFFF;}
 .photoa, .photob, .photoc { background-image:url(/gfx/next.gif); background-repeat:no-repeat; padding-left:30px; width:500px;  background-color:#00FFCC; border:solid 1px #000000;}
-.photod, .photoe { background-image:url(/gfx/next.gif); background-repeat:no-repeat; padding-left:30px; width:500px;  background-color:#FFCC99; border:solid 1px #000000;}
-.photof, .photog { background-image:url(/gfx/next.gif); background-repeat:no-repeat; padding-left:30px; width:500px;  background-color:#99CCFF; border:solid 1px #000000;}
-.photoh, .photoi { background-image:url(/gfx/next.gif); background-repeat:no-repeat; padding-left:30px; width:500px;  background-color:#CC99FF; border:solid 1px #000000;}
-.photoj, .photok { background-image:url(/gfx/next.gif); background-repeat:no-repeat; padding-left:30px; width:500px;  background-color:#FFFF99; border:solid 1px #000000;}
-.photol, .photom { background-image:url(/gfx/next.gif); background-repeat:no-repeat; padding-left:30px; width:500px;  background-color:#993333; border:solid 1px #000000;}
 </style>
 <?
 mysql_select_db ('core');
