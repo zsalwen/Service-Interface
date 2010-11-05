@@ -63,7 +63,11 @@ if ($hours > 24){ return "00FF00"; }
 }
 
 function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
-	$q1="SELECT $idType FROM $table WHERE (server_id='$server' OR server_ida='$server' OR server_idb='$server' OR server_idc='$server' OR server_idd='$server' OR server_ide='$server') ORDER BY $idType ASC LIMIT 0,1";
+	if ($table == 'evictionPackets'){
+			$q1="SELECT $idType FROM $table WHERE server_id='$server' ORDER BY $idType ASC LIMIT 0,1";
+	}else{
+		$q1="SELECT $idType FROM $table WHERE (server_id='$server' OR server_ida='$server' OR server_idb='$server' OR server_idc='$server' OR server_idd='$server' OR server_ide='$server') ORDER BY $idType ASC LIMIT 0,1";
+	}
 	$r1=@mysql_query($q1) or die("Query: $q1<br>".mysql_error());
 	$d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 	$i=floor($d1[$idType]/1000)-1;
@@ -82,7 +86,11 @@ function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
 			$start=$start*1000;
 			$stop=$stop*1000;
 			$newList .= "$start-$stop</a>";
-			$q2="SELECT $idType FROM $table WHERE (server_id='$server' OR server_ida='$server' OR server_idb='$server' OR server_idc='$server' OR server_idd='$server' OR server_ide='$server') AND $idType >= '$start' AND $idType < '$stop'";
+			if ($table == 'evictionPackets'){
+				$q2="SELECT $idType FROM $table WHERE server_id='$server' AND $idType >= '$start' AND $idType < '$stop'";
+			}else{
+				$q2="SELECT $idType FROM $table WHERE (server_id='$server' OR server_ida='$server' OR server_idb='$server' OR server_idc='$server' OR server_idd='$server' OR server_ide='$server') AND $idType >= '$start' AND $idType < '$stop'";
+			}
 			$r2=@mysql_query($q2) or die ("Query $q2<br>".mysql_error());
 			$count = mysql_num_rows($r2);
 			$newList .= "<br>($count)</center></div></td>";
@@ -221,14 +229,16 @@ function makeEntry($packet){
 		<td style="border-top:solid 1px #000000;" nowrap="nowrap" valign="top">
 			<li style="font-size:small;"><?=id2name3($d['server_id'])?>:<br><?=getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)?>-<?=strtoupper(trim($d['state1']))?><? if($d[svrPrint]==1){ echo "PRINTED";}
 			$list2 .= "|$d[server_id]|"; 
-			foreach(range('a','e') as $letter){
-				if ($d["server_id$letter"]){
-					if(strpos($list2,"|".$d["server_id$letter"]."|") === false){
-						$list2 .= "|".$d["server_id$letter"]."|";
-						echo "</li><li style='font-size:small;'>".id2name3($d["server_id$letter"]).":<br>".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper(trim($d["state1$letter"]));
-						if($d["svrPrint$letter"]==1){ echo "PRINTED";}
-					}else{
-						echo "-".strtoupper($d["state1$letter"]);
+			if ($_GET[svc] != 'Eviction'){
+				foreach(range('a','e') as $letter){
+					if ($d["server_id$letter"]){
+						if(strpos($list2,"|".$d["server_id$letter"]."|") === false){
+							$list2 .= "|".$d["server_id$letter"]."|";
+							echo "</li><li style='font-size:small;'>".id2name3($d["server_id$letter"]).":<br>".getEntries($d[$idType],$d["server_id$letter"],$table2,$idType)."-".strtoupper(trim($d["state1$letter"]));
+							if($d["svrPrint$letter"]==1){ echo "PRINTED";}
+						}else{
+							echo "-".strtoupper($d["state1$letter"]);
+						}
 					}
 				}
 			}
@@ -259,11 +269,11 @@ ol {display:inline;}
 <?
 if (!$_GET[all]){
 	$r1=@mysql_query("SELECT packet_id FROM ps_packets WHERE (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id') AND process_status='ASSIGNED'");
-	$r2=@mysql_query("SELECT eviction_id FROM evictionPackets WHERE (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id') AND process_status='ASSIGNED'");
+	$r2=@mysql_query("SELECT eviction_id FROM evictionPackets WHERE server_id = '$id' AND process_status='ASSIGNED'");
 	$all='';
 }else{
 	$r1=@mysql_query("SELECT packet_id FROM ps_packets WHERE (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')");
-	$r2=@mysql_query("SELECT eviction_id FROM evictionPackets WHERE (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')");
+	$r2=@mysql_query("SELECT eviction_id FROM evictionPackets WHERE server_id = '$id'");
 	$all="&all=1";
 }
 $count1 = mysql_num_rows($r1);
@@ -304,7 +314,11 @@ $count2 = mysql_num_rows($r2);
 if ($_COOKIE['psdata']['level'] != "Operations"){
 	logAction($_COOKIE['psdata']['user_id'], $_SERVER['PHP_SELF'], 'Viewing Active File Tracker');
 }
-$q= "select * from $table where (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')";
+if ($_GET[svc] == "Eviction"){
+	$q= "select * from $table where server_id = '$id'";
+}else{
+	$q= "select * from $table where (server_id = '$id' OR server_ida = '$id' OR server_idb = '$id' OR server_idc = '$id' OR server_idd = '$id' OR server_ide = '$id')";
+}
 //if viewing assigned files...
 if ($_GET[all] != 1  && $_GET[psFile] == ''){
 	$q .= " and (process_status = 'ASSIGNED' or process_status = 'READY') ORDER BY estFileDate, $idType ASC";
@@ -322,7 +336,11 @@ if ($_GET[all] != 1  && $_GET[psFile] == ''){
 	$linkAppend .= "&all=1";
 	//then display rangeLinks, and perform necessary calculations.
 	if (!$_GET[start]){
-		$r2=@mysql_query("SELECT $idType FROM $table WHERE server_id='$id' OR server_ida='$id' OR server_idb='$id' OR server_idc='$id' OR server_idd='$id' OR server_ide='$id' ORDER BY $idType DESC LIMIT 0,1") or die (mysql_error());
+		if ($_GET[svc] == "Eviction"){
+			$r2=@mysql_query("SELECT $idType FROM $table WHERE server_id='$id' ORDER BY $idType DESC LIMIT 0,1") or die (mysql_error());
+		}else{
+			$r2=@mysql_query("SELECT $idType FROM $table WHERE server_id='$id' OR server_ida='$id' OR server_idb='$id' OR server_idc='$id' OR server_idd='$id' OR server_ide='$id' ORDER BY $idType DESC LIMIT 0,1") or die (mysql_error());
+		}
 		$d2=mysql_fetch_array($r2,MYSQL_ASSOC);
 		$i=floor($d2[$idType]/1000);
 	}else{
