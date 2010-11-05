@@ -57,9 +57,9 @@ return $hours[0];
 }
 
 function colorCode($hours){
-if ($hours <= 1){ return "ff0000"; }
-if ($hours > 1 && $hours <= 48){ return "ffFF00"; }
-if ($hours > 48){ return "00FF00"; }
+if ($hours <= 0){ return "ff0000"; }
+if ($hours > 0 && $hours <= 24){ return "ffFF00"; }
+if ($hours > 24){ return "00FF00"; }
 }
 
 function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
@@ -78,7 +78,7 @@ function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
 		$start=$i;
 		$stop=$i+1;
 		if ($start != $exStart && $stop != $exStop){
-			$newList = "<td style='border-right-width:0px !important;'><div style='border: 1px solid black; font-size:11px;'><center><a href='http://service.mdwestserve.com/ps_worksheet.php?start=$start".$linkAppend."'>";
+			$newList = "<td><div style='border: 1px solid black; font-size:11px;'><center><a href='http://service.mdwestserve.com/ps_worksheet.php?start=$start".$linkAppend."'>";
 			$start=$start*1000;
 			$stop=$stop*1000;
 			$newList .= "$start-$stop</a>";
@@ -93,7 +93,7 @@ function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
 	}
 	$list .= "</tr></table>";
 	if ($listCount > 1){
-		$header .= "<td colspan='$listCount' align='center' style='font-weight:bold;font-variant:small-caps; border-right-width:0px !important;'>FILE RANGE LINKS</td></tr><tr>";
+		$header .= "<td colspan='$listCount' align='center' style='font-weight:bold;font-variant:small-caps;'>FILE RANGE LINKS</td></tr><tr>";
 		return $header.$list;
 	}
 }
@@ -134,6 +134,11 @@ function justDate($dateTime){
 	return date('n/j/y',$date); 
 }
 
+function fileDate($date){
+	$date=strtotime($date)-86400;
+	return date('n/j/y',$date); 
+}
+
 function makeEntry($packet){
 	if ($_GET[svc] == 'Eviction'){
 		$table = 'evictionPackets';
@@ -167,22 +172,30 @@ function makeEntry($packet){
 	$hours=(($d[hours]-1)*24)+7+$curHour;
 	?>  
 	<tr bgcolor="<?=colorCode($hours)?>">
-		
-		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top">Affidavit/Filing&nbsp;Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?></td>
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top"><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?>Start: <?=justDate($d['date_received']);?><br>Due: <?=fileDate($d[estFileDate])?>
+		</td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
-		<table><tr><td nowrap="nowrap" style="border-right-width:0px !important;">
-				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='http://staff.mdwestserve.com/$dir/order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big>[<?=justDate($d['date_received']);?>]</font>
+		<table><tr><td nowrap="nowrap">
+				<font style="font-weight:bold">[<?=$d['package_id']?>]<big>[<? if ($_COOKIE[psdata][level] == 'Operations'){ echo "<a href='http://staff.mdwestserve.com/$dir/order.php?packet=".$d[$idType]."' target='_blank'>";}?><?=$d[$idType]?><? if ($_COOKIE[psdata][level] == 'Operations'){ echo "</a>";}?>]</big></font>
 				<? echo "<form style='display:inline;' name='$packet' action='".$wizardLink.".php' target='_blank'><select style='background-color:CCEEFF; font-size:11px;' name='jump' onchange='this.form.submit();'><option value=''>JUMP TO WIZARD</option>";
                 if ($_GET[svc] != 'Eviction'){
+					$optList='';
 				    $i2=0;
 				    while ($i2 < 6){$i2++;
-						if ($d["name$i2"]){ echo "<option value='".$d[$idType]."-$i2'>".$i2.". ".substr($d["name$i2"],0,40)."</option>";}
+						if ($d["name$i2"]){
+							$defCount++;
+							$optList .= "<option value='".$d[$idType]."-$i2'>".$i2.". ".substr($d["name$i2"],0,25)."</option>";
+						}
 				    }
+					if ($defCount > 1){
+						echo "<option value='".$d[$idType]."-ALL'>ALL DEFENDANTS</option>";
+					}
+					echo $optList;
 	            }else{
 					echo "<option value='".$d[$idType]."-1'>1. OCCUPANT</option>";
 				}
 				echo "</select></form>";  ?>
-			   </td></tr><tr><td style="border-right-width:0px !important;">
+			   </td></tr><tr><td >
 				<? if ($d['payAuth'] == 1){?><img src="/gfx/icon.pay.jpg" height="35" border="0" /><? }?>
 				<? if ($d['affidavit_status'] == "NEED CORRECTION"){?><a href="ps_corrections.php?server=<?=$id?>"><img src="/gfx/icon.alert.jpg" height="35" border="0" /></a><? }?>
 				<? if ($d['affidavit_status'] == "SERVICE CONFIRMED"){ ?><a href="markPrinted.php?print=<?=$_COOKIE[psdata][user_id]?>&packet=<?=$d[$idType]?>&all=<?=$_GET[all]?>&status=<?=$id?>&svc=<?=$_GET[svc]?>" target="_blank"><img src="/gfx/icon.print.jpg" height="35" border="0" /></a><? }?>		
@@ -218,9 +231,10 @@ function makeEntry($packet){
 						echo "-".strtoupper($d["state1$letter"]);
 					}
 				}
-			} 
+			}
 			echo "</li>"; ?>	
 		</td>
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top"><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?>Status:<br /><?=$d[affidavit_status];?><br /><?=$d[filing_status];?></td>
 	</tr>
 	<? 
 }
@@ -241,7 +255,6 @@ td.psc { color:#FFFFFF; background-color: #6699cc;}
 td.psc:hover { color:#000000; background-color: #666699; cursor:pointer; font-size:16px;}
 li,ol,table,tr,td, body {padding:0px;}
 ol {display:inline;}
-td {border-right:1px solid black;}
 </style>
 <?
 if (!$_GET[all]){
@@ -259,18 +272,18 @@ $count2 = mysql_num_rows($r2);
 <div style="text-align:center; font-size:25px;"><a href="?svc=presale<?=$all?><?=$status?>"><?=$count1?> Presale Cases</a> | <a href="?svc=Eviction<?=$all?><?=$status?>"><?=$count2?> Eviction Cases</a> | <a href="ps_standard.php"><?=$count3?> Standard Cases</a></div> 
 <table width="100%" class="noprint">
 	<tr>
-    	<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.alert.jpg" height="30" border="0" /></td>
-    	<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.print.jpg" height="30" border="0" /></td>
-    	<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.closed.jpg" height="30" border="0" /></td>
-        <td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.instructions.jpg" height="30" border="0" /></td>
-        <td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.envelope.jpg" height="30" border="0" /></td>
-		<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.green.envelope.jpg" height="30" border="0" /></td>
-    	<td align="center" style='border-right-width:0px !important;'><img src="/gfx/icon.pay.jpg" height="30" border="0" /></td>
-		<form action="<? if ($_GET[svc] == 'Eviction'){ echo "evictionAff.php";}else{ echo "liveAffidavit.php"; } ?>" target="_blank">
-		<td align="center" style='border-right-width:0px !important;'><input type="hidden" name="start" value="0"><input type="hidden" name="stop" value="200000"><input type="hidden" name="server" value="<?=$id?>"><input type="submit" name="submit" value="GO"></td>
+    	<td align="center"><img src="/gfx/icon.alert.jpg" height="30" border="0" /></td>
+    	<td align="center"><img src="/gfx/icon.print.jpg" height="30" border="0" /></td>
+    	<td align="center"><img src="/gfx/icon.closed.jpg" height="30" border="0" /></td>
+        <td align="center"><img src="/gfx/icon.instructions.jpg" height="30" border="0" /></td>
+        <td align="center"><img src="/gfx/icon.envelope.jpg" height="30" border="0" /></td>
+		<td align="center"><img src="/gfx/icon.green.envelope.jpg" height="30" border="0" /></td>
+    	<td align="center"><img src="/gfx/icon.pay.jpg" height="30" border="0" /></td>
+		<form action="liveAffidavit.php" target="_blank">
+		<td align="center"><input type="hidden" name="start" value="0"><input type="hidden" name="stop" value="200000"><input type="hidden" name="server" value="<?=$id?>"><input type="hidden" name="ev" value="YES"><input type="submit" name="submit" value="GO"></td>
         </form>
 		<form action="http://service.mdwestserve.com/ps_worksheet.php">
-		<td align="center" style='border-right-width:0px !important;'><select name='svc'><option value='presale'>PRESALE</option><option value='Eviction'>EVICTION</option></select>&nbsp;<input name='psFile' size='6' <? if ($_GET[psFile] != ''){ echo "value='$_GET[psFile]'";}else{ echo "value='File #'";}?> onclick="value=''";>&nbsp;<input type="submit" name="submit" value="Go!"></td>
+		<td align="center"><select name='svc'><option value='presale'>PRESALE</option><option value='Eviction'>EVICTION</option></select>&nbsp;<input name='psFile' size='6' <? if ($_GET[psFile] != ''){ echo "value='$_GET[psFile]'";}else{ echo "value='File #'";}?> onclick="value=''";>&nbsp;<input type="submit" name="submit" value="Go!"></td>
 		</form>
     </tr>
     <tr>
@@ -281,12 +294,12 @@ $count2 = mysql_num_rows($r2);
         <td align="center" style='border:0px !important;'>Papers to Serve</td>
 		<td align="center" style='border:0px !important;'>Envelope Stuffings</td>
     	<td align="center" style='border:0px !important;'>Pay Approved</td>
-		<td align="center" style='border:0px !important;'>Print All <?=$docType?> Affidavits</td>
+		<td align="center" style='border:0px !important;'>Print Presale & Eviction Affidavits</td>
 		<td align="center" style='border:0px !important;'>Load File Detail</td>
 	</tr>
 </table>
 <div class="noprint" style="text-align:center; font-variant:small-caps; font-size:24px; background-color:#FF0000; color:#FFFFFF; font-weight:bold;">SERVICE ALL FILES EXACTLY AS LISTED ON INSTRUCTION SHEET</div>
-<table width="100%" style="border-collapse:collapse; padding:0px !important;" border="0px">
+<table width="100%" style="border-collapse:collapse; padding:0px !important;" border="1">
 <?
 if ($_COOKIE['psdata']['level'] != "Operations"){
 	logAction($_COOKIE['psdata']['user_id'], $_SERVER['PHP_SELF'], 'Viewing Active File Tracker');
@@ -319,7 +332,7 @@ if ($_GET[all] != 1  && $_GET[psFile] == ''){
 	echo $rangeLinks;
 	$start=$i*1000;
 	$stop=($i+1)*1000;
-	$q .= " AND $idType >= $start AND $idType < $stop ORDER BY package_id, $idType";
+	$q .= " AND $idType >= $start AND $idType < $stop ORDER BY estFileDate, $idType";
 }
 $r=@mysql_query($q) or die("Query: $q<br>".mysql_error());
 $i=0;
