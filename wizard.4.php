@@ -103,7 +103,7 @@ if ($_POST[served] == "MAILING DETAILS"){
 			$source='Mailing Only Address';
 		}
 		$address=$_POST[pobox];
-}elseif($_POST[address_source] == 'pobox2'){
+	}elseif($_POST[address_source] == 'pobox2'){
 		if((strpos(strtoupper($ddr['pobox2']),'P.O. BOX') != 'false') || (strpos(strtoupper($ddr['pobox2']),'PO BOX')) != 'false'){
 			$source='P.O. Box Address';
 		}else{
@@ -121,7 +121,53 @@ if ($_POST[served] == "MAILING DETAILS"){
 		$name=$_COOKIE[psdata][name];
 	}
 	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class and certified mail, return receipt requested, on $month $_POST[day], $_POST[year].</li>";
-} 
+}
+
+if ($_POST[served] == "CERT MAILING"){
+	if($_POST[address_source] == 'custom'){
+		$source="KNOWN ADDRESS";
+		$address=$_POST[customAdd];
+	}elseif($_POST[address_source] == '1a'){
+		$source=$ddr[addressTypea];
+		$address=$_POST[address1a];
+	}elseif($_POST[address_source] == '1b'){
+		$source=$ddr[addressTypeb];
+		$address=$_POST[address1b];
+	}elseif($_POST[address_source] == '1c'){
+		$source=$ddr[addressTypec];
+		$address=$_POST[address1c];
+	}elseif($_POST[address_source] == '1d'){
+		$source=$ddr[addressTyped];
+		$address=$_POST[address1d];
+	}elseif($_POST[address_source] == '1e'){
+		$source=$ddr[addressTypee];
+		$address=$_POST[address1e];
+	}elseif($_POST[address_source] == 'pobox'){
+		if((strpos(strtoupper($ddr['pobox']),'P.O. BOX') != 'false') || (strpos(strtoupper($ddr['pobox']),'PO BOX')) != 'false'){
+			$source='P.O. Box Address';
+		}else{
+			$source='Mailing Only Address';
+		}
+		$address=$_POST[pobox];
+	}elseif($_POST[address_source] == 'pobox2'){
+		if((strpos(strtoupper($ddr['pobox2']),'P.O. BOX') != 'false') || (strpos(strtoupper($ddr['pobox2']),'PO BOX')) != 'false'){
+			$source='P.O. Box Address';
+		}else{
+			$source='Mailing Only Address';
+		}
+		$address=$_POST[pobox2];
+	}elseif ($_POST[address_source] == '1'){
+		$source=$ddr[addressType];
+		$address=$_POST[address1];
+	}
+	$month=monthConvert($_POST[month]);
+	if ($_POST[opServer] != ''){
+		$name=id2name($_POST[opServer]);
+	}else{
+		$name=$_COOKIE[psdata][name];
+	}
+	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class mail, on $month $_POST[day], $_POST[year].</li>";
+}
 
 if ($_POST[served] == "INVALID"){ 
 	if($_POST[address_source] == '1a'){

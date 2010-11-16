@@ -130,7 +130,26 @@ $d=mysql_fetch_array($r, MYSQL_ASSOC);
 </select>
 <input type="hidden" name="name" value="<?=$dname;?>" size="8" value="">
 </td></tr>
-<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth($_POST['month'])?></select> <select name="day"><?=mkday($_POST['day'])?></select> <select name="year"><?=mkyear($_POST['year'])?></select></td></tr>
+<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
+<? } ?>
+<? if ($_POST[served] == "CERT MAILING"){ ?>
+<table width="20%"><tr><td colspan=2>1) Enter Address 
+<?=$d[address1]?>, <?=$d[city1]?>, <?=$d[state1]?> <?=$d[zip1]?> <input type='radio' name='address_source' value='1' checked='yes'>
+<? foreach (range('a','e') as $letter){
+if ($d["address1$letter"]){?>
+<?=$d["address1$letter"]?>, <?=$d["city1$letter"]?>, <?=$d["state1$letter"]?> <?=$d["zip1$letter"]?> <input type='radio' name='address_source' value='1<?=$letter?>'>
+<? }
+} 
+if ($d[pobox]){?>
+<?=$d[pobox]?>, <?=$d[pocity]?>, <?=$d[postate]?> <?=$d[pozip]?> <input type='radio' name='address_source' value='pobox'>
+<? }
+if ($d[pobox2]){?>
+<?=$d[pobox2]?>, <?=$d[pocity2]?>, <?=$d[postate2]?> <?=$d[pozip2]?> <input type='radio' name='address_source' value='pobox2'>
+<? } ?>
+Custom: <input name="customAdd"> <input type='radio' name='address_source' value='custom'>
+<input type="hidden" name="name" value="<?=$dname;?>" size="8" value="">
+</td></tr>
+<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <? } ?>
 <? if ($_POST[served] == "LEGACY MAILING"){ ?>
 <table width="20%"><tr><td colspan=2>1) Select Address 

@@ -35,7 +35,11 @@ if ($_POST[served] == "MAILING DETAILS"){
 	}else{
 		@mysql_query("UPDATE ps_packets SET service_status = 'MAILING AND POSTING' where packet_id = '$packet'");
 	}
-} 
+}
+if ($_POST[served] == "CERT MAILING"){ 
+	$type='Mailing For Certificate of Service';
+	$sort=0;
+}
 if ($_POST[served] == "LEGACY MAILING"){ 
 	$type='First Class Mailing';
 	$sort=0;
