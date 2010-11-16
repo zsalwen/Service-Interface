@@ -168,7 +168,7 @@ if ($d[pobox]){?>
 if ($d[pobox2]){?>
 <?=$d[pobox2]?>, <?=$d[pocity2]?>, <?=$d[postate2]?> <?=$d[pozip2]?> <input type='radio' name='address_source' value='pobox2'><br>
 <? } ?>
-Custom: <input name="customAdd" onclick="setCheckedValue(document.this.elements['address_source'], 'custom');"> <input type='radio' name='address_source' value='custom' size='40'>
+Custom: <input name="customAdd" onclick="setCheckedValue(document.form.elements['address_source'], 'custom');"> <input type='radio' name='address_source' value='custom' size='40'>
 <input type="hidden" name="name" value="<?=$dname;?>" size="8" value="">
 </td></tr>
 <tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
