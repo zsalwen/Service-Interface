@@ -33,7 +33,7 @@ $d=mysql_fetch_array($r, MYSQL_ASSOC);
     <? } ?>
 </select>
 </td></tr>
-<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth($_POST['month'])?></select> <select name="day"><?=mkday($_POST['day'])?></select> <select name="year"><?=mkyear($_POST['year'])?></select></td></tr>
+<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <tr><td colspan=2>3) Hour, Minute, AM/PM <select name="hour"><?=mkmonth($_POST['hour'])?></select> <select name="minute"><?=mkminute($_POST['minute'])?></select>
  <select name="ampm"><option value="<?=$_POST['ampm']?>"><?=$_POST['ampm']?></option><option value="AM">AM</option><option value="PM">PM</option></select></td></tr>
 <tr><td colspan="2">4) Detail effort to rouse defendant: </td></tr>
@@ -63,7 +63,7 @@ $d=mysql_fetch_array($r, MYSQL_ASSOC);
     <? } ?>
 </select>
 </td></tr>
-<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth($_POST['month'])?></select> <select name="day"><?=mkday($_POST['day'])?></select> <select name="year"><?=mkyear($_POST['year'])?></select></td></tr>
+<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <tr><td colspan=2>3) Hour, Minute, AM/PM <select name="hour"><?=mkmonth($_POST['hour'])?></select> <select name="minute"><?=mkminute($_POST['minute'])?></select>
  <select name="ampm"><option value="<?=$_POST['ampm']?>"><?=$_POST['ampm']?></option><option value="AM">AM</option><option value="PM">PM</option></select></td></tr>
 <tr><td colspan="2">4) Detail effort to rouse defendant: </td></tr>
@@ -93,7 +93,7 @@ $d=mysql_fetch_array($r, MYSQL_ASSOC);
     <? } ?>
 </select>
 </td></tr>
-<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth($_POST['month'])?></select> <select name="day"><?=mkday($_POST['day'])?></select> <select name="year"><?=mkyear($_POST['year'])?></select></td></tr>
+<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <tr><td colspan=2>3) Hour, Minute, AM/PM <select name="hour"><?=mkmonth($_POST['hour'])?></select> <select name="minute"><?=mkminute($_POST['minute'])?></select>
  <select name="ampm"><option value="<?=$_POST['ampm']?>"><?=$_POST['ampm']?></option><option value="AM">AM</option><option value="PM">PM</option></select></td></tr>
 <tr><td colspan="2">4) Detail the place of posting</td></tr>
@@ -222,7 +222,7 @@ Custom: <input name="customAdd" onclick="setCheckedValue(document.forms['wizard'
     <? } ?>
 </select>
 </td></tr>
-<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth($_POST['month'])?></select> <select name="day"><?=mkday($_POST['day'])?></select> <select name="year"><?=mkyear($_POST['year'])?></select></td></tr>
+<tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <tr><td colspan=2>3) Hour, Minute, AM/PM <select name="hour"><?=mkmonth($_POST['hour'])?></select> <select name="minute"><?=mkminute($_POST['minute'])?></select>
  <select name="ampm"><option value="<?=$_POST['ampm']?>"><?=$_POST['ampm']?></option><option value="AM">AM</option><option value="PM">PM</option></select></td></tr>
 <tr><td colspan="2">4) Server Name: </td></tr>
@@ -252,7 +252,7 @@ Custom: <input name="customAdd" onclick="setCheckedValue(document.forms['wizard'
     <? } ?>
 </select>
 </td></tr>
-<tr><td colspan=2>2)Month, Day, Year <select name="month"><?=mkmonth($_POST['month'])?></select> <select name="day"><?=mkday($_POST['day'])?></select> </select> <select name="year"><?=mkyear($_POST['year'])?></select></td></tr>
+<tr><td colspan=2>2)Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> </select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <tr><td colspan=2>3) Hour, Minute, AM/PM <select name="hour"><?=mkmonth($_POST['hour'])?></select> <select name="minute"><?=mkminute($_POST['minute'])?></select>
  <select name="ampm"><option value="<?=$_POST['ampm']?>"><?=$_POST['ampm']?></option><option value="AM">AM</option><option value="PM">PM</option></select></td></tr>
  <tr><td>6) Description of individual served</td><td><input name="defendant_detail" value="<?=$_POST['defendant_detail'];?>" size="60"></td></tr></table>
@@ -283,7 +283,7 @@ Custom: <input name="customAdd" onclick="setCheckedValue(document.forms['wizard'
 </td></tr>
 <tr><td>2) Name</td><td><input name="name" value="<?=$_POST['name'];?>" size="20"></td></tr>
 <tr><td>3) </td><td><input name="age" value="<?=$_POST['age'];?>" size="8"> YEARS OF AGE</td></tr>
-<tr><td colspan=2>4) Month, Day, Year <select name="month"><?=mkmonth($_POST['month'])?></select> <select name="day"><?=mkday($_POST['day'])?></select> <select name="year"><?=mkyear($_POST['year'])?></select></td></tr>
+<tr><td colspan=2>4) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <tr><td colspan=2>5) Hour, Minute, AM/PM <select name="hour"><?=mkmonth($_POST['hour'])?></select> <select name="minute"><?=mkminute($_POST['minute'])?></select>
  <select name="ampm"><option value="<?=$_POST['ampm']?>"><?=$_POST['ampm']?></option><option value="AM">AM</option><option value="PM">PM</option></select></td></tr>
 <tr><td>6) Description of individual served</td><td><input name="defendant_detail" value="<?=$_POST['defendant_detail'];?>" size="60"></td></tr></table>
