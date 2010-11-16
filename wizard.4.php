@@ -126,7 +126,7 @@ if ($_POST[served] == "MAILING DETAILS"){
 if ($_POST[served] == "CERT MAILING"){
 	if($_POST[address_source] == 'custom'){
 		$source="KNOWN ADDRESS";
-		$address=$_POST[customAdd];
+		$address=strtoupper($_POST[customAdd]);
 	}elseif($_POST[address_source] == '1a'){
 		$source=$ddr[addressTypea];
 		$address=$_POST[address1a];
