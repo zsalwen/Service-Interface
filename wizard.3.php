@@ -133,6 +133,28 @@ $d=mysql_fetch_array($r, MYSQL_ASSOC);
 <tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <? } ?>
 <? if ($_POST[served] == "CERT MAILING"){ ?>
+<script>
+// set the radio button with the given value as being checked
+// do nothing if there are no radio buttons
+// if the given value does not exist, all the radio buttons
+// are reset to unchecked
+function setCheckedValue(radioObj, newValue) {
+	if(!radioObj)
+		return;
+	var radioLength = radioObj.length;
+	if(radioLength == undefined) {
+		radioObj.checked = (radioObj.value == newValue.toString());
+		return;
+	}
+	for(var i = 0; i < radioLength; i++) {
+		radioObj[i].checked = false;
+		if(radioObj[i].value == newValue.toString()) {
+			radioObj[i].checked = true;
+		}
+	}
+}
+
+</script>
 <table width="20%"><tr><td colspan=2>1) Enter Address:<br>
 <?=$d[address1]?>, <?=$d[city1]?>, <?=$d[state1]?> <?=$d[zip1]?> <input type='radio' name='address_source' value='1' checked='yes'><br>
 <? foreach (range('a','e') as $letter){
@@ -146,7 +168,7 @@ if ($d[pobox]){?>
 if ($d[pobox2]){?>
 <?=$d[pobox2]?>, <?=$d[pocity2]?>, <?=$d[postate2]?> <?=$d[pozip2]?> <input type='radio' name='address_source' value='pobox2'><br>
 <? } ?>
-Custom: <input name="customAdd"> <input type='radio' name='address_source' value='custom' size='40'>
+Custom: <input name="customAdd" onclick="setCheckedValue(document.this.elements['address_source'], 'custom');"> <input type='radio' name='address_source' value='custom' size='40'>
 <input type="hidden" name="name" value="<?=$dname;?>" size="8" value="">
 </td></tr>
 <tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
