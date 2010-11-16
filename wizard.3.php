@@ -133,7 +133,7 @@ $d=mysql_fetch_array($r, MYSQL_ASSOC);
 <tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <? } ?>
 <? if ($_POST[served] == "CERT MAILING"){ ?>
-<table width="20%"><tr><td colspan=2>1) Enter Address 
+<table width="20%"><tr><td colspan=2>1) Enter Address:<br>
 <?=$d[address1]?>, <?=$d[city1]?>, <?=$d[state1]?> <?=$d[zip1]?> <input type='radio' name='address_source' value='1' checked='yes'><br>
 <? foreach (range('a','e') as $letter){
 if ($d["address1$letter"]){?>
