@@ -252,6 +252,12 @@ if ($_POST[served] == "NOT BORROWER"){
 	$address<br>
 	DATE OF SERVICE: $month $_POST[day], $_POST[year] at $_POST[hour]:$_POST[minute] $_POST[ampm]";
 } 
+if($_POST[ampm] == 'PM'){
+	$hour=$_POST[hour]+12;
+}else{
+	$hour=$_POST[hour];
+}
+$dt="$_POST[year]-$_POST[month]-$_POST[day] $hour:$_POST[minute]:00";
 ?>
 <strong>AFFIDAVIT ENTRY FOR <?=$_POST[service_type];?> <?=$_POST[served];?></strong><br />
 <div style="background-color:#FFFF00;"><?=stripslashes(strtoupper($history))?><? if ($_POST[defendant_detail] != ''){echo "<br />RESIDENT DESCRIPTION: ".strtoupper($_POST[defendant_detail]);}?></div>
@@ -261,6 +267,7 @@ if ($_POST[served] == "NOT BORROWER"){
 <input type="hidden" name="address_source" value="<?=$_POST[address_source]?>">
 <input type="hidden" name="date" value="<?=$_POST['date']?>">
 <input type="hidden" name="time" value="<?=$_POST['time']?>">
+<input type="hidden" name="dt" value="<?=$dt?>">
 <input type="hidden" name="address" value="<?=$_POST[address]?>">
 <input type="hidden" name="city" value="<?=$_POST[city]?>">
 <input type="hidden" name="state" value="<?=$_POST[state]?>">
