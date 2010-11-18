@@ -4,10 +4,13 @@
 if ($ddr[service_status] == "MAILING AND POSTING"){
 	if ($_GET[mailDate]){
 		$mailDate=$_GET[mailDate];
+		$actionDate=$_GET[mailDate]." 00:00:00";
 	}elseif($_POST[mailDate]){
 		$mailDate=$_POST[mailDate];
+		$actionDate=$_GET[mailDate]." 00:00:00";
 	}else{
 		$mailDate=$date=date('Y-m-d');
+		$actionDate=date('Y-m-d')." 00:00:00";
 	}
 	ev_timeline($packet,$_COOKIE[psdata][name]." Confirmed Mail Sent");
 
@@ -42,42 +45,42 @@ if ($ddr[service_status] == "MAILING AND POSTING"){
 		if ($d[address1]){
 			$action="<li>I, $name, Mailed Papers to Occupant at $d[address1], $d[city1], $d[state1] $d[zip1] \'Residential Property Subject to Mortgage or Deed of Trust\' by certified mail, return receipt requested, and by first class mail on $date.</li>";	
 			$action=strtoupper($action);
-			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard )values('".$packet."', '1', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS' )");$_SESSION[querycount]++; 
+			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate )values('".$packet."', '1', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate' )");$_SESSION[querycount]++; 
 		}
 	}	
 	if ($d[name2]){ 
 		if ($d[address2]){
 			$action="<li>I, $name, Mailed Papers to Occupant at $d[address2], $d[city2], $d[state2] $d[zip2] \'Residential Property Subject to Mortgage or Deed of Trust\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
 			$action=strtoupper($action);
-			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard )values('".$packet."', '2', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS' )");$_SESSION[querycount]++; 
+			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate )values('".$packet."', '2', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate' )");$_SESSION[querycount]++; 
 		}
 	}	
 	if ($d[name3]){ 
 			if ($d[address3]){
 			$action="<li>I, $name, Mailed Papers to Occupant at $d[address3], $d[city3], $d[state3] $d[zip3] \'Residential Property Subject to Mortgage or Deed of Trust\' by certified mail, return receipt requested, and by first class mail on $date.</li>";	
 			$action=strtoupper($action);
-			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard )values('".$packet."', '3', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS' )");$_SESSION[querycount]++; 
+			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate )values('".$packet."', '3', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate' )");$_SESSION[querycount]++; 
 		}
 	}	
 	if ($d[name4]){ 
 			if ($d[address4]){
 			$action="<li>I, $name, Mailed Papers to Occupant at $d[address4], $d[city4], $d[state4] $d[zip4] \'Residential Property Subject to Mortgage or Deed of Trust\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
 			$action=strtoupper($action);
-			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard )values('".$packet."', '4', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS' )");$_SESSION[querycount]++; 
+			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate )values('".$packet."', '4', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate' )");$_SESSION[querycount]++; 
 		}
 	}	
 	if ($d[name5]){ 
 			if ($d[address5]){
 			$action="<li>I, $name, Mailed Papers to Occupant at $d[address5], $d[city5], $d[state5] $d[zip5] \'Residential Property Subject to Mortgage or Deed of Trust\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
 			$action=strtoupper($action);
-			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard )values('".$packet."', '5', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS' )");$_SESSION[querycount]++; 
+			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate )values('".$packet."', '5', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate' )");$_SESSION[querycount]++; 
 		}
 	}
 	if ($d[name6]){ 
 			if ($d[address6]){
 			$action="<li>I, $name, Mailed Papers to Occupant at $d[address6], $d[city6], $d[state6] $d[zip6] \'Residential Property Subject to Mortgage or Deed of Trust\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
 			$action=strtoupper($action);
-			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard )values('".$packet."', '6', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS' )");$_SESSION[querycount]++; 
+			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate )values('".$packet."', '6', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate' )");$_SESSION[querycount]++; 
 		}
 	}
 	$href="http://service.mdwestserve.com/evictionAff.php?id=$packet&mail=1&autoPrint=1";
