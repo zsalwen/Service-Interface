@@ -96,7 +96,7 @@ $d=mysql_fetch_array($r, MYSQL_ASSOC);
 <tr><td colspan=2>2) Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <tr><td colspan=2>3) Hour, Minute, AM/PM <select name="hour"><?=mkmonth($_POST['hour'])?></select> <select name="minute"><?=mkminute($_POST['minute'])?></select>
  <select name="ampm"><option value="<?=$_POST['ampm']?>"><?=$_POST['ampm']?></option><option value="AM">AM</option><option value="PM">PM</option></select></td></tr>
-<tr><td colspan="2">4) Detail the place of posting</td></tr>
+<tr><td colspan="2">4) Detail the place of posting: </td></tr>
 <tr><td colspan="2"><input name="property_detail" value="<?=$_POST['property_detail'];?>" size="60"></td></tr></table>
 <? } ?>
 <? if ($_POST[served] == "MAILING DETAILS"){ ?>
@@ -255,7 +255,7 @@ Custom: <input name="customAdd" onclick="setCheckedValue(document.forms['wizard'
 <tr><td colspan=2>2)Month, Day, Year <select name="month"><?=mkmonth(date('m'))?></select> <select name="day"><?=mkday(date('d'))?></select> </select> <select name="year"><?=mkyear(date('Y'))?></select></td></tr>
 <tr><td colspan=2>3) Hour, Minute, AM/PM <select name="hour"><?=mkmonth($_POST['hour'])?></select> <select name="minute"><?=mkminute($_POST['minute'])?></select>
  <select name="ampm"><option value="<?=$_POST['ampm']?>"><?=$_POST['ampm']?></option><option value="AM">AM</option><option value="PM">PM</option></select></td></tr>
- <tr><td>6) Description of individual served</td><td><input name="defendant_detail" value="<?=$_POST['defendant_detail'];?>" size="60"></td></tr></table>
+ <tr><td>4) Description of individual served</td><td><input name="defendant_detail" value="<?=$_POST['defendant_detail'];?>" size="60"></td></tr></table>
  <? } ?>
 <? if ($_POST[served] == "NOT BORROWER"){ ?>
 <table width="20%"><tr><td colspan=2>1) Select Address 
