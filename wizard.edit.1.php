@@ -188,6 +188,7 @@ foreach ($_POST[remove] as $key => $value){
 ?>
 <input type="hidden" name="parts" value="<?=$_POST[parts]?>">
 <input type="hidden" name="opServer" value="<?=$_POST[opServer]?>" />
+<input type="hidden" name="remove" value="<?=$_POST[remove]?>" />
 <? if ($items > 0){ ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="edit.2" /> SAVE</div>
 <? } ?>
