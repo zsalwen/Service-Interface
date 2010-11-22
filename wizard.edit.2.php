@@ -377,8 +377,7 @@ if ($_POST["served-$key"] == 'INVALID'){?>
 <input type="hidden" name="parts" value="<?=$_POST[parts]?>">
 <input type="hidden" name="opServer" value="<?=$_POST[opServer]?>" />
 <hr />
-<div class="nav"><input onClick="submitLoader()" type="radio" name="i" value="3" /> EDIT</div>
-<div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="5" /> SAVE</div>
+<div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="edit.3" /> SAVE</div>
 <div class="nav2"><input onClick="submitLoader()" type="radio" name="i" value="1" /> RESTART</div>
 <? if ($_POST[mailDate]){  ?>
 <input type="hidden" name="mailDate" value="<?=$_POST[mailDate]?>">
