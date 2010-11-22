@@ -414,9 +414,13 @@ if ($_GET[mailDate]){
 }
 hardLog(' ['.$i.'] '.$_POST[served].' '.$_POST[service_type].' '.$_POST[parts],'contractor'); 
 @mysql_query("insert into explorer (date,date_time,user,packet,uri) values (NOW(),NOW(),'".$_COOKIE[psdata][name]."','$_POST[parts]','$i $_POST[service_type]')") or die(mysql_error());
-
+if (is_array($_POST[served])){
+	$servedTitle='EDITING';
+}else{
+	$servedTitle=$_POST[served];
+}
 ?>
-<title>Affidavit Wizard <?=$_POST[service_type]?> &gt; <?=$_POST[served]?> &gt; <?=$_POST[parts]?></title>
+<title>Affidavit Wizard <?=$_POST[service_type]?> &gt; <?=$servedTitle?> &gt; <?=$_POST[parts]?></title>
 <? if ($_COOKIE[psdata][level] === "Operations"){ ?>
 <table align="center" style="padding:0px;"><tr><td valign="top">
 <? } ?>
