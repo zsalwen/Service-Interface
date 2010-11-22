@@ -1,7 +1,6 @@
 <?
 foreach ($_POST[remove] as $key => $value){
 	// submit to database
-	$defendant_detail=strtoupper($_POST["defendant_detail-$key"]);
 	if ($_POST["served-$key"] == "INVALID"){ 
 		timeline($packet,$_COOKIE[psdata][name]." Edited Invalid Address for ".$ddr["name$defendant"]);
 		$type='Invalid Address';
@@ -38,9 +37,9 @@ foreach ($_POST[remove] as $key => $value){
 	}
 	$history=addslashes(strtoupper($_POST["history-$key"]));
 	if($_COOKIE[psdata][level]=="Operations"){
-		$qd=@mysql_query("UPDATE ps_history SET defendant_id='$defendant', action_type='$type', action_str='$history', serverID='$_POST[opServer]', recordDate=NOW(), wizard='".$_POST["served-$key"]."', resident='".$_POST["name-$key"]."', residentDesc='$defendant_detail', address='".$_POST["serve_address-$key"]."', actionDate='".$_POST["dt-$key"]."' WHERE packet_id='$packet'") or die("Query: $qd<br>".mysql_error());
+		$qd=@mysql_query("UPDATE ps_history SET defendant_id='$defendant', action_type='$type', action_str='$history', serverID='$_POST[opServer]', recordDate=NOW(), wizard='".$_POST["served-$key"]."', resident='".$_POST["name-$key"]."', residentDesc='".strtoupper($_POST["defendant_detail-$key"])."', address='".$_POST["serve_address-$key"]."', actionDate='".$_POST["dt-$key"]."' WHERE packet_id='$packet'") or die("Query: $qd<br>".mysql_error());
 	}else{
-		$qd=@mysql_query("UPDATE ps_history SET defendant_id='$defendant', action_type='$type', action_str='$history', serverID='$server', recordDate=NOW(), wizard='".$_POST["served-$key"]."', resident='".$_POST["name-$key"]."', residentDesc='$defendant_detail', address='".$_POST["serve_address-$key"]."', actionDate='".$_POST["dt-$key"]."' WHERE packet_id='$packet'") or die("Query: $qd<br>".mysql_error());
+		$qd=@mysql_query("UPDATE ps_history SET defendant_id='$defendant', action_type='$type', action_str='$history', serverID='$server', recordDate=NOW(), wizard='".$_POST["served-$key"]."', resident='".$_POST["name-$key"]."', residentDesc='".strtoupper($_POST["defendant_detail-$key"])."', address='".$_POST["serve_address-$key"]."', actionDate='".$_POST["dt-$key"]."' WHERE packet_id='$packet'") or die("Query: $qd<br>".mysql_error());
 	}
 	?>
 	<input type="hidden" name="service_type" value="<?=$_POST["service_type-$key"]?>" />
