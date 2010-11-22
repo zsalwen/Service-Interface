@@ -25,11 +25,31 @@
 <div class="nav"><input onClick="submitLoader()" type="radio" name="service_type" value="MAILING AND POSTING" /> MAILING AND POSTING</div>
 <? if ($defendant != "ALL"){ ?>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="service_type" value="PERSONAL DELIVERY" /> PERSONAL DELIVERY</div>
-<? } ?>
+<? }
+
+if ($_COOKIE[psdata][level] == "Operations"){
+	if ($defendant == "ALL"){
+		$history_items = @mysql_query("select history_id from ps_history where packet_id='$packet' LIMIT 0,1") or die(mysql_error());
+	}else{
+		$history_items = @mysql_query("select history_id from ps_history where packet_id='$packet' and defendant_id='$defendant' LIMIT 0,1") or die(mysql_error());
+	}
+}else{
+	if ($defendant == "ALL"){
+		$history_items = @mysql_query("select history_id from ps_history where packet_id='$packet' and serverID='".$_COOKIE[psdata][user_id]."' LIMIT 0,1") or die(mysql_error());
+	}else{
+		$history_items = @mysql_query("select history_id from ps_history where packet_id='$packet' and defendant_id='$defendant' and serverID='".$_COOKIE[psdata][user_id]."' LIMIT 0,1") or die(mysql_error());
+	}
+}
+$item=mysql_fetch_array($history_items, MYSQL_ASSOC);
+if ($item[history_id]){ ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="MAKE CORRECTION" /> MAKE CORRECTIONS</div>
+<? } ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="CHANGE SIGNATORY" /> CHANGE SIGNATORY</div>
+<? if ($item[history_id]){ ?>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="i" value="close.1" /> REQUEST CLOSE</div>
-<? }?>
+<? 
+}
+}?>
 <div class="nav0"><input onClick="submitLoader()" Checked type="radio" name="i" value="2" /> NEXT</div>
 <div class="nav4"><input onClick="submitLoader()" type="radio" name="i" value="photo.review" /> PHOTO MANAGER</div>
 <div class="nav2"><input onClick="submitLoader()" type="radio" name="i" value="a" /> NEW</div>
