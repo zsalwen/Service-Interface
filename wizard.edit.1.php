@@ -19,7 +19,7 @@ foreach ($_POST[remove] as $key => $value){
 		//if hour > 12, subtract 12, set ampm to pm
 		if ($hour > 12){
 			$hour=$hour-12;
-			$ampm="PM"
+			$ampm="PM";
 		}else{
 			$ampm="AM";
 		}
