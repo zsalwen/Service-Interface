@@ -288,7 +288,7 @@ function historyList($packet,$attorneys_id){
 	return $list;
 }
 function explodeDesc($str){
-	$desc=explode('<BR>',$str]);
+	$desc=explode('<BR>',$str);
 	$count=count($desc)-1;
 	return $desc["$count"];
 }
