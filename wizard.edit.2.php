@@ -341,9 +341,8 @@ if($_POST[ampm][$key] == 'PM'){
 	$hour=$_POST[hour][$key];
 }
 $dt="$_POST[year][$key]-$_POST[month][$key]-$_POST[day][$key] $hour:$_POST[minute][$key]:00";
-}
 ?>
-<strong>AFFIDAVIT ENTRY FOR <?=$_POST[service_type];?> <?=$_POST[served][$key];?></strong><br />
+<strong>AFFIDAVIT ENTRY FOR <?=$_POST[service_type][$key];?> <?=$_POST[served][$key];?></strong><br />
 <div style="background-color:#FFFF00;"><?=stripslashes(strtoupper($history))?><? if ($_POST[defendant_detail][$key] != ''){echo "<br />RESIDENT DESCRIPTION: ".strtoupper($_POST[defendant_detail][$key]);}?></div>
 
 <? $closeOut=$_POST[year][$key].'-'.$_POST[month][$key].'-'.$_POST[day][$key]; ?>
@@ -366,7 +365,9 @@ $dt="$_POST[year][$key]-$_POST[month][$key]-$_POST[day][$key] $hour:$_POST[minut
 <input type="hidden" name="history[<?=$key?>]" value="<?=$history?>" />
 <input type="hidden" name="service_type[<?=$key?>]" value="<?=$_POST[service_type]?>" />
 <input type="hidden" name="served[<?=$key?>]" value="<?=$_POST[served][$key]?>" />
-<? if ($_POST[served][$key] == 'INVALID'){?>
+<? 
+}
+if ($_POST[served][$key] == 'INVALID'){?>
 <!--------------
 <input type="hidden" name="to" value="<?=$to?>" />
 <input type="hidden" name="subject" value="<?=strtoupper($subject)?>" />
