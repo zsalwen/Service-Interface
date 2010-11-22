@@ -3,7 +3,7 @@
 <?
 foreach ($_POST[remove] as $key => $value){
 // this is where we build the actual history item for the affidavit
-if ($_POST[served][$key] == "FIRST EFFORT"){ 
+if ($_POST[served[$key]] == "FIRST EFFORT"){ 
 	if($_POST[address_source][$key] == '1a'){
 		$source=$ddr[addressTypea];
 		$address=$_POST[address1a];
@@ -23,8 +23,8 @@ if ($_POST[served][$key] == "FIRST EFFORT"){
 		$source=$ddr[addressType];
 		$address=$_POST[address1];
 	}else{
-		$source=$_POST[addressType];
-		$address=$_POST[address_source][$key];
+		$source=$_POST[addressType[$key]];
+		$address=$_POST[address_source[$key]];
 	}
 	$month=monthConvert($_POST[month][$key]);
 	$history="<li>First Effort: $source</li>
@@ -32,7 +32,7 @@ if ($_POST[served][$key] == "FIRST EFFORT"){
 	$address<br>
 	$_POST[defendant_detail][$key]";
 } 
-if ($_POST[served][$key] == "SECOND EFFORT"){
+if ($_POST[served[$key]] == "SECOND EFFORT"){
 	if($_POST[address_source][$key] == '1a'){
 		$source=$ddr[addressTypea];
 		$address=$_POST[address1a];
@@ -58,7 +58,7 @@ if ($_POST[served][$key] == "SECOND EFFORT"){
 	$address<br>
 	$_POST[defendant_detail][$key]";
 } 
-if ($_POST[served][$key] == "POSTING DETAILS"){ 
+if ($_POST[served[$key]] == "POSTING DETAILS"){ 
 	if($_POST[address_source][$key] == '1a'){
 		$source=$ddr[addressTypea];
 		$address=$_POST[address1a];
@@ -85,7 +85,7 @@ if ($_POST[served][$key] == "POSTING DETAILS"){
 	$_POST[defendant_detail][$key]";
 } 
 
-if ($_POST[served][$key] == "BORROWER"){ 
+if ($_POST[served[$key]] == "BORROWER"){ 
 	if($_POST[address_source][$key] == '1a'){
 		$source=$ddr[addressTypea];
 		$address=$_POST[address1a];
@@ -121,7 +121,7 @@ if ($_POST[served][$key] == "BORROWER"){
 		DATE OF SERVICE: $month $_POST[day][$key], $_POST[year][$key] at $_POST[hour][$key]:$_POST[minute][$key] $_POST[ampm][$key]<br>";
 	}
 } 
-if ($_POST[served][$key] == "NOT BORROWER"){
+if ($_POST[served[$key]] == "NOT BORROWER"){
 	if($_POST[address_source][$key] == '1a'){
 		$source=$ddr[addressTypea];
 		$address=$_POST[address1a];
@@ -158,7 +158,7 @@ if ($_POST[served][$key] == "NOT BORROWER"){
 	}
 } 
 
-/*if ($_POST[served][$key] == "MAILING DETAILS"){ 
+/*if ($_POST[served[$key]] == "MAILING DETAILS"){ 
 	if($_POST[address_source][$key] == '1a'){
 		$source=$ddr[addressTypea];
 		$address=$_POST[address1a];
@@ -201,7 +201,7 @@ if ($_POST[served][$key] == "NOT BORROWER"){
 	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class and certified mail, return receipt requested, on $month $_POST[day][$key], $_POST[year][$key].</li>";
 }
 
-if ($_POST[served][$key] == "CERT MAILING"){
+if ($_POST[served[$key]] == "CERT MAILING"){
 	if($_POST[address_source][$key] == 'custom'){
 		$source="KNOWN ADDRESS";
 		$address=strtoupper($_POST[customAdd]);
@@ -247,7 +247,7 @@ if ($_POST[served][$key] == "CERT MAILING"){
 	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class mail, on $month $_POST[day][$key], $_POST[year][$key].</li>";
 }
 
-if ($_POST[served][$key] == "INVALID"){ 
+if ($_POST[served[$key]] == "INVALID"){ 
 	if($_POST[address_source][$key] == '1a'){
 		$source=$ddr[addressTypea];
 		$address=$_POST[address1a];
@@ -279,7 +279,7 @@ if ($_POST[served][$key] == "INVALID"){
 	$subject="Invalid Address For File $client (Packet $packet)";
 	$msg="$name searched for $address '$source' within the united states postal service database and the department of assessments and taxation database, with no results.";
 } 
-if ($_POST[served][$key] == "LEGACY MAILING"){ 
+if ($_POST[served[$key]] == "LEGACY MAILING"){ 
 	if($_POST[address_source][$key] == '1a'){
 		$source=$ddr[addressTypea];
 		$address=$_POST[address1a];
@@ -306,7 +306,7 @@ if ($_POST[served][$key] == "LEGACY MAILING"){
 	}
 	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class mail.</li>";
 } 
-if ($_POST[served][$key] == "ADDITIONAL AFFIDAVIT"){
+if ($_POST[served[$key]] == "ADDITIONAL AFFIDAVIT"){
 	if($_POST[address_source][$key] == '1a'){
 		$source=$ddr[addressTypea];
 		$address=$_POST[address1a];
@@ -342,7 +342,7 @@ if($_POST[ampm][$key] == 'PM'){
 }
 $dt="$_POST[year][$key]-$_POST[month][$key]-$_POST[day][$key] $hour:$_POST[minute][$key]:00";
 ?>
-<strong>AFFIDAVIT ENTRY FOR <?=$_POST[service_type][$key];?> <?=$_POST[served][$key];?></strong><br />
+<strong>AFFIDAVIT ENTRY FOR <?=$_POST[service_type][$key];?> <?=$_POST[served[$key]];?></strong><br />
 <div style="background-color:#FFFF00;"><?=stripslashes(strtoupper($history))?><? if ($_POST[defendant_detail][$key] != ''){echo "<br />RESIDENT DESCRIPTION: ".strtoupper($_POST[defendant_detail][$key]);}?></div>
 
 <? $closeOut=$_POST[year][$key].'-'.$_POST[month][$key].'-'.$_POST[day][$key]; ?>
@@ -364,10 +364,10 @@ $dt="$_POST[year][$key]-$_POST[month][$key]-$_POST[day][$key] $hour:$_POST[minut
 <input type="hidden" name="opServer" value="<?=$_POST[opServer]?>" />
 <input type="hidden" name="history[<?=$key?>]" value="<?=$history?>" />
 <input type="hidden" name="service_type[<?=$key?>]" value="<?=$_POST[service_type]?>" />
-<input type="hidden" name="served[<?=$key?>]" value="<?=$_POST[served][$key]?>" />
+<input type="hidden" name="served[<?=$key?>]" value="<?=$_POST[served[$key]]?>" />
 <? 
 }
-if ($_POST[served][$key] == 'INVALID'){?>
+if ($_POST[served[$key]] == 'INVALID'){?>
 <!--------------
 <input type="hidden" name="to" value="<?=$to?>" />
 <input type="hidden" name="subject" value="<?=strtoupper($subject)?>" />
