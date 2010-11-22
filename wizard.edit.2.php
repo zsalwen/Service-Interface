@@ -158,12 +158,12 @@ if ($_POST["served-$key"] == "NOT BORROWER"){
 		$source="USUAL PLACE OF ABODE";
 	}
 	if ($ddr[name2]){
-		$history="SERVED RESIDENT $_POST[name], $_POST[age] YEARS OF AGE, FOR ".strtoupper($dname).", A BORROWER<br>
+		$history="SERVED RESIDENT ".$_POST["name-$key"].", ".$_POST["age-$key"].", YEARS OF AGE, FOR ".strtoupper($dname).", A BORROWER<br>
 		$source<br>
 		$address<br>
 		DATE OF SERVICE: $month ".$_POST["day-$key"].", ".$_POST["year-$key"]." at ".$_POST["hour-$key"].":".$_POST["minute-$key"]." ".$_POST["ampm-$key"]."";		
 	}else{
-		$history="SERVED RESIDENT $_POST[name], $_POST[age] YEARS OF AGE, FOR ".strtoupper($dname).", BORROWER<br>
+		$history="SERVED RESIDENT ".$_POST["name-$key"].", ".$_POST["age-$key"].", YEARS OF AGE, FOR ".strtoupper($dname).", BORROWER<br>
 		$source<br>
 		$address<br>
 		DATE OF SERVICE: $month ".$_POST["day-$key"].", ".$_POST["year-$key"]." at ".$_POST["hour-$key"].":".$_POST["minute-$key"]." ".$_POST["ampm-$key"]."";
@@ -347,22 +347,22 @@ if ($_POST["served-$key"] == "ADDITIONAL AFFIDAVIT"){
 */
 
 
-if(".$_POST["ampm-$key"]." == 'PM'){
-	$hour=".$_POST["hour-$key"]."+12;
+if($_POST["ampm-$key"] == 'PM'){
+	$hour=$_POST["hour-$key"]+12;
 }else{
-	$hour=".$_POST["hour-$key"].";
+	$hour=$_POST["hour-$key"];
 }
-$dt="".$_POST["year-$key"]."-$_POST["month-$key"]-".$_POST["day-$key"]." $hour:".$_POST["minute-$key"].":00";
+$dt=$_POST["year-$key"]."-".$_POST["month-$key"]."-".$_POST["day-$key"]." $hour:".$_POST["minute-$key"].":00";
 ?>
-<strong>AFFIDAVIT ENTRY FOR <?=$_POST[service_type-$key];?> <?=$_POST["served-$key"];?></strong><br />
-<div style="background-color:#FFFF00;"><?=stripslashes(strtoupper($history))?><? if (".$_POST["defendant_detail-$key"]." != ''){echo "<br />RESIDENT DESCRIPTION: ".strtoupper(".$_POST["defendant_detail-$key"].");}?></div>
+<strong>AFFIDAVIT ENTRY FOR <?=$_POST["service_type-$key"];?> <?=$_POST["served-$key"];?></strong><br />
+<div style="background-color:#FFFF00;"><?=stripslashes(strtoupper($history))?><? if ($_POST["defendant_detail-$key"] != ''){echo "<br />RESIDENT DESCRIPTION: ".strtoupper($_POST["defendant_detail-$key"]);}?></div>
 
 <input type="hidden" name="address_source-<?=$key?>" value="<?=$_POST["address_source-$key"]?>">
 <input type="hidden" name="dt-<?=$key?>" value="<?=$dt?>">
 <input type="hidden" name="serve_address-<?=$key?>" value="<?=$address?>" />
-<input type="hidden" name="defendant_detail-<?=$key?>" value="<?=".$_POST["defendant_detail-$key"]."?>">
-<input type="hidden" name="name-<?=$key?>" value="<?=$_POST[name]?>">
-<input type="hidden" name="age-<?=$key?>" value="<?=$_POST[age]?>">
+<input type="hidden" name="defendant_detail-<?=$key?>" value="<?=$_POST["defendant_detail-$key"]?>">
+<input type="hidden" name="name-<?=$key?>" value="<?=$_POST["name-$key"]?>">
+<input type="hidden" name="age-<?=$key?>" value="<?=$_POST["age-$key"]?>">
 <input type="hidden" name="history-<?=$key?>" value="<?=$history?>" />
 <input type="hidden" name="served-<?=$key?>" value="<?=$_POST["served-$key"]?>" />
 <? 
