@@ -307,8 +307,13 @@ if ($_COOKIE[psdata][level] != "Operations"){
 }else{
 	hardLog(' access wizard ['.$i.'] for '.$_POST[served].' by '.$_POST[service_type].' ('.$_POST[parts].')','user'); 
 }
+if (is_array($_POST[served])){
+	$servedTitle='EDITING';
+}else{
+	$servedTitle=$_POST[served];
+}
 ?>
-<title>Affidavit Wizard <?=$_POST[service_type]?> &gt; <?=$_POST[served]?> &gt; <?=$_POST[parts]?></title>
+<title>Affidavit Wizard <?=$_POST[service_type]?> &gt; <?=$servedTitle?> &gt; <?=$_POST[parts]?></title>
 <? if ($_COOKIE[psdata][level] === "Operations"){ ?>
 <table align="center" style="padding:0px;"><tr><td valign="top">
 <? } ?>
@@ -323,7 +328,7 @@ if ($_COOKIE[psdata][level] != "Operations"){
 <? if($_GET[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_GET[mailDate];} ?>
 <? if($_POST[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_POST[mailDate];} ?><br>
 <?=strtoupper($dname)?><br /><small><?=strtoupper($daddy)?></small><br />
-<? if($i=='a'){ ?>SELECT DEFENDANT<? }elseif($i==1){ ?><strong><?=strtoupper($ddr[process_status])?> : <?=strtoupper($ddr[service_status])?> : <?=strtoupper($ddr[affidavit_status])?></strong><? }elseif($i==4){ ?>ARE ALL DETAILS CORRECT?<? }else{ ?><? if ($i != 2 && $i!= 'a'){ echo "<strong>ENTER ".$_POST[served]." DETAILS</strong>";}?><? }?><? if ($ddr[reopenNotes] != ''){?><br>"<?=$ddr[reopenNotes]?>"<? }?></legend>
+<? if($i=='a'){ ?>SELECT DEFENDANT<? }elseif($i==1){ ?><strong><?=strtoupper($ddr[process_status])?> : <?=strtoupper($ddr[service_status])?> : <?=strtoupper($ddr[affidavit_status])?></strong><? }elseif($i==4){ ?>ARE ALL DETAILS CORRECT?<? }else{ ?><? if ($i != 2 && $i!= 'a'){ echo "<strong>ENTER ".$servedTitle." DETAILS</strong>";}?><? }?><? if ($ddr[reopenNotes] != ''){?><br>"<?=$ddr[reopenNotes]?>"<? }?></legend>
 <?
 //Display Server Instructions (if they exist):
 
