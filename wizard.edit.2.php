@@ -208,7 +208,7 @@ if ($_POST["served-$key"] == "NOT BORROWER"){
 	if ($_POST[opServer] != ''){
 		$name=id2name($_POST[opServer]);
 	}else{
-		$name=$_COOKIE[psdata-name];
+		$name=$_COOKIE[psdata][name];
 	}
 	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class and certified mail, return receipt requested, on $month ".$_POST["day-$key"].", ".$_POST["year-$key"].".</li>";
 }
@@ -254,7 +254,7 @@ if ($_POST["served-$key"] == "CERT MAILING"){
 	if ($_POST[opServer] != ''){
 		$name=id2name($_POST[opServer]);
 	}else{
-		$name=$_COOKIE[psdata-name];
+		$name=$_COOKIE[psdata][name];
 	}
 	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class mail, on $month ".$_POST["day-$key"].", ".$_POST["year-$key"].".</li>";
 }
@@ -283,7 +283,7 @@ if ($_POST["served-$key"] == "INVALID"){
 	if ($_POST[opServer] != ''){
 		$name=id2name($_POST[opServer]);
 	}else{
-		$name=$_COOKIE[psdata-name];
+		$name=$_COOKIE[psdata][name];
 	}
 	$history="<li>I, $name, SEARCHED THE UNITED STATES POSTAL SERVICE DATABASE AND THE DEPARTMENT OF ASSESSMENTS AND TAXATION DATABASE FOR $address '$source' WITH NO RESULTS, ON $month ".$_POST["day-$key"].", ".$_POST["year-$key"].".</li>";
 	$to="System Operations <sysop@hwestauctions.com>";
@@ -314,7 +314,7 @@ if ($_POST["served-$key"] == "LEGACY MAILING"){
 	if ($_POST[opServer] != ''){
 		$name=id2name($_POST[opServer]);
 	}else{
-		$name=$_COOKIE[psdata-name];
+		$name=$_COOKIE[psdata][name];
 	}
 	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class mail.</li>";
 } 
