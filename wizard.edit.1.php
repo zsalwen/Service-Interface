@@ -31,7 +31,7 @@ foreach ($_POST[remove] as $key => $value){
 		$minute='';
 		$ampm='';
 	}
-	if ($d[action_str] == 'Attempted Service' || $d[action_str] == 'Posted Papers'){
+	if ($d[action_type] == 'Attempted Service' || $d[action_type] == 'Posted Papers'){
 		//1. address
 		$address=$d[address];
 		$addressType=getAddressType($address);
@@ -40,7 +40,7 @@ foreach ($_POST[remove] as $key => $value){
 		//4. explode desc
 		$desc=explodeDesc($d[action_str]);
 		//DISPLAY
-		if ($d[action_str] == 'Posted Papers'){
+		if ($d[action_type] == 'Posted Papers'){
 			$detail='Detail the place of posting: ';
 		}else{
 			$detail='Detail effort to rouse defendant: ';
