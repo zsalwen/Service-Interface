@@ -178,6 +178,7 @@ foreach ($_POST[remove] as $key => $value){
 	<input type="hidden" name="address1c-<?=$key?>" value="<?=$d[address1c]?>, <?=$d[city1c]?>, <?=$d[state1c]?> <?=$d[zip1c]?>" />
 	<input type="hidden" name="address1d-<?=$key?>" value="<?=$d[address1d]?>, <?=$d[city1d]?>, <?=$d[state1d]?> <?=$d[zip1d]?>" />
 	<input type="hidden" name="address1e-<?=$key?>" value="<?=$d[address1e]?>, <?=$d[city1e]?>, <?=$d[state1e]?> <?=$d[zip1e]?>" />
+	<input type="hidden" name="remove[<?=$key?>]"/>
 	<?
 	//display editing inputs
 	echo "<div>
@@ -188,7 +189,6 @@ foreach ($_POST[remove] as $key => $value){
 ?>
 <input type="hidden" name="parts" value="<?=$_POST[parts]?>">
 <input type="hidden" name="opServer" value="<?=$_POST[opServer]?>" />
-<input type="hidden" name="remove" value="<?=$_POST[remove]?>" />
 <? if ($items > 0){ ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="edit.2" /> SAVE</div>
 <? } ?>
