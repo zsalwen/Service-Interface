@@ -13,8 +13,10 @@
 <? if ($_COOKIE[psdata][level] == "Operations"){?>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="served" value="MAILING DETAILS" /> MAILING DETAILS</div>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="served" value="CERT MAILING" /> MAILING FOR CERTIFICATE OF SERVICE</div>
+<!-----------------
 <div class="nav"><input onClick="submitLoader()" type="radio" name="served" value="LEGACY MAILING" /> LEGACY MAILING</div>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="served" value="ADDITIONAL AFFIDAVIT" /> ADDITIONAL AFFIDAVIT</div>
+------------------->
 <? } ?>
 <input type="hidden" name="i" value="3">
 <? }elseif ($_POST[service_type] == "PERSONAL DELIVERY"){ 
