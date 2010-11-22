@@ -365,6 +365,7 @@ $dt=$_POST["year-$key"]."-".$_POST["month-$key"]."-".$_POST["day-$key"]." $hour:
 <input type="hidden" name="age-<?=$key?>" value="<?=$_POST["age-$key"]?>">
 <input type="hidden" name="history-<?=$key?>" value="<?=$history?>" />
 <input type="hidden" name="served-<?=$key?>" value="<?=$_POST["served-$key"]?>" />
+<input type="hidden" name="remove[<?=$key?>]"/>
 <? 
 }
 if ($_POST["served-$key"] == 'INVALID'){?>
