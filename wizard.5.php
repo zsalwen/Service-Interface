@@ -115,10 +115,6 @@ if ($_POST[served] == "CHANGE SIGNATORY"){
 		}
 	}
 }
-if ($_COOKIE[psdata][level] == 'Operations'){
-	echo "<script>alert('DT: $_POST[dt]')</script>";
-}
-
 
 ?>
 <? if ($_POST[mailDate]){  ?>
