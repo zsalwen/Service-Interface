@@ -1,10 +1,10 @@
 <? 
 $items=0;
 foreach ($_POST[remove] as $key => $value){
-	echo "Editing affidavit item #$key<br>";
 	$history = "<div>Editing affidavit item #$key</div>";
 	$r=@mysql_query("select * from ps_history where history_id = '$key'");		
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
+		echo "Editing affidavit item #$key :: <b>$d[wizard]</b><br>";
 	//split up actionDate into separate time and date fields
 	if ($d[actionDate] != '' && $d[actionDate] != '0000-00-00 00:00:00'){
 		$time=explode(' ',$d[actionDate]);
