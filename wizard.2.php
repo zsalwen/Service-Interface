@@ -106,6 +106,7 @@ I, [SERVER NAME], SEARCHED THE UNITED STATES POSTAL SERVICE DATABASE AND THE DEP
 
 
 <? }else{
+	//MAKE CORRECTIONS
 	$instructions = "THIS PAGE ALLOWS A SERVER TO REMOVE ANY AFFIDAVIT ENTRIES THAT ARE CHECKED:<br>";
 	echo "<br>".$instructions;
 if ($_COOKIE[psdata][level] == "Operations"){
@@ -130,6 +131,7 @@ while ($item=mysql_fetch_array($history_items, MYSQL_ASSOC)){
 <? } ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="remove" /> REMOVE</div>
 <? if ($_COOKIE[psdata][level] == "Operations"){?>
+<div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="edit.1" /> EDIT</div>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="unlink" /> UNLINK</div>
 <? } ?>
 <? }
