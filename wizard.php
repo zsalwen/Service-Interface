@@ -273,19 +273,53 @@ function photoCount($packet,$defendant){
 	return $count;
 }
 function historyList($packet,$attorneys_id){
-		$qn="SELECT * FROM ps_history WHERE packet_id = '$packet' order by defendant_id, history_id ASC";
-		$rn=@mysql_query($qn) or die ("Query: $qn<br>".mysql_error());
-		$counter=0;
-		while ($dn=mysql_fetch_array($rn, MYSQL_ASSOC)){$counter++;
-			$action_str=str_replace('<LI>','',strtoupper($dn[action_str]));
-			$action_str=str_replace('</LI>','',$action_str);
-				$list .=  "<li>#$dn[history_id] : ".id2server($dn[serverID]).' '.$dn[wizard].'<br>'.stripslashes(attorneyCustomLang($attorneys_id,$action_str));
-				if ($dn[wizard] == 'BORROWER' || $dn[wizard] == 'NOT BORROWER'){
-					$list .=  '<br>'.attorneyCustomLang($attorneys_id,$dn[residentDesc]);
-				}
-				$list .= "</li>";
+	$qn="SELECT * FROM ps_history WHERE packet_id = '$packet' order by defendant_id, history_id ASC";
+	$rn=@mysql_query($qn) or die ("Query: $qn<br>".mysql_error());
+	$counter=0;
+	while ($dn=mysql_fetch_array($rn, MYSQL_ASSOC)){$counter++;
+		$action_str=str_replace('<LI>','',strtoupper($dn[action_str]));
+		$action_str=str_replace('</LI>','',$action_str);
+			$list .=  "<li>#$dn[history_id] : ".id2server($dn[serverID]).' '.$dn[wizard].'<br>'.stripslashes(attorneyCustomLang($attorneys_id,$action_str));
+			if ($dn[wizard] == 'BORROWER' || $dn[wizard] == 'NOT BORROWER'){
+				$list .=  '<br>'.attorneyCustomLang($attorneys_id,$dn[residentDesc]);
+			}
+			$list .= "</li>";
+	}
+	return $list;
+}
+function explodeDesc($str){
+	$desc=explode('<BR>',$str]);
+	$count=count($desc)-1;
+	return $desc["$count"];
+}
+function explodeAge($str){
+	$age=explode(' YEARS OF AGE,',$str);
+	$age=explode(', ',$age[0]);
+	$count=count($age)-1;
+	return trim($age["$count"]);
+}
+function getAddressType($address){
+	$return='';
+	$r = @mysql_query("SELECT addressType, addressTypea, addressTypeb, addressTypec, addressTyped, addressTypee, address1, city1, state1, zip1, address1a, city1a, state1a, zip1a, address1b, city1b, state1b, zip1b, address1c, city1c, state1c, zip1c, address1d, city1d, state1d, zip1d, address1e, city1e, state1e, zip1e from ps_packets where packet_id = '$packet' LIMIT 0,1");
+	$d = mysql_fetch_array($r, MYSQL_ASSOC);
+	if ($d[address1] != ''){
+		$add=$d[address1].', '.$d[city1].', '.$d[state1].' '.$d[zip1];
+		if ($address == $add){
+			$return=$d[addressType];
 		}
-		return $list;
+	}
+	foreach (range('a','e') as $letter){
+		if ($d["address1$letter"] != ''){
+			$add=$d["address1$letter"].', '.$d["city1$letter"].', '.$d["state1$letter"].' '.$d["zip1$letter"];
+			if ($address == $add){
+				$return=$d["addressType$letter"];
+			}
+		}
+	}
+	if ($return == ''){
+		$return='KNOWN ADDRESS';
+	}
+	return $return;
 }
 mysql_select_db ('core');
 $qqr = @mysql_query("SELECT * from ps_packets where packet_id = '$packet'");
