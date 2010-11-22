@@ -28,9 +28,9 @@ if ($_POST["served-$key"] == "FIRST EFFORT"){
 	}
 	$month=monthConvert($_POST["month-$key"]);
 	$history="<li>First Effort: $source</li>
-	$month $_POST[day-$key], $_POST[year-$key] at $_POST[hour-$key]:$_POST[minute-$key] $_POST[ampm-$key]<br>
+	$month ".$_POST["day-$key"].", ".$_POST["year-$key"]." at ".$_POST["hour-$key"].":".$_POST["minute-$key"]." ".$_POST["ampm-$key"]."<br>
 	$address<br>
-	$_POST[defendant_detail-$key]";
+	".$_POST["defendant_detail-$key"]."";
 } 
 if ($_POST["served-$key"] == "SECOND EFFORT"){
 	if($_POST["address_source-$key"] == '1a'){
@@ -57,9 +57,9 @@ if ($_POST["served-$key"] == "SECOND EFFORT"){
 	}
 	$month=monthConvert($_POST["month-$key"]);
 	$history="<li>Second Effort: $source</li>
-	$month $_POST[day-$key], $_POST[year-$key] at $_POST[hour-$key]:$_POST[minute-$key] $_POST[ampm-$key]<br>
+	$month ".$_POST["day-$key"].", ".$_POST["year-$key"]." at ".$_POST["hour-$key"].":".$_POST["minute-$key"]." ".$_POST["ampm-$key"]."<br>
 	$address<br>
-	$_POST[defendant_detail-$key]";
+	".$_POST["defendant_detail-$key"]."";
 } 
 if ($_POST["served-$key"] == "POSTING DETAILS"){ 
 	if($_POST["address_source-$key"] == '1a'){
@@ -86,9 +86,9 @@ if ($_POST["served-$key"] == "POSTING DETAILS"){
 	}
 	$month=monthConvert($_POST["month-$key"]);
 	$history="<li>Posting the Property:</li>
-	$month $_POST[day-$key], $_POST[year-$key] $_POST[hour-$key]:$_POST[minute-$key] $_POST[ampm-$key]<br>
+	$month ".$_POST["day-$key"].", ".$_POST["year-$key"]." ".$_POST["hour-$key"].":".$_POST["minute-$key"]." ".$_POST["ampm-$key"]."<br>
 	$address<br>
-	$_POST[defendant_detail-$key]";
+	".$_POST["defendant_detail-$key"]."";
 } 
 
 if ($_POST["served-$key"] == "BORROWER"){ 
@@ -122,12 +122,12 @@ if ($_POST["served-$key"] == "BORROWER"){
 		$history="$dname, a BORROWER<br>
 		$source<br>
 		$address<br>
-		DATE OF SERVICE: $month $_POST[day-$key], $_POST[year-$key] at $_POST[hour-$key]:$_POST[minute-$key] $_POST[ampm-$key]<br>";		
+		DATE OF SERVICE: $month ".$_POST["day-$key"].", ".$_POST["year-$key"]." at ".$_POST["hour-$key"].":".$_POST["minute-$key"]." ".$_POST["ampm-$key"]."<br>";		
 	}else{
 		$history="$dname, BORROWER<br>
 		$source<br>
 		$address<br>
-		DATE OF SERVICE: $month $_POST[day-$key], $_POST[year-$key] at $_POST[hour-$key]:$_POST[minute-$key] $_POST[ampm-$key]<br>";
+		DATE OF SERVICE: $month ".$_POST["day-$key"].", ".$_POST["year-$key"]." at ".$_POST["hour-$key"].":".$_POST["minute-$key"]." ".$_POST["ampm-$key"]."<br>";
 	}
 } 
 if ($_POST["served-$key"] == "NOT BORROWER"){
@@ -161,12 +161,12 @@ if ($_POST["served-$key"] == "NOT BORROWER"){
 		$history="SERVED RESIDENT $_POST[name], $_POST[age] YEARS OF AGE, FOR ".strtoupper($dname).", A BORROWER<br>
 		$source<br>
 		$address<br>
-		DATE OF SERVICE: $month $_POST[day-$key], $_POST[year-$key] at $_POST[hour-$key]:$_POST[minute-$key] $_POST[ampm-$key]";		
+		DATE OF SERVICE: $month ".$_POST["day-$key"].", ".$_POST["year-$key"]." at ".$_POST["hour-$key"].":".$_POST["minute-$key"]." ".$_POST["ampm-$key"]."";		
 	}else{
 		$history="SERVED RESIDENT $_POST[name], $_POST[age] YEARS OF AGE, FOR ".strtoupper($dname).", BORROWER<br>
 		$source<br>
 		$address<br>
-		DATE OF SERVICE: $month $_POST[day-$key], $_POST[year-$key] at $_POST[hour-$key]:$_POST[minute-$key] $_POST[ampm-$key]";
+		DATE OF SERVICE: $month ".$_POST["day-$key"].", ".$_POST["year-$key"]." at ".$_POST["hour-$key"].":".$_POST["minute-$key"]." ".$_POST["ampm-$key"]."";
 	}
 } 
 
@@ -210,7 +210,7 @@ if ($_POST["served-$key"] == "NOT BORROWER"){
 	}else{
 		$name=$_COOKIE[psdata-name];
 	}
-	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class and certified mail, return receipt requested, on $month $_POST[day-$key], $_POST[year-$key].</li>";
+	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class and certified mail, return receipt requested, on $month ".$_POST["day-$key"].", ".$_POST["year-$key"].".</li>";
 }
 
 if ($_POST["served-$key"] == "CERT MAILING"){
@@ -256,7 +256,7 @@ if ($_POST["served-$key"] == "CERT MAILING"){
 	}else{
 		$name=$_COOKIE[psdata-name];
 	}
-	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class mail, on $month $_POST[day-$key], $_POST[year-$key].</li>";
+	$history="<li>I, $name, Mailed Papers to $_POST[name] at $address '$source' by first class mail, on $month ".$_POST["day-$key"].", ".$_POST["year-$key"].".</li>";
 }
 
 if ($_POST["served-$key"] == "INVALID"){ 
@@ -285,7 +285,7 @@ if ($_POST["served-$key"] == "INVALID"){
 	}else{
 		$name=$_COOKIE[psdata-name];
 	}
-	$history="<li>I, $name, SEARCHED THE UNITED STATES POSTAL SERVICE DATABASE AND THE DEPARTMENT OF ASSESSMENTS AND TAXATION DATABASE FOR $address '$source' WITH NO RESULTS, ON $month $_POST[day-$key], $_POST[year-$key].</li>";
+	$history="<li>I, $name, SEARCHED THE UNITED STATES POSTAL SERVICE DATABASE AND THE DEPARTMENT OF ASSESSMENTS AND TAXATION DATABASE FOR $address '$source' WITH NO RESULTS, ON $month ".$_POST["day-$key"].", ".$_POST["year-$key"].".</li>";
 	$to="System Operations <sysop@hwestauctions.com>";
 	$client=$_POST[client_file];
 	$subject="Invalid Address For File $client (Packet $packet)";
@@ -340,27 +340,27 @@ if ($_POST["served-$key"] == "ADDITIONAL AFFIDAVIT"){
 	}
 	$month=monthConvert($_POST["month-$key"]);
 	$history="<i style='font-weight:300;'><li>Second Effort: $source</li>
-	$month $_POST[day-$key], $_POST[year-$key] at $_POST[hour-$key]:$_POST[minute-$key] $_POST[ampm-$key]<br>
+	$month ".$_POST["day-$key"].", ".$_POST["year-$key"]." at ".$_POST["hour-$key"].":".$_POST["minute-$key"]." ".$_POST["ampm-$key"]."<br>
 	$address<br>
 	Service Performed by $_POST[server_name], <b>see additional affidavit</b></i>";
 }
 */
 
 
-if($_POST[ampm-$key] == 'PM'){
-	$hour=$_POST[hour-$key]+12;
+if(".$_POST["ampm-$key"]." == 'PM'){
+	$hour=".$_POST["hour-$key"]."+12;
 }else{
-	$hour=$_POST[hour-$key];
+	$hour=".$_POST["hour-$key"].";
 }
-$dt="$_POST[year-$key]-$_POST["month-$key"]-$_POST[day-$key] $hour:$_POST[minute-$key]:00";
+$dt="".$_POST["year-$key"]."-$_POST["month-$key"]-".$_POST["day-$key"]." $hour:".$_POST["minute-$key"].":00";
 ?>
 <strong>AFFIDAVIT ENTRY FOR <?=$_POST[service_type-$key];?> <?=$_POST["served-$key"];?></strong><br />
-<div style="background-color:#FFFF00;"><?=stripslashes(strtoupper($history))?><? if ($_POST[defendant_detail-$key] != ''){echo "<br />RESIDENT DESCRIPTION: ".strtoupper($_POST[defendant_detail-$key]);}?></div>
+<div style="background-color:#FFFF00;"><?=stripslashes(strtoupper($history))?><? if (".$_POST["defendant_detail-$key"]." != ''){echo "<br />RESIDENT DESCRIPTION: ".strtoupper(".$_POST["defendant_detail-$key"].");}?></div>
 
 <input type="hidden" name="address_source-<?=$key?>" value="<?=$_POST["address_source-$key"]?>">
 <input type="hidden" name="dt-<?=$key?>" value="<?=$dt?>">
 <input type="hidden" name="serve_address-<?=$key?>" value="<?=$address?>" />
-<input type="hidden" name="defendant_detail-<?=$key?>" value="<?=$_POST[defendant_detail-$key]?>">
+<input type="hidden" name="defendant_detail-<?=$key?>" value="<?=".$_POST["defendant_detail-$key"]."?>">
 <input type="hidden" name="name-<?=$key?>" value="<?=$_POST[name]?>">
 <input type="hidden" name="age-<?=$key?>" value="<?=$_POST[age]?>">
 <input type="hidden" name="history-<?=$key?>" value="<?=$history?>" />
