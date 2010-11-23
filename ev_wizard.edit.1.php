@@ -122,7 +122,7 @@ foreach ($_POST[remove] as $key => $value){
 	?>
 	<input type="hidden" name="served-<?=$key?>" value="<?=$d[wizard]?>" />
 	<input type="hidden" name="addressType-<?=$key?>" value="<?=$addressType?>" />
-	<input type="hidden" name="address1-<?=$key?>" value="<?=$d[address1]?>, <?=$d[city1]?>, <?=$d[state1]?> <?=$d[zip1]?>" />
+	<input type="hidden" name="address1-<?=$key?>" value="<?=$ddr[address1]?>, <?=$ddr[city1]?>, <?=$ddr[state1]?> <?=$ddr[zip1]?>" />
 	<input type="hidden" name="remove[<?=$key?>]"/>
 	<?
 	//display editing inputs
