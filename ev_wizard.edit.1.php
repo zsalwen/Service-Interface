@@ -34,7 +34,6 @@ foreach ($_POST[remove] as $key => $value){
 	}
 	if ($d[action_type] == 'Attempted Service' || $d[action_type] == 'Posted Papers'){$items++;
 		//1. address
-		$address=$d[address];
 		$addressType="RESIDENTIAL PROPERTY SUBJECT TO MORTGAGE OR DEED OF TRUST";
 		//2. month, day, year dropdowns
 		//3. hour, minute am/pm
@@ -49,7 +48,6 @@ foreach ($_POST[remove] as $key => $value){
 		?>
 		<table width="20%"><tr><td colspan=2>1) Select Address 
 		<select name="address_source-<?=$key?>">
-			<option><?=$address?></option>
 			<option value="1"><?=$ddr[address1]?>, <?=$ddr[city1]?>, <?=$ddr[state1]?> <?=$ddr[zip1]?></option>
 		</select>
 		</td></tr>
@@ -63,7 +61,7 @@ foreach ($_POST[remove] as $key => $value){
 		echo "<h1>EDIT MAILING ENTRIES THROUGH historyModify.php</h1>";
 	}elseif ($d[wizard] == 'NOT BORROWER'){$items++;
 		//1. address
-		$address=$d[address];
+	
 		$addressType="RESIDENTIAL PROPERTY SUBJECT TO MORTGAGE OR DEED OF TRUST";
 		//2. resident name
 		$name=$d[resident];
@@ -77,7 +75,6 @@ foreach ($_POST[remove] as $key => $value){
 		?>
 		<table width="20%"><tr><td colspan=2>1) Select Address 
 		<select name="address_source-<?=$key?>">
-			<option><?=$address?></option>
 			<option value="1"><?=$ddr[address1]?>, <?=$ddr[city1]?>, <?=$ddr[state1]?> <?=$ddr[zip1]?></option>
 		</select>
 		</td></tr>
@@ -90,7 +87,6 @@ foreach ($_POST[remove] as $key => $value){
 		<?
 	}elseif($d[wizard] == 'BORROWER'){$items++;
 		//1. address
-		$address=$d[address];
 		$addressType="RESIDENTIAL PROPERTY SUBJECT TO MORTGAGE OR DEED OF TRUST";
 		//2. month, day, year dropdowns
 		//3. hour, minute am/pm
@@ -100,7 +96,7 @@ foreach ($_POST[remove] as $key => $value){
 		?>
 		<table width="20%"><tr><td colspan=2>1) Select Address 
 		<select name="address_source-<?=$key?>">
-			<option><?=$address?></option>
+			<option value="1"><?=$ddr[address1]?>, <?=$ddr[city1]?>, <?=$ddr[state1]?> <?=$ddr[zip1]?></option>
 		</select>
 		</td></tr>
 		<tr><td colspan=2>2) Month, Day, Year <select name="month-<?=$key?>"><?=mkmonth($month)?></select> <select name="day-<?=$key?>"><?=mkday($day)?></select> <select name="year-<?=$key?>"><?=mkyear($year)?></select></td></tr>
