@@ -4,22 +4,7 @@
 foreach ($_POST[remove] as $key => $value){
 // this is where we build the actual history item for the affidavit
 if ($_POST["served-$key"] == "FIRST EFFORT"){ 
-	if($_POST["address_source-$key"] == '1a'){
-		$source=$ddr[addressTypea];
-		$address=$_POST["address1a-$key"];
-	}elseif($_POST["address_source-$key"] == '1b'){
-		$source=$ddr[addressTypeb];
-		$address=$_POST["address1b-$key"];
-	}elseif($_POST["address_source-$key"] == '1c'){
-		$source=$ddr[addressTypec];
-		$address=$_POST["address1c-$key"];
-	}elseif($_POST["address_source-$key"] == '1d'){
-		$source=$ddr[addressTyped];
-		$address=$_POST["address1d-$key"];
-	}elseif($_POST["address_source-$key"] == '1e'){
-		$source=$ddr[addressTypee];
-		$address=$_POST["address1e-$key"];
-	}elseif ($_POST["address_source-$key"] == '1'){
+	if ($_POST["address_source-$key"] == '1'){
 		$source=$ddr[addressType];
 		$address=$_POST["address1-$key"];
 	}else{
@@ -33,22 +18,7 @@ if ($_POST["served-$key"] == "FIRST EFFORT"){
 	".$_POST["defendant_detail-$key"]."";
 } 
 if ($_POST["served-$key"] == "SECOND EFFORT"){
-	if($_POST["address_source-$key"] == '1a'){
-		$source=$ddr[addressTypea];
-		$address=$_POST["address1a-$key"];
-	}elseif($_POST["address_source-$key"] == '1b'){
-		$source=$ddr[addressTypeb];
-		$address=$_POST["address1b-$key"];
-	}elseif($_POST["address_source-$key"] == '1c'){
-		$source=$ddr[addressTypec];
-		$address=$_POST["address1c-$key"];
-	}elseif($_POST["address_source-$key"] == '1d'){
-		$source=$ddr[addressTyped];
-		$address=$_POST["address1d-$key"];
-	}elseif($_POST["address_source-$key"] == '1e'){
-		$source=$ddr[addressTypee];
-		$address=$_POST["address1e-$key"];
-	}elseif ($_POST["address_source-$key"] == '1'){
+	if ($_POST["address_source-$key"] == '1'){
 		$source=$ddr[addressType];
 		$address=$_POST["address1-$key"];
 	} else{
@@ -62,22 +32,7 @@ if ($_POST["served-$key"] == "SECOND EFFORT"){
 	".$_POST["defendant_detail-$key"]."";
 } 
 if ($_POST["served-$key"] == "POSTING DETAILS"){ 
-	if($_POST["address_source-$key"] == '1a'){
-		$source=$ddr[addressTypea];
-		$address=$_POST["address1a-$key"];
-	}elseif($_POST["address_source-$key"] == '1b'){
-		$source=$ddr[addressTypeb];
-		$address=$_POST["address1b-$key"];
-	}elseif($_POST["address_source-$key"] == '1c'){
-		$source=$ddr[addressTypec];
-		$address=$_POST["address1c-$key"];
-	}elseif($_POST["address_source-$key"] == '1d'){
-		$source=$ddr[addressTyped];
-		$address=$_POST["address1d-$key"];
-	}elseif($_POST["address_source-$key"] == '1e'){
-		$source=$ddr[addressTypee];
-		$address=$_POST["address1e-$key"];
-	}elseif ($_POST["address_source-$key"] == '1'){
+	if ($_POST["address_source-$key"] == '1'){
 		$source=$ddr[addressType];
 		$address=$_POST["address1-$key"];
 	}else{
@@ -92,22 +47,7 @@ if ($_POST["served-$key"] == "POSTING DETAILS"){
 } 
 
 if ($_POST["served-$key"] == "BORROWER"){ 
-	if($_POST["address_source-$key"] == '1a'){
-		$source=$ddr[addressTypea];
-		$address=$_POST["address1a-$key"];
-	}elseif($_POST["address_source-$key"] == '1b'){
-		$source=$ddr[addressTypeb];
-		$address=$_POST["address1b-$key"];
-	}elseif($_POST["address_source-$key"] == '1c'){
-		$source=$ddr[addressTypec];
-		$address=$_POST["address1c-$key"];
-	}elseif($_POST["address_source-$key"] == '1d'){
-		$source=$ddr[addressTyped];
-		$address=$_POST["address1d-$key"];
-	}elseif($_POST["address_source-$key"] == '1e'){
-		$source=$ddr[addressTypee];
-		$address=$_POST["address1e-$key"];
-	}elseif ($_POST["address_source-$key"] == '1'){
+	if ($_POST["address_source-$key"] == '1'){
 		$source=$ddr[addressType];
 		$address=$_POST["address1-$key"];
 	}else{
@@ -131,22 +71,7 @@ if ($_POST["served-$key"] == "BORROWER"){
 	}
 } 
 if ($_POST["served-$key"] == "NOT BORROWER"){
-	if($_POST["address_source-$key"] == '1a'){
-		$source=$ddr[addressTypea];
-		$address=$_POST["address1a-$key"];
-	}elseif($_POST["address_source-$key"] == '1b'){
-		$source=$ddr[addressTypeb];
-		$address=$_POST["address1b-$key"];
-	}elseif($_POST["address_source-$key"] == '1c'){
-		$source=$ddr[addressTypec];
-		$address=$_POST["address1c-$key"];
-	}elseif($_POST["address_source-$key"] == '1d'){
-		$source=$ddr[addressTyped];
-		$address=$_POST["address1d-$key"];
-	}elseif($_POST["address_source-$key"] == '1e'){
-		$source=$ddr[addressTypee];
-		$address=$_POST["address1e-$key"];
-	}elseif ($_POST["address_source-$key"] == '1'){
+	if ($_POST["address_source-$key"] == '1'){
 		$source=$ddr[addressType];
 		$address=$_POST["address1-$key"];
 	}else{
