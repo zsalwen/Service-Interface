@@ -110,6 +110,7 @@ while ($item=mysql_fetch_array($history_items, MYSQL_ASSOC)){
 <? } ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="remove" /> REMOVE</div>
 <? if ($_COOKIE[psdata][level] == "Operations"){?>
+<div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="edit.1" /> EDIT</div>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="unlink" /> UNLINK</div>
 <? } ?>
 <? }
