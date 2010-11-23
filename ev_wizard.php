@@ -249,7 +249,17 @@ function historyList($packet,$attorneys_id){
 		}
 		return $list;
 }
-
+function explodeDesc($str){
+	$desc=explode('<BR>',$str);
+	$count=count($desc)-1;
+	return $desc["$count"];
+}
+function explodeAge($str){
+	$age=explode(' YEARS OF AGE,',$str);
+	$age=explode(', ',$age[0]);
+	$count=count($age)-1;
+	return trim($age["$count"]);
+}
 mysql_select_db ('core');
 $qqr = @mysql_query("SELECT * from evictionPackets where eviction_id = '$packet'");
 $ddr = mysql_fetch_array($qqr, MYSQL_ASSOC);
