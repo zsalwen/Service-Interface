@@ -97,14 +97,14 @@ if ($_POST[served] == "MAILING DETAILS"){
 		$source=$ddr[addressTypee];
 		$address=$_POST[address1e];
 	}elseif($_POST[address_source] == 'pobox'){
-		if((strpos(strtoupper($ddr['pobox']),'P.O. BOX') != 'false') || (strpos(strtoupper($ddr['pobox']),'PO BOX')) != 'false'){
+		if((strpos(strtoupper($ddr['pobox']),'P.O. BOX') !== false) || (strpos(strtoupper($ddr['pobox']),'PO BOX')) !== false){
 			$source='P.O. Box Address';
 		}else{
 			$source='Mailing Only Address';
 		}
 		$address=$_POST[pobox];
 	}elseif($_POST[address_source] == 'pobox2'){
-		if((strpos(strtoupper($ddr['pobox2']),'P.O. BOX') != 'false') || (strpos(strtoupper($ddr['pobox2']),'PO BOX')) != 'false'){
+		if((strpos(strtoupper($ddr['pobox2']),'P.O. BOX') !== false) || (strpos(strtoupper($ddr['pobox2']),'PO BOX')) !== false){
 			$source='P.O. Box Address';
 		}else{
 			$source='Mailing Only Address';
@@ -143,14 +143,14 @@ if ($_POST[served] == "CERT MAILING"){
 		$source=$ddr[addressTypee];
 		$address=$_POST[address1e];
 	}elseif($_POST[address_source] == 'pobox'){
-		if((strpos(strtoupper($ddr['pobox']),'P.O. BOX') != 'false') || (strpos(strtoupper($ddr['pobox']),'PO BOX')) != 'false'){
+		if((strpos(strtoupper($ddr['pobox']),'P.O. BOX') !== false) || (strpos(strtoupper($ddr['pobox']),'PO BOX')) !== false){
 			$source='P.O. Box Address';
 		}else{
 			$source='Mailing Only Address';
 		}
 		$address=$_POST[pobox];
 	}elseif($_POST[address_source] == 'pobox2'){
-		if((strpos(strtoupper($ddr['pobox2']),'P.O. BOX') != 'false') || (strpos(strtoupper($ddr['pobox2']),'PO BOX')) != 'false'){
+		if((strpos(strtoupper($ddr['pobox2']),'P.O. BOX') !== false) || (strpos(strtoupper($ddr['pobox2']),'PO BOX')) !== false){
 			$source='P.O. Box Address';
 		}else{
 			$source='Mailing Only Address';
