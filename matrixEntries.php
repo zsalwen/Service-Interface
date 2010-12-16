@@ -22,7 +22,7 @@ function makeEntry($packet,$def,$add,$name,$date,$entryID,$mailDate){
 		$q="select name$def, pobox, pocity, postate, pozip from ps_packets where packet_id = '$packet'";
 		$r=@mysql_query($q) or die ("Query $q<br>".mysql_error());
 		$d=mysql_fetch_array($r, MYSQL_ASSOC);
-		if((strpos(strtoupper($d['pobox']),'P.O. BOX') != 'false') || (strpos(strtoupper($d['pobox']),'PO BOX')) != 'false'){			
+		if((strpos(strtoupper($d['pobox']),'P.O. BOX') !== false) || (strpos(strtoupper($d['pobox']),'PO BOX')) !== false){			
 			$action="<li>I, $name, Mailed Papers to ".$d["name$def"]." at $d[pobox], $d[pocity], $d[postate] $d[pozip] \'P.O. Box Address\' by first class mail on $date.</li>";		
 		}else{
 	$action="<li>I, $name, Mailed Papers to ".$d["name$def"]." at $d[pobox], $d[pocity], $d[postate] $d[pozip] \'Mailing Only Address\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
@@ -31,7 +31,7 @@ function makeEntry($packet,$def,$add,$name,$date,$entryID,$mailDate){
 		$q="select name$def, pobox2, pocity2, postate2, pozip2 from ps_packets where packet_id = '$packet'";
 		$r=@mysql_query($q) or die ("Query $q<br>".mysql_error());
 		$d=mysql_fetch_array($r, MYSQL_ASSOC);
-		if((strpos(strtoupper($d['pobox']),'P.O. BOX') != 'false') || (strpos(strtoupper($d['pobox']),'PO BOX')) != 'false'){			
+		if((strpos(strtoupper($d['pobox']),'P.O. BOX') !== false) || (strpos(strtoupper($d['pobox']),'PO BOX')) !== false){			
 			$action="<li>I, $name, Mailed Papers to ".$d["name$def"]." at $d[pobox2], $d[pocity2], $d[postate2] $d[pozip2] \'P.O. Box Address\' by first class mail on $date.</li>";		
 		}else{
 	$action="<li>I, $name, Mailed Papers to ".$d["name$def"]." at $d[pobox2], $d[pocity2], $d[postate2] $d[pozip2] \'Mailing Only Address\' by certified mail, return receipt requested, and by first class mail on $date.</li>";

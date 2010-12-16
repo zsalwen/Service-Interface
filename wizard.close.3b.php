@@ -42,7 +42,7 @@ if ($ddr[service_status] == "MAILING AND POSTING" && ($_GET[mailDate] || $_POST[
 				}
 			}
 					if ($d[pobox]){
-						if((strpos(strtoupper($d['pobox']),'P.O. BOX') != 'false') || (strpos(strtoupper($d['pobox']),'PO BOX')) != 'false'){			
+						if((strpos(strtoupper($d['pobox']),'P.O. BOX') !== false) || (strpos(strtoupper($d['pobox']),'PO BOX')) !== false){			
 						$action="<li>I, $name, Mailed Papers to ".$d["name$iC"]." at $d[pobox], $d[pocity], $d[postate] $d[pozip] \'P.O. Box Address\' by first class mail on $date.</li>";		
 				
 						}else{
@@ -53,7 +53,7 @@ if ($ddr[service_status] == "MAILING AND POSTING" && ($_GET[mailDate] || $_POST[
 				@mysql_query("INSERT into ps_history (packet_id, defendant_id, action_type, action_str, serverID, recordDate, wizard )values('".$packet."', '".$iC."', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS' )");$_SESSION[querycount]++; 
 			}
 			if ($d[pobox2]){
-						if((strpos(strtoupper($d['pobox2']),'P.O. BOX') != 'false') || (strpos(strtoupper($d['pobox2']),'PO BOX')) != 'false'){			$action="<li>I, $name, Mailed Papers to ".$d["name$iC"]." at $d[pobox2], $d[pocity2], $d[postate2] $d[pozip2] \'P.O. Box Address\' by first class mail on $date.</li>";				
+						if((strpos(strtoupper($d['pobox2']),'P.O. BOX') !== false) || (strpos(strtoupper($d['pobox2']),'PO BOX')) !== false){			$action="<li>I, $name, Mailed Papers to ".$d["name$iC"]." at $d[pobox2], $d[pocity2], $d[postate2] $d[pozip2] \'P.O. Box Address\' by first class mail on $date.</li>";				
 		
 						}else{
 				$action="<li>I, $name, Mailed Papers to ".$d["name$iC"]." at $d[pobox2], $d[pocity2], $d[postate2] $d[pozip2] \'Mailing Only Address\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
