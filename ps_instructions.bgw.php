@@ -81,11 +81,11 @@ foreach(range('e','a') as $letter){
 	</tr>
 	<? if ($data[lossMit] != '' && $data[lossMit] != 'N/A - OLD L' && $data[packet_id] >= 12435){ 
 		//if file is a final or preliminary, instruct to include envelope for attorney
-		$lossMit="Per Maryland law HB472, please include one of the provided white, preprinted #10 envelopes addressed to BIERMAN, GEESING & WARD, LLC";
+		$lossMit="Per Maryland law HB472, please include one of the provided WHITE, preprinted #10 envelopes addressed to BIERMAN, GEESING & WARD, LLC";
 		if ($data[lossMit] == 'FINAL'){
 			//if file is a final, also instruct to include envelope for court
 			$toCounty=county2envelope2($data[circuit_court]);
-			$lossMit .= " and another white, preprinted #10 envelope addressed to ".$toCounty;
+			$lossMit .= " and another WHITE, preprinted #10 envelope addressed to ".$toCounty;
 		}
 		$lossMit .= " with each defendant's service documents.";
 	?>
