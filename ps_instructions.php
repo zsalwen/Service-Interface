@@ -130,15 +130,13 @@ If <?=id2name($data[server_id])?> is unable to serve <?=$name?>:<br />
 if ($data[lossMit] != '' && $data[lossMit] != 'N/A - OLD L' && $data[packet_id] >= 12435){ 
 	//if file is a final or preliminary, instruct to include available envelope stuffings
 	$toAttorney=id2attorneyName($data[attorneys_id]);
-	$toCounty=county2envelope2($data[circuit_court]);
-	$lossMit="Per Maryland law HB472, be sure to include the documents that are to be folded and stuffed into the green, #10 envelopes that we have sent you.  Please print these documents and fold them so that the addresses are visible in the envelopes' window.  ";
-	if ($data[lossMit] == 'PRELIMINARY'){
-		//if preliminary, instruct to include one envelope to client
-		$lossMit .= "One envelope should be included with the service documents for each defendant, addressed to $toAttorney.";
-	}else{
-		//if final, instruct to include two envelopes: one to court and one to client
-		$lossMit .= "Two envelopes should be included with the service documents for each defendant (one addressed to $toAttorney, and the other to $toCounty).";
-	}
+		$lossMit="Per Maryland law HB472, please include one of the provided white, preprinted #10 envelopes addressed to $toAttorney";
+		if ($data[lossMit] == 'FINAL'){
+			//if file is a final, also instruct to include envelope for court
+			$toCounty=county2envelope2($data[circuit_court]);
+			$lossMit .= ", and another white, preprinted #10 envelope addressed to ".$toCounty;
+		}
+		$lossMit .= " with each defendant's service documents.";
 ?>
 <tr>
 	<td style='border: 1px solid;' align='center'><?=strtoupper($lossMit);?></td>
