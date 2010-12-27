@@ -62,7 +62,7 @@ if ($_POST[served] == "NOT BORROWER"){
 		@mysql_query("UPDATE evictionPackets SET service_status = 'PERSONAL DELIVERY' where eviction_id = '$packet'");
 	}
 }
-$history=addslashes(strtoupper($_POST[history]));
+$history=addslashes(strtoupper(normalize_special_characters($_POST[history])));
 if ($_POST[served] == "CHANGE SIGNATORY"){
 	$type='CHANGED SIGNATORY';
 	if ($_POST[opServer]){
