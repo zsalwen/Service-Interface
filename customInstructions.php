@@ -176,7 +176,7 @@ if ($data2 == ''){
 		//if file is a final or preliminary, instruct to include available envelope stuffings
 		$toAttorney=id2attorneyName($data[attorneys_id]);
 		$toCounty=county2envelope2($data[circuit_court]);
-		$lossMit="Per Maryland law HB472, be sure to include the documents that are to be folded and stuffed into the green, #10 envelopes that we have sent you.  Please print these documents and fold them so that the addresses are visible in the envelopes' window.  ";
+		$lossMit="Per Maryland law HB472, be sure to include the  green, #10 envelopes that we have sent you.  ";
 		if ($data[lossMit] == 'PRELIMINARY'){
 			//if preliminary, instruct to include one envelope to client
 			$lossMit .= "One envelope should be included with the service documents for each defendant, addressed to $toAttorney.";
