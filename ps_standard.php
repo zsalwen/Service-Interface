@@ -67,7 +67,7 @@ function openSvc($affidavit_status,$process_status){
 		<td width="5%" nowrap='nowrap'>Case Number</td>
 		<td width="5%" nowrap='nowrap'>Close Date</td>
 	</tr><?
-$r=@mysql_query("SELECT otd, fileDate, affidavitType, date_received, client_file, addlDocs, attorneys_id, service_status, client_file, case_no, packet_id, date_received, affidavit_status, process_status, oldOTD,  FROM standard_packets WHERE process_status = '$process_status' and affidavit_status='$affidavit_status' and (server_id = '".$_COOKIE['psdata']['user_id']."' or server_ida = '".$_COOKIE['psdata']['user_id']."' or server_idb = '".$_COOKIE['psdata']['user_id']."' or server_idc = '".$_COOKIE['psdata']['user_id']."' or server_idd = '".$_COOKIE['psdata']['user_id']."' or server_ide = '".$_COOKIE['psdata']['user_id']."') order by packet_id");
+$r=@mysql_query("SELECT otd, fileDate, affidavitType, date_received, client_file, addlDocs, attorneys_id, service_status, client_file, case_no, packet_id, date_received, affidavit_status, process_status, oldOTD, server_notes FROM standard_packets WHERE process_status = '$process_status' and affidavit_status='$affidavit_status' and (server_id = '".$_COOKIE['psdata']['user_id']."' or server_ida = '".$_COOKIE['psdata']['user_id']."' or server_idb = '".$_COOKIE['psdata']['user_id']."' or server_idc = '".$_COOKIE['psdata']['user_id']."' or server_idd = '".$_COOKIE['psdata']['user_id']."' or server_ide = '".$_COOKIE['psdata']['user_id']."') order by packet_id");
 while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){
 	echo "<tr style='background-color:";
 	if(hasAffs($d[packet_id])){ echo "#CCFFFF"; }else{ echo "#99FF99"; } 
