@@ -80,7 +80,7 @@ while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){
 	echo "	</td>
 			<td width='25%'>".$d[addlDocs]."</td>
 			<td width='10%'>".whoIs($d[attorneys_id])." $d[client_file]</td>
-			<td width='20%'>".strtoupper($d[server_notes]."</td>
+			<td width='20%'>".strtoupper($d[server_notes])."</td>
 			<td width='20%'>
 			";
 if ($d[affidavit_status] == 'PRESALE OTD'){ echo "<li><a href='http://service.mdwestserve.com/s_customInstructions.php?packet=$d[packet_id]'>INSTRUCTIONS</a></li>"; }
