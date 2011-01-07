@@ -207,12 +207,13 @@ function mkminute($keep){
 }
 function mkyear($keep){
 	$opt = "<option selected value='$keep'>$keep</option>";
-	$opt .= "<option value='2006'>2006</option>";
-	$opt .= "<option value='2007'>2007</option>";
-	$opt .= "<option value='2008'>2008</option>";
-	$opt .= "<option value='2009'>2009</option>";
-	$opt .= "<option value='2010'>2010</option>";
-	$opt .= "<option value='2011'>2011</option>";
+	$curYear=date('Y');
+	//dynamically start range 3 years before current year.
+	$year=$curYear-3;
+	while ($year < $curYear){
+		$opt .= "<option value='$year'>$year</option>";
+		$year++;
+	}
 	return $opt;
 }
 function monthConvert($month){
