@@ -210,7 +210,7 @@ function mkyear($keep){
 	$curYear=date('Y');
 	//dynamically start range 3 years before current year.
 	$year=$curYear-3;
-	while ($year < $curYear){
+	while ($year <= $curYear){
 		$opt .= "<option value='$year'>$year</option>";
 		$year++;
 	}
