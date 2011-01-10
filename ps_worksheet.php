@@ -217,8 +217,8 @@ function makeEntry($packet){
 				<? if ($d['request_close'] == "YES" || $d['request_closea'] == "YES" || $d['request_closeb'] == "YES" || $d['request_closec'] == "YES" || $d['request_closed'] == "YES" || $d['request_closee'] == "YES"){?><img src="/gfx/icon.closed.jpg" height="35" border="0" /><? }?>
 				<a href="<?=$instructionsLink?>.php?<?=$field?>=<?=$d[$idType]?>" target="_blank"><img src="/gfx/icon.instructions.jpg" height="35" border="0" /></a>
 				<a href="<?=washURI2($d['otd']);?>" target="_blank"><img src="/gfx/icon.envelope.jpg" height="35" border="0" /></a>
-				<? if($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L"  && $d[attorneys_id] != 70){ 
-					$lossMitInstructions="include a GREEN, preprinted #10 envelope addressed to <span style='color:#990000;'>".strtoupper(id2attorney2($d[attorneys_id]))."</span>";
+				<? if($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L"  && $d[attorneys_id] != 1){ 
+					$lossMitInstructions="include a WHITE, preprinted #10 envelope addressed to <span style='color:#990000;'>".strtoupper(id2attorney2($d[attorneys_id]))."</span>";
 					if ($d[lossMit] == "FINAL"){
 						//if file is a final, also instruct to include envelope for court
 						$toCounty=county2envelope2($d[circuit_court]);
@@ -230,13 +230,13 @@ function makeEntry($packet){
 				<!----------
 				<a href="http://service.mdwestserve.com/stuffPacket.php?packet=<?=$d[$idType]?>" target='_blank'><img src="/gfx/icon.green.envelope.jpg" height="35" border="0" /></a>
 				-------------------------->
-				<? }elseif($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L" && $d[lossMit] != '' && $d[attorneys_id] == 70){
+				<? }elseif($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L" && $d[lossMit] != '' && $d[attorneys_id] == 1){
 					//if file is a final or preliminary, instruct to include envelope for attorney
-					$lossMitInstructions="include a WHITE, preprinted #10 envelope addressed to <span style='color:#990000;'>BIERMAN, GEESING & WARD, LLC</span>";
+					$lossMitInstructions="include a GREEN, preprinted #10 envelope addressed to <span style='color:#990000;'>".strtoupper(id2attorney2($d[attorneys_id]))."</span>";
 					if ($d[lossMit] == "FINAL"){
 						//if file is a final, also instruct to include envelope for court
 						$toCounty=county2envelope2($d[circuit_court]);
-						$lossMitInstructions .= ", and another to <span style='color:#990000;'>".$toCounty."</span>";
+						$lossMitInstructions .= ", and a WHITE, preprinted #10 envelope addressed to <span style='color:#990000;'>".$toCounty."</span>";
 					}
 					$lossMit .= " with each defendant's service documents.";
 					echo " <div style='display:inline-block; font-weight:bold; width:250px; font-size:10px; padding:0px; border: double 2px; background-color:FFFFFF; line-height: 9px;'>".strtoupper($lossMitInstructions)."</div> "; 

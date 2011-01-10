@@ -130,11 +130,11 @@ If <?=id2name($data[server_id])?> is unable to serve <?=$name?>:<br />
 if ($data[lossMit] != '' && $data[lossMit] != 'N/A - OLD L' && $data[packet_id] >= 12435){ 
 	//if file is a final or preliminary, instruct to include available envelope stuffings
 	$toAttorney=id2attorneyName($data[attorneys_id]);
-		$lossMit="Per Maryland law HB472, please include one of the provided GREEN, preprinted #10 envelopes addressed to $toAttorney";
+		$lossMit="Per Maryland law HB472, please include one of the provided WHITE, preprinted #10 envelopes addressed to $toAttorney";
 		if ($data[lossMit] == 'FINAL'){
 			//if file is a final, also instruct to include envelope for court
 			$toCounty=county2envelope2($data[circuit_court]);
-			$lossMit .= ", and another GREEN, preprinted #10 envelope addressed to ".$toCounty;
+			$lossMit .= ", and another WHITE, preprinted #10 envelope addressed to ".$toCounty;
 		}
 		$lossMit .= " with each defendant's service documents.";
 ?>

@@ -147,7 +147,7 @@ if ($data[lossMit] != '' && $data[lossMit] != 'N/A - OLD L' && $data[packet_id] 
 		if ($data[lossMit] == 'FINAL'){
 			//if file is a final, also instruct to include envelope for court
 			$toCounty=county2envelope2($data[circuit_court]);
-			$lossMit .= ", and another GREEN, preprinted #10 envelope addressed to ".$toCounty;
+			$lossMit .= ", and a WHITE, preprinted #10 envelope addressed to ".$toCounty;
 		}
 		$lossMit .= " with each defendant's service documents.";
 ?>
