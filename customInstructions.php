@@ -187,7 +187,8 @@ if ($data2 == ''){
 		echo "<span style='font-variant:small-caps; font-style:italic;'>$lossMit</span>";
 	}elseif($data2[envInstruct] == 'WHITE'){
 		//if file requires white BGW-style envelopes, then instruct to include envelope for attorney
-		$lossMit="Per Maryland law HB472, please include one of the provided WHITE, preprinted #10 envelope addressed to 'BIERMAN, GEESING & WARD, LLC'";
+		$toAttorney=id2attorneyName($data[attorneys_id]);
+		$lossMit="Per Maryland law HB472, please include one of the provided WHITE, preprinted #10 envelope addressed to '$toAttorney'";
 		if ($data[lossMit] == 'FINAL'){
 			//if file is a final, instruct to include envelope for court
 			$toCounty=county2envelope2($data[circuit_court]);
