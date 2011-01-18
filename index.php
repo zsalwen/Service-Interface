@@ -22,6 +22,7 @@ setcookie ("staff[email]", $data[email], $inEightHours, "/", "staff.mdwestserve.
 error_log(date('h:iA j/n/y')." $data[name] logged in using ".$_SERVER["REMOTE_ADDR"]."\n", 3, '/logs/user.log');
 header ('Location: http://service.mdwestserve.com/ps_worksheet.php');
 }
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
