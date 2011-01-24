@@ -1,7 +1,8 @@
 <?
 // client invoice to print | email?
 
-
+mysql_connect ();
+mysql_select_db ('core');
 
 // common in each pdf
 ini_set("memory_limit","12M");
@@ -29,12 +30,7 @@ function dbout($full){
 	return $out;
 }
 
-function db_connect($host,$database,$user,$password){
-	$step1 = @mysql_connect ();
-	$step2 = mysql_select_db ($database);
-	return mysql_error();
-}
-db_connect('delta.mdwestserve.com','core','root','zerohour');
+
 
 
 function log_action($user_id,$action){
@@ -231,7 +227,7 @@ fclose($fp);
 
 $invoiceName = str_replace('invoices','serviceInvoices',$dir).'/'.$filename;
 $invoiceName = str_replace('/data/service/','/',$invoiceName);
-//echo "<h1>$invoiceName</h1>";
+echo "<h1>$invoiceName</h1>";
 
 if($_COOKIE[psdata][name]){
 	$cookieName=$_COOKIE[psdata][name];
