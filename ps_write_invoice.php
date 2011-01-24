@@ -7,7 +7,7 @@
 ini_set("memory_limit","12M");
 //error_reporting(E_ALL);
 set_time_limit(1800);
-include '/sandbox/staff/class.ezpdf.php';
+include '/gitbox/Service-Office/class.ezpdf.php';
 // let's set the page size and the margins
 $pdf =& new Cezpdf('LETTER','portrait');
 $pdf -> ezSetMargins(50,70,50,50);
