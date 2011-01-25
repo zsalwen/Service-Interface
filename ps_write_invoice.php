@@ -1,13 +1,15 @@
 <?
+/*
 // client invoice to print | email?
 
-
+mysql_connect ();
+mysql_select_db ('core');
 
 // common in each pdf
 ini_set("memory_limit","12M");
 //error_reporting(E_ALL);
 set_time_limit(1800);
-include '/sandbox/staff/class.ezpdf.php';
+include '/gitbox/Service-Office/class.ezpdf.php';
 // let's set the page size and the margins
 $pdf =& new Cezpdf('LETTER','portrait');
 $pdf -> ezSetMargins(50,70,50,50);
@@ -29,12 +31,7 @@ function dbout($full){
 	return $out;
 }
 
-function db_connect($host,$database,$user,$password){
-	$step1 = @mysql_connect ();
-	$step2 = mysql_select_db ($database);
-	return mysql_error();
-}
-db_connect('delta.mdwestserve.com','core','root','zerohour');
+
 
 
 function log_action($user_id,$action){
@@ -231,7 +228,7 @@ fclose($fp);
 
 $invoiceName = str_replace('invoices','serviceInvoices',$dir).'/'.$filename;
 $invoiceName = str_replace('/data/service/','/',$invoiceName);
-//echo "<h1>$invoiceName</h1>";
+echo "<h1>$invoiceName</h1>";
 
 if($_COOKIE[psdata][name]){
 	$cookieName=$_COOKIE[psdata][name];
@@ -259,4 +256,7 @@ Your invoice (#<?=mysql_insert_id()?>) is loading in pop-up window.
 		hardLog('REQUESTING INVOICE FOR PACKET '.$_GET[id],'user');
 		mail('service@mdwestserve.com','INVOICE DETAILS REQUESTED FOR '.$_GET[id],'INVOICE INFORMATION REQUIRED FOR PACKET '.$_GET[id].' WITHIN 24 HOURS OF THIS REQUEST<br><a href="http://staff.mdwestserve.com/otd/order.php?packet='.$_GET[id].'">ENTER NOW</a>',$headers);
 		echo 'INVOICE INFORMATION FOR PACKET '.$_GET[id].' WILL BE AVAILABLE WITHIN 24 HOURS OF THIS REQUEST.';
-}?>
+}
+*/
+?>
+Please email service@mdwestserve.com for a copy of this invoice. -Patrick 1/24/2011
