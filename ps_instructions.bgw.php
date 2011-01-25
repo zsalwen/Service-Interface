@@ -106,7 +106,7 @@ foreach(range('e','a') as $letter){
 		<li>You cannot make two attempts at the same property on the same day.</li>
         <li><b>Posting</b> must be done <b>after</b> <u>all attempts</u> have been completed.</li>
         <li>Attempts are to be performed in order listed on service instructions.</li>
-		<li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9AM and 5PM.  Please avoid attempts between 8AM-9AM & 5PM-6PM.  "Good Faith" efforts must be made at different times of day.</b></li>
+		<li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9AM and 5PM.  Please avoid attempts between 8AM-9AM & 5PM-6PM.  "Good Faith" efforts must be made at different times of day, meaning that one attempt should be made <b>before</b> noon, and another afterwards, within reason.</b></li>
         <li>Photographs are required for <b>posting</b>s as well as <b>attempt</b>s.</li>
 		<li>If the address is a business, appears vacant, or the defendants are not known at the address, do not make a second attempt, but instead notify the office as soon as possible, and we will determine how to proceed.</li>
 		<li>Personal delivery can only be achieved in the following manner:
