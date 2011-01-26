@@ -19,22 +19,10 @@ function getPage($url, $referer, $timeout, $header){
 	
 }
 $id=$_GET[id];
-$query="SELECT attorneys_id FROM evictionPackets WHERE eviction_id='$id'";
-$result=@mysql_query($query);
-$data=mysql_fetch_array($result,MYSQL_ASSOC);
-if($data[attorneys_id] == '56'){
-	if ($_GET['autoSave'] == 1){
-		$typeC = getPage("http://service.mdwestserve.com/ev_instructions.brennan.php?id=$id&noField=1", 'MDWS Instructions Type C', '5', '');
-	}else{
-		$typeC = getPage("http://service.mdwestserve.com/ev_instructions.brennan.php?id=$id", 'MDWS Instructions Type C', '5', '');
-	}
-	echo $typeC;
+if ($_GET['autoSave'] == 1){
+	$typeA = getPage("http://service.mdwestserve.com/ev_instructions.php?id=$id&noField=1", 'MDWS Instructions Type A', '5', '');
 }else{
-	if ($_GET['autoSave'] == 1){
-		$typeA = getPage("http://service.mdwestserve.com/ev_instructions.php?id=$id&noField=1", 'MDWS Instructions Type A', '5', '');
-	}else{
-		$typeA = getPage("http://service.mdwestserve.com/ev_instructions.php?id=$id", 'MDWS Instructions Type A', '5', '');
-	}
-	echo $typeA;
+	$typeA = getPage("http://service.mdwestserve.com/ev_instructions.php?id=$id", 'MDWS Instructions Type A', '5', '');
 }
+echo $typeA;
 ?>
