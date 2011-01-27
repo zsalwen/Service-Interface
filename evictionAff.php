@@ -210,14 +210,14 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 		$article = "14-102 (d) (3) (A) (ii)";
 		$result = "MAILING AND POSTING";
 		if ($attempts != ''){
-				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the occupant, by personal delivery:</u></div>
+				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the occupant, by personal delivery:<br>I, [SERVERNAME], made the following efforts:</u></div>
 				".$attempts;
 			}elseif($attemptsa != ''){
-				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the occupant, by personal delivery:</u></div>
+				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the occupant, by personal delivery:<br>I, [SERVERNAME], made the following efforts:</u></div>
 				".$attemptsa;
 				$iID=$iIDa;
 			}
-			$history2 = "<div style='font-weight:300'><u>Include the date of the posting and a description of the location of the posting on the property:</u></div>".$posting;
+			$history2 = "<div style='font-weight:300'><u>Include the date of the posting and a description of the location of the posting on the property:<br>I, [SERVERNAME], posted the propety in the following manner:</u></div>".$posting;
 		if ($mailing == ''){
 			$history3 = "<div class='dim' style='font-weight:300'><u>State the date on which the required papers were mailed by first-class and certified mail, return receipt requested, and the address:</u>
 				<center><font size='36 px'>AWAITING MAILING<br>DO NOT FILE</font></center></div>";
@@ -282,10 +282,10 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$altDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$altDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($history)?></td>
+			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes(str_replace('[SERVERNAME]',$serverName,$history))?></td>
 		</tr>
 	<?
 	if ($iID == $iiID){
@@ -343,11 +343,11 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$altDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$altDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<? } ?>
 		<tr>
-			<td colspan="2" style="font-weight:bold; padding-left:20px"><?=stripslashes($history2)?></td>
+			<td colspan="2" style="font-weight:bold; padding-left:20px"><?=stripslashes(str_replace('[SERVERNAME]',$serverName,$history2))?></td>
 		</tr>       
 		<tr>
 			<td colspan="2">I solemnly affirm under the penalties of perjury that the contents of this <?=strtolower($amended)?>Affidavit are true and correct, to the best of my knowledge, information and belief.<br></td>
@@ -396,7 +396,7 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$altDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$altDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px"><?=stripslashes($history3)?></td>
@@ -459,7 +459,7 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$altDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$altDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 	<? if ($residentDesc){
 		$desc=strtoupper(str_replace('CO-A BORROWER IN THE ABOVE-REFERENCED CASE', 'A BORROWER IN THE ABOVE-REFERENCED CASE', str_replace('BORROWER','A BORROWER IN THE ABOVE-REFERENCED CASE', attorneyCustomLang($d1[attorneys_id],strtoupper($residentDesc)))));

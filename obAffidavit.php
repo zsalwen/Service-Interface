@@ -266,14 +266,14 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 		$article = "14-209(b)";
 		$result = "MAILING AND POSTING";
 		if ($attempts != ''){
-				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:</u></div>
+				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, [SERVERNAME], made the following efforts:</u></div>
 				".$attempts;
 			}elseif($attemptsa != ''){
-				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:</u></div>
+				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, [SERVERNAME], made the following efforts:</u></div>
 				".$attemptsa;
 				$iID=$iIDa;
 			}
-			$history2 = "<div style='font-weight:300'><u>Include the date of the posting and a description of the location of the posting on the property:</u></div>".$posting;
+			$history2 = "<div style='font-weight:300'><u>Include the date of the posting and a description of the location of the posting on the property:<br>I, [SERVERNAME], posted the propety in the following manner:</u></div>".$posting;
 		if ($mailing == ''){
 			$history3 = "<div class='dim' style='font-weight:300'><u>State the date on which the required papers were mailed by first-class and certified mail, return receipt requested, and the name and address of the addressee:</u>
 				<center><font size='36 px'>AWAITING MAILING<br>DO NOT FILE</font></center></div>";
@@ -328,9 +328,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	//Multiple servers' attemps begin here
 	//6th server
 	if ($iIDe){
-		$historye = "";
-		$historye = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:</u></div>
-				".$attemptse;
 	$r5=@mysql_query("SELECT * from ps_signatory where serverID='$iIDe' AND packetID='$packet'");
 	$d5=mysql_fetch_array($r5, MYSQL_ASSOC);
 	$serverName=$d5[name];
@@ -351,6 +348,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverZip=$d3[zip];
 	$serverPhone=$d3[phone];
 	}
+		$historye = "";
+		$historye = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, <?=$serverName?>, made the following efforts:</u></div>
+				".$attemptse;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>
 		<table width="80%" align="center" bgcolor="#FFFFFF" <? if (strtoupper($d1[affidavit_status]) != "SERVICE CONFIRMED"){ echo $dim;}?>>
@@ -362,7 +362,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($historye)?></td>
@@ -383,9 +383,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	ob_start();
 	//5th server
 	if ($iIDd){
-		$historyd = "";
-		$historyd = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:</u></div>
-				".$attemptsd;
 	 ?>
 		<table width="80%" align="center" bgcolor="#FFFFFF" <? if (strtoupper($d1[affidavit_status]) != "SERVICE CONFIRMED"){echo $dim;}?>>
 	<?
@@ -409,6 +406,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverZip=$d3[zip];
 	$serverPhone=$d3[phone];
 	}
+		$historyd = "";
+		$historyd = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, <?=$serverName?>, made the following efforts:</u></div>
+				".$attemptsd;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>        
 		<? echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
@@ -419,7 +419,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($historyd)?></td>
@@ -440,9 +440,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	ob_start();
 	//4th server
 	if ($iIDc){
-		$historyc = "";
-		$historyc = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:</u></div>
-				".$attemptsc;
 	?>
 		<table width="80%" align="center" bgcolor="#FFFFFF" <? if (strtoupper($d1[affidavit_status]) != "SERVICE CONFIRMED"){echo $dim;}?>>
 	<?
@@ -466,6 +463,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverZip=$d3[zip];
 	$serverPhone=$d3[phone];
 	}
+		$historyc = "";
+		$historyc = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, <?=$serverName?>, made the following efforts:</u></div>
+				".$attemptsc;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>
 		<? echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
@@ -476,7 +476,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($historyc)?></td>
@@ -498,9 +498,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	ob_start();
 	//3rd server
 	if ($iIDb){
-		$historyb = "";
-		$historyb = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:</u></div>
-				".$attemptsb;
 	?>
 		<table width="80%" align="center" bgcolor="#FFFFFF" <? if (strtoupper($d1[affidavit_status]) != "SERVICE CONFIRMED"){echo $dim;}?>>
 	<?
@@ -524,6 +521,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverZip=$d3[zip];
 	$serverPhone=$d3[phone];
 	}
+		$historyb = "";
+		$historyb = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, <?=$serverName?>, made the following efforts:</u></div>
+				".$attemptsb;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>   
 		<? echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
@@ -534,7 +534,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($historyb)?></td>
@@ -556,9 +556,6 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	ob_start();
 	//2nd server
 	if ($iIDa){
-		$historya = "";
-		$historya = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:</u></div>
-				".$attemptsa;
 	?>
 		<table width="80%" align="center" bgcolor="#FFFFFF" <? if (strtoupper($d1[affidavit_status]) != "SERVICE CONFIRMED"){echo $dim;}?>>
 	<?
@@ -582,6 +579,9 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverZip=$d3[zip];
 	$serverPhone=$d3[phone];
 	}
+		$historya = "";
+		$historya = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, <?=$serverName?>, made the following efforts:</u></div>
+				".$attemptsa;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>  
 		<? echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
@@ -592,7 +592,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($historya)?></td>
@@ -647,10 +647,10 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($history)?></td>
+			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes(str_replace('[SERVERNAME]',$serverName,$history))?></td>
 		</tr>
 	<?
 	if ($iID == $iiID){
@@ -708,11 +708,11 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<? } ?>
 		<tr>
-			<td colspan="2" style="font-weight:bold; padding-left:20px"><?=stripslashes($history2)?></td>
+			<td colspan="2" style="font-weight:bold; padding-left:20px"><?=stripslashes(str_replace('[SERVERNAME]',$serverName,$history2))?></td>
 		</tr>       
 		<tr>
 			<td colspan="2">I solemnly affirm under the penalties of perjury that the contents of this <?=strtolower($amended)?>affidavit are true and correct to the best of my knowledge, information and belief.<br></td>
@@ -761,7 +761,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px"><?=stripslashes($history3)?></td>
@@ -824,7 +824,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case by:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm the that the contents of the following amended affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 	<? if ($residentDesc){
 		$desc=strtoupper(str_replace('CO-A BORROWER IN THE ABOVE-REFERENCED CASE', 'A BORROWER IN THE ABOVE-REFERENCED CASE', str_replace('BORROWER','A BORROWER IN THE ABOVE-REFERENCED CASE', attorneyCustomLang($d1[attorneys_id],strtoupper($residentDesc)))));
