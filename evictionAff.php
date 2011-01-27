@@ -217,7 +217,7 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 				".$attemptsa;
 				$iID=$iIDa;
 			}
-			$history2 = "<div style='font-weight:300'><u>Include the date of the posting and a description of the location of the posting on the property:<br>I, [SERVERNAME], posted the propety in the following manner:</u></div>".$posting;
+			$history2 = "<div style='font-weight:300'><u>Include the date of the posting and a description of the location of the posting on the property:<br>I, [SERVERNAME], posted the property in the following manner:</u></div>".$posting;
 		if ($mailing == ''){
 			$history3 = "<div class='dim' style='font-weight:300'><u>State the date on which the required papers were mailed by first-class and certified mail, return receipt requested, and the address:</u>
 				<center><font size='36 px'>AWAITING MAILING<br>DO NOT FILE</font></center></div>";
