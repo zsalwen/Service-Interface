@@ -45,7 +45,7 @@ if ($item[history_id]){ ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="MAKE CORRECTION" /> MAKE CORRECTIONS</div>
 <? } ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="service_type" value="CHANGE SIGNATORY" /> CHANGE SIGNATORY</div>
-<? if ($item[history_id]){ ?>
+<? if ($item[history_id] || ($_COOKIE[psdata][level] == "Operations")){ ?>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="i" value="close.1" /> REQUEST CLOSE</div>
 <? 
 }
