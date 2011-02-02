@@ -395,10 +395,15 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 	}
 	if ($resMail != ''){
 		$name=$resMail;
-	}elseif((strtoupper($d1["onAffidavit$def"]) != "CHECKED") && ($def != 1)){
+	}elseif((strtoupper($d1["onAffidavit$def"]) != "CHECKED") && ($def != 1) && ($d1[attorneys_id] == 3)){
 		$name=strtoupper($d1["name$def"]);
 	}else{
-		$name="ALL OCCUPANTS";
+		$name=explode(' AT ',stripslashes($history3));
+		$name=explode('MAILED PAPERS TO ',$name[0]);
+		$name=trim($name[1]);
+		if ($name == ''){
+			$name="ALL OCCUPANTS";
+		}
 	}
 	$cord="EV".$d1[eviction_id]."-".$def."-".$serverID."%";
 	 echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
