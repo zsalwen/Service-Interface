@@ -209,15 +209,17 @@ function makeEntry($packet){
 	            }else{
 					$optList='';
 					//skip first defendant, to minimize any conflicts with data entry for all occupants
-				    $i2=1;
 				    echo "<option value='".$d[$idType]."-1'>1. ALL OCCUPANTS</option>";
-					while ($i2 < 6){$i2++;
-						if ($d["name$i2"] && (strtoupper($d["onAffidavit$i2"]) != 'CHECKED')){
-							$defCount++;
-							$optList .= "<option value='".$d[$idType]."-$i2'>".$i2.". ".substr($d["name$i2"],0,25)."</option>";
+					if ($d[attorneys_id] == 3){
+						$i2=1;
+						while ($i2 < 6){$i2++;
+							if ($d["name$i2"] && (strtoupper($d["onAffidavit$i2"]) != 'CHECKED')){
+								$defCount++;
+								$optList .= "<option value='".$d[$idType]."-$i2'>".$i2.". ".substr($d["name$i2"],0,25)."</option>";
+							}
 						}
-				    }
-					
+					}
+					echo $optList;
 				}
 				echo "</select></form>";  ?>
 			   </td></tr><tr><td >
