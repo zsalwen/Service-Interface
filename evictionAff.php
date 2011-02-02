@@ -156,6 +156,9 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 		$mailing .= $d4[action_str];
 		$crr=$d4[action_type];
 		$iiiID = $d4[serverID];
+		if ($resMail == ''){
+			$resMail = strtoupper($d4[resident]);
+		}
 	}
 	if ($mailing == ''){
 		$q4="SELECT * from evictionHistory where eviction_id = '$packet' AND defendant_id = '$def' and action_type = 'First Class Mailing' and onAffidavit='checked'";
@@ -164,6 +167,9 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 			$mailing .= $d4[action_str];
 			$iiiID = $d4[serverID];
 			$first = $d4[action_type];
+			if ($resMail == ''){
+				$resMail = strtoupper($d4[resident]);
+			}
 		}
 	}
 
@@ -387,6 +393,13 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 	$serverZip=$d3[zip];
 	$serverPhone=$d3[phone];
 	}
+	if ($resMail != ''){
+		$name=$resMail;
+	}elseif((strtoupper($d1["onAffidavit$def"]) != "CHECKED") && ($def != 1)){
+		$name=strtoupper($d1["name$def"]);
+	}else{
+		$name="ALL OCCUPANTS";
+	}
 	$cord="EV".$d1[eviction_id]."-".$def."-".$serverID."%";
 	 echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
 		<tr>
@@ -402,7 +415,7 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" style="font-weight:bold; padding-left:20px"><?=stripslashes($history3)?></td>
 		</tr>      
 		<tr <? if($noMail == 1){ echo 'class="dim"';}?>>
-			<td colspan="2">I solemnly affirm under the penalties of perjury that the contents of this <?=strtolower($amended)?>Affidavit are true and correct, to the best of my knowledge, information and belief.  And that I mailed the above papers under section 14-102 (d) (3) (A) (ii) to occupant.<br></td>
+			<td colspan="2">I solemnly affirm under the penalties of perjury that the contents of this <?=strtolower($amended)?>Affidavit are true and correct, to the best of my knowledge, information and belief.  And that I mailed the above papers under section 14-102 (d) (3) (A) (ii) to <?=$name?>.<br></td>
 		</tr>
 		<tr <? if($noMail == 1){ echo 'class="dim"';}?>>
 			<td colspan="2">I, <?=$serverName?>, certify that I am over eighteen years old and not a party to this action.<br /></td>
