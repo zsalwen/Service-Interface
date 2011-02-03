@@ -69,21 +69,21 @@ if ($data2 == ''){
 	$query="SELECT attorneys_id, circuit_court, lossMit FROM ps_packets WHERE packet_id='$packet'";
 	$result=@mysql_query($query);
 	$data=mysql_fetch_array($result,MYSQL_ASSOC);
-	if($data[attorneys_id] == '56'){
+	if($data[attorneys_id] == 56){
 		if ($_GET['autoSave'] == 1){
 			$typeC = getPage("http://service.mdwestserve.com/ps_instructions.brennan.php?packet=$packet&noField=1", 'MDWS Instructions Type C', '5', '');
 		}else{
 			$typeC = getPage("http://service.mdwestserve.com/ps_instructions.brennan.php?packet=$packet", 'MDWS Instructions Type C', '5', '');
 		}
 		echo $typeC;
-	}elseif($data[attorneys_id] == '1'){
+	}elseif($data[attorneys_id] == 1){
 		if ($_GET['autoSave'] == 1){
 			$typeB = getPage("http://service.mdwestserve.com/ps_instructions.burson.php?packet=$packet&noField=1", 'MDWS Instructions Type B', '5', '');
 		}else{
 			$typeB = getPage("http://service.mdwestserve.com/ps_instructions.burson.php?packet=$packet", 'MDWS Instructions Type B', '5', '');
 		}
 		echo $typeB;
-	}elseif($data[attorneys_id] == '70'){
+	}elseif($data[attorneys_id] == 70 || $data[attorneys_id] == 80){
 		if ($_GET['autoSave'] == 1){
 			$typeD = getPage("http://service.mdwestserve.com/ps_instructions.bgw.php?packet=$packet&noField=1", 'MDWS Instructions Type D', '5', '');
 		}else{
