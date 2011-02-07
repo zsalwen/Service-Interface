@@ -348,7 +348,6 @@ if (is_array($_POST[served])){
 <table align="center" style="padding:0px;"><tr><td valign="top">
 <? } ?>
 <table align="center" style="padding:0px;"><tr><td>
-<form enctype="multipart/form-data" id="wizard" name="wizard" onSubmit="hideshow(document.getElementById('loading'))" method="post">
 <fieldset style="background-color:#FFFFFF;"><legend style=" background-color:#FFFFCC; border:double 1px #999999; padding:5px;">
 <? if($_COOKIE[psdata][level]=="Operations" && $_POST[opServer] != ''){ echo id2name($_POST[opServer])."*<br>"; }?>
 <? if ($_COOKIE[psdata][level] == 'Operations'){ ?> <a href="http://staff.mdwestserve.com/ev/order.php?packet=<?=$ddr[eviction_id]?>" target="_blank">(<?=id2attorney($ddr[attorneys_id]);?>)</a> - 
@@ -358,6 +357,7 @@ if (is_array($_POST[served])){
 <?
 include "http://service.mdwestserve.com/penalize.php?packet=$packet&svc=EV&defendant=$defendant";
 } ?>
+<form enctype="multipart/form-data" id="wizard" name="wizard" onSubmit="hideshow(document.getElementById('loading'))" method="post" style='display:inline;'>
 <? if($_GET[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_GET[mailDate];} ?>
 <? if($_POST[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_POST[mailDate];} ?><br>
 <?=strtoupper($dname)?><br /><small><?=strtoupper($daddy)?></small><br />
