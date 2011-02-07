@@ -349,7 +349,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverPhone=$d3[phone];
 	}
 		$historye = "";
-		$historye = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, <?=$serverName?>, made the following efforts:</u></div>
+		$historye = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, $serverName, made the following efforts:</u></div>
 				".$attemptse;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>
@@ -407,7 +407,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverPhone=$d3[phone];
 	}
 		$historyd = "";
-		$historyd = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, <?=$serverName?>, made the following efforts:</u></div>
+		$historyd = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, $serverName, made the following efforts:</u></div>
 				".$attemptsd;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>        
@@ -464,7 +464,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverPhone=$d3[phone];
 	}
 		$historyc = "";
-		$historyc = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, <?=$serverName?>, made the following efforts:</u></div>
+		$historyc = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, $serverName, made the following efforts:</u></div>
 				".$attemptsc;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>
@@ -522,7 +522,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverPhone=$d3[phone];
 	}
 		$historyb = "";
-		$historyb = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, <?=$serverName?>, made the following efforts:</u></div>
+		$historyb = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, $serverName, made the following efforts:</u></div>
 				".$attemptsb;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>   
@@ -580,7 +580,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverPhone=$d3[phone];
 	}
 		$historya = "";
-		$historya = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, <?=$serverName?>, made the following efforts:</u></div>
+		$historya = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the mortgagor or grantor, ".$d1["name$def"].",  by personal delivery:<br>I, $serverName, made the following efforts:</u></div>
 				".$attemptsa;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>  
