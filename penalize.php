@@ -96,7 +96,7 @@ body, form {padding:0px;}
 <input type='hidden' name='defendant' value='<?=$_GET[defendant]?>'>
 <table style='background-color:#FF3300; padding:0px; border-collapse:collapse;' border='0'>
 	<tr>
-		<td><b>PENALIZE:</b> <select name='server'><?=serverList2($_GET[packet],$table,$idType)?></select> <b>REASON:</b> <input size='30' name='desc'> <input type='submit' name='submit' value='Submit'></td>
+		<td><b>PENALIZE:</b> <select name='server'><?=serverList2($_GET[packet],$table,$idType)?></select><br><b>REASON:</b> <input size='30' name='desc'> <input type='submit' name='submit' value='Submit'></td>
 	</tr>
 </table>
 </form>
