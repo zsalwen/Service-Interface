@@ -87,11 +87,11 @@ if ($_GET[svc] == 'EV'){
 	$table='ps_packets';
 }
 ?>
-<form method="post">
+<form method="post" style='display:inline;'>
 <input type='hidden' name='packet' value='<?=$_GET[packet]?>'>
 <input type='hidden' name='svc' value='<?=$_GET[svc]?>'>
 <input type='hidden' name='defendant' value='<?=$_GET[defendant]?>'>
-<table style='background-color:#FF3300;'>
+<table style='background-color:#FF3300; padding:0px; border-collapse:collapse;' border='0'>
 	<tr>
 		<td><b>PENALIZE:</b> <select name='server'><?=serverList2($_GET[packet],$table,$idType)?></select> <b>REASON:</b> <input size='30' name='desc'> <input type='submit' name='submit' value='Submit'></td>
 	</tr>
