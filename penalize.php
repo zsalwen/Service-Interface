@@ -5,16 +5,22 @@ include 'common.php';
 function serverList2($packet,$table,$idType){
 	$list='';
 	$i=0;
-	$q="SELECT server_id, server_ida, server_idb, server_idc, server_idd, server_ide FROM $table WHERE $idType='$packet' LIMIT 0,1";
+	$fields="server_id";
+	if ($idType != 'eviction_id'){
+		$fields .= ", server_ida, server_idb, server_idc, server_idd, server_ide";
+	}
+	$q="SELECT $fields FROM $table WHERE $idType='$packet' LIMIT 0,1";
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	if ($d[server_id] != 218 && $d[server_id] != ''){$i++;
 		$list .= "<option value='$d[server_id]'>".id2name($d[server_id])."</option>";
 	}
-	foreach(range('a','e') as $letter){
-		$test="value='".$d["server_id$letter"]."'";
-		if ($d["server_id$letter"] != 218 && $d["server_id$letter"] != '' && (strpos($list,$test) !== true)){$i++;
-			$list .= "<option value='".$d["server_id$letter"]."'>".id2name($d["server_id$letter"])."</option>";
+	if ($idType != 'eviction_id'){
+		foreach(range('a','e') as $letter){
+			$test="value='".$d["server_id$letter"]."'";
+			if ($d["server_id$letter"] != 218 && $d["server_id$letter"] != '' && (strpos($list,$test) !== true)){$i++;
+				$list .= "<option value='".$d["server_id$letter"]."'>".id2name($d["server_id$letter"])."</option>";
+			}
 		}
 	}
 	return $list;
