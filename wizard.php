@@ -463,7 +463,10 @@ DEFENDANT: <a href="wizard.php?jump=<?=$packet?>-1<? if ($mailDate){ echo "&mail
 <? if ($_COOKIE[psdata][level] == 'Operations'){ ?> <a href="http://staff.mdwestserve.com/otd/order.php?packet=<?=$ddr[packet_id]?>" target="_blank">(<?=id2attorney($ddr[attorneys_id]);?>)</a> - 
 <a href="customInstructions.php?packet=<?=$ddr[packet_id]?>" target="_blank">INSTRUCTIONS</a> - 
 <a href="http://staff.mdwestserve.com/otd/serviceSheet.php?packet=<?=$packet?>&autoPrint=1" target="_blank">CHECKLIST</a> - 
-<a href="http://staff.mdwestserve.com/otd/historyModify.php?packet=<?=$packet?>" target="_blank">MODIFY</a><? } ?>
+<a href="http://staff.mdwestserve.com/otd/historyModify.php?packet=<?=$packet?>" target="_blank">MODIFY</a>
+<? 
+include "http://service.mdwestserve.com/penalize.php?packet=$packet&svc=OTD&defendant=$defendant";
+} ?>
 <? if($_GET[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_GET[mailDate];} ?>
 <? if($_POST[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_POST[mailDate];} ?><br>
 <?=strtoupper($dname)?><br /><small><?=strtoupper($daddy)?></small><?=$daddya?><?=$daddyb?><?=$daddyc?><?=$daddyd?><?=$daddye?><? if ($_COOKIE["psdata"]["level"] == "Operations"){echo $daddypo;}?><br />

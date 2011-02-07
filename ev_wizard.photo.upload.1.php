@@ -1,7 +1,7 @@
 1) Select Photograph to Upload<br />
 <input size="50" name="upload" type="file" /><br />
 2) Select Action / Address<br />
-<? foreach(range('a','m') as $letter){ 
+<? foreach(range('a','c') as $letter){ 
 if (photoAddress($packet,$defendant,$letter) != ''){
 ?>
 <div class="photo<?=$letter?>"><input onClick="submitLoader()" type="radio" name="photo" value="<?=$letter?>" /> <?=alpha2desc($letter);?> at <?=strtoupper(photoAddress($packet,$defendant,$letter))?></div>
