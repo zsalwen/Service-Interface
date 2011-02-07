@@ -272,9 +272,9 @@ function serverFiled($county, $server){
 function photoCount($packet,$defendant){
 	$count=0;
 	if ($defendant == 'ALL'){
-		$q="SELECT * ps_photos WHERE packetID='$packet'";
+		$q="SELECT * FROM ps_photos WHERE packetID='$packet'";
 	}else{
-		$q="SELECT * ps_photos WHERE packetID='$packet' AND defendantID='$defendant'";
+		$q="SELECT * FROM ps_photos WHERE packetID='$packet' AND defendantID='$defendant'";
 	}
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 	while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){$count++;	}
