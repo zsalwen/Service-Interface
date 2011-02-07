@@ -23,22 +23,16 @@ fieldset, legend, div, table {padding:0px;}
 </style>
 <?
 $packet=$_GET[packet];
-$q="SELECT photo1a, photo1b, photo1c, photo2a, photo2b, photo2c, photo3a, photo3b, photo3c, photo4a, photo4b, photo4c, photo5a, photo5b, photo5c, photo6a, photo6b, photo6c, name1, name2, name3, name4, name5, name6 FROM evictionPackets WHERE eviction_id='$packet'";
+$def=$_GET[defendant];
+$q="SELECT name1, name2, name3, name4, name5, name6 FROM evictionPackets WHERE eviction_id='$packet'";
 $r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 $d=mysql_fetch_array($r,MYSQL_ASSOC);
+$html=trim(getPage("http://data.mdwestserve.com/findPhotos.php?packet=EV$packet&def=$def", 'MDWS Find Photos', '5', ''));
 echo "<table align='center' valign='top'><tr>";
-$i=$_GET[defendant];
-if ($d["name$i"]){
-	echo "<td valign='top'><fieldset><legend>".strtoupper($d["name$i"])."</legend>";
-	foreach(range('a','c') as $letter){ 
-		$photoLink="photo".$i.$letter;
-		$photo=str_replace('http://mdwestserve.com/ps/','http://service.mdwestserve.com/',$d["$photoLink"]);
-		if ($d["$photoLink"] != ''){
-			echo "<div><a href='".$photo."' target='_blank'><img src='".$photo."' height='250' width='400'><br>".alpha2desc($letter)."</a></div>";
-		}
-	
-	}
-echo "</fieldset></td>";
+if ($d["name$def"]){
+	echo "<td valign='top'><fieldset><legend>".strtoupper($d["name$def"])."</legend>";
+	echo $html;
+	echo "</fieldset></td>";
 }
 
 echo "</tr></table>";

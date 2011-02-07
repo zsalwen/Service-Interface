@@ -9,9 +9,10 @@ $file = $ddr["photo".$defendant.$_POST['photo']];
 		$headers .= "Content-type: text/html; charset=iso-8859-1 \n";
 		$headers .= "From: $from \n";
 //		mail($to,$subject,$info.$history,$headers);
-@mysql_query("UPDATE evictionPackets set $field = '' WHERE eviction_id='$packet' ");
+//@mysql_query("UPDATE evictionPackets set $field = '' WHERE eviction_id='$packet' ");
+@mysql_query("UPDATE ps_photos SET packetID='' WHERE photoID='$_POST[photo]'");
 $user = $_COOKIE[psdata][user_id];
-mkAlert('REMOVED PHOTO',$user,$user,$packet);
+mkAlert('REMOVED PHOTO FOR EV$packet',$user,$user,$packet);
  ?>
 Photo Removed...<br>
 <div class="nav2"><input onClick="submitLoader()" type="radio" name="i" value="photo.review" /> NEXT</div>

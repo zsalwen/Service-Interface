@@ -59,25 +59,45 @@ function photoCount($packet){
 function photoCheckList($server_id,$display){
 	$i=0;
 	$lateTotal='';
-	$data .= "<div id='$server_id' style='display:$display;'><table align='center' border='1' style='border-collapse:collapse; border-style:solid 1px; padding:0px;'><tr><td>#</td><td>Filing Date</td><td># of Days Late</td><td>Photo Links (if they exist)</td><td>Packet #</td></tr>";
-	$r=@mysql_query("select packet_id, fileDate, photo1a, photo1b, photo1c from ps_packets WHERE server_id='$server_id' AND service_status = 'MAILING AND POSTING' and status <> 'CANCELLED' order by date_received DESC");
+	$data .= "<div id='$server_id' style='display:$display;'><table align='center' border='1' style='border-collapse:collapse; border-style:solid 1px; padding:0px;'><tr><td>#</td><td>Filing Date</td><td># of Days Late</td><td>Packet #</td></tr>";
+	$r=@mysql_query("select packet_id, fileDate from ps_packets WHERE server_id='$server_id' AND service_status = 'MAILING AND POSTING' and status <> 'CANCELLED' order by date_received DESC");
 	while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){
 		if (photoCount($d[packet_id]) == 0){
-			if (testLink2($d[photo1c]) == 1){$_SESSION[fileCount]++;
+			$now=time();
+			if ($d[fileDate] != '0000-00-00'){
 				$fileCount++;
-				$now=time();
-				if ($d[fileDate] != '0000-00-00'){
-					$fileDate=strtotime($d[fileDate]);
-					$late=number_format(($now-$fileDate)/86400,0);
-					$lateTotal=$lateTotal+$late;
-				}else{
-					$late="UNIDENTIFIABLE";
-				}
-				$data .= "<tr bgcolor='".colorCode($late)."'><td>$fileCount</td><td>$d[fileDate]</td><td align='center'>$late</td><td>".$d[photo1a].' '.$d[photo1b]."</td><td><a href='wizard.php?jump=$d[packet_id]-1&photojump=1' target='_blank'>$d[packet_id]</a></td></tr>";
+				$_SESSION[fileCount]++;
+				$fileDate=strtotime($d[fileDate]);
+				$late=number_format(($now-$fileDate)/86400,0);
+				$lateTotal=$lateTotal+$late;
+			}else{
+				$late="UNIDENTIFIABLE";
 			}
+			$data .= "<tr bgcolor='".colorCode($late)."'><td>$fileCount</td><td>$d[fileDate]</td><td align='center'>$late</td><td><a href='wizard.php?jump=$d[packet_id]-1&photojump=1' target='_blank'>$d[packet_id]</a></td></tr>";
 		}
 	}
-	$avg=number_format($lateTotal/$fileCount,2);
+	$r=@mysql_query("select fileDate, eviction_id from evictionPackets WHERE server_id='$server_id' AND service_status = 'MAILING AND POSTING' and status <> 'CANCELLED' order by date_received DESC");
+	while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){
+		if (photoCount("EV".$d[eviction_id]) == 0){
+			$now=time();
+			if ($d[fileDate] != '0000-00-00'){
+				$fileCount++;
+				$_SESSION[fileCount]++;
+				$fileDate=strtotime($d[fileDate]);
+				$late=number_format(($now-$fileDate)/86400,0);
+				$lateTotal=$lateTotal+$late;
+			}else{
+				$late="UNIDENTIFIABLE";
+			}
+			$data .= "<tr bgcolor='".colorCode($late)."'><td>$fileCount</td><td>$d[fileDate]</td><td align='center'>$late</td><td><a href='ev_wizard.php?jump=$d[eviction_id]-1&photojump=1' target='_blank'>EV$d[eviction_id]</a></td></tr>";
+		}
+	}
+
+	if ($fileCount != 0){
+		$avg=number_format($lateTotal/$fileCount,2);
+	}else{
+		$avg=0;
+	}
 	$data .= "</table></div><center style='font-size:16px; padding:0px;'>".id2name($server_id)." has $fileCount files missing photographs, over an average of $avg days.</center>";
 	return $data;
 }?>	

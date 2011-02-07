@@ -40,6 +40,14 @@ function alpha2desc($alpha){
 	if ($alpha == 'l'){ return "FIRST ALT ATTEMPT"; }
 	if ($alpha == 'm'){ return "SECOND ALT ATTEMPT"; }
 }
+function alpha2add($alpha){
+	if ($alpha == 'a' || $alpha == 'b' || $alpha == 'c'){ return 1; }
+	if ($alpha == 'd' || $alpha == 'e'){ return 2; }
+	if ($alpha == 'f' || $alpha == 'g'){ return 3; }
+	if ($alpha == 'i' || $alpha == 'h'){ return 4; }
+	if ($alpha == 'j' || $alpha == 'k'){ return 5; }
+	if ($alpha == 'l' || $alpha == 'm'){ return 6; }
+}
 function photoAddress($packet,$defendant,$alpha){
 	$r=@mysql_query("SELECT * from ps_packets where packet_id = '$packet'");
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
@@ -262,15 +270,14 @@ function serverFiled($county, $server){
 	}
 }
 function photoCount($packet,$defendant){
-	if ($defendant == 'ALL'){ $defendant=1;}
 	$count=0;
-	$q="SELECT photo1a, photo2a, photo3a, photo4a, photo5a, photo6a, photo1b, photo2b, photo3b, photo4b, photo5b, photo6b, photo1c, photo2c, photo3c, photo4c, photo5c, photo6c, photo1d, photo2d, photo3d, photo4d, photo5d, photo6d, photo1e, photo2e, photo3e, photo4e, photo5e, photo6e, photo1f, photo2f, photo3f, photo4f, photo5f, photo6f, photo1g, photo2g, photo3g, photo4g, photo5g, photo6g, photo1h, photo2h, photo3h, photo4h, photo5h, photo6h, photo1i, photo2i, photo3i, photo4i, photo5i, photo6i, photo1j, photo2j, photo3j, photo4j, photo5j, photo6j, photo1k, photo2k, photo3k, photo4k, photo5k, photo6k, photo1l, photo2l, photo3l, photo4l, photo5l, photo6l, photo1m, photo2m, photo3m, photo4m, photo5m, photo6m FROM ps_packets WHERE packet_id='$packet'";
-	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
-	$d=mysql_fetch_array($r,MYSQL_ASSOC);
-	foreach(range('a','m') as $letter){
-		$current="photo".$defendant.$letter;
-		if($d["$current"] != ''){$count++;}
+	if ($defendant == 'ALL'){
+		$q="SELECT * ps_photos WHERE packetID='$packet'";
+	}else{
+		$q="SELECT * ps_photos WHERE packetID='$packet' AND defendantID='$defendant'";
 	}
+	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
+	while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){$count++;	}
 	return $count;
 }
 function historyList($packet,$attorneys_id){
@@ -321,6 +328,24 @@ function getAddressType($address){
 		$return='KNOWN ADDRESS';
 	}
 	return $return;
+}
+function getLetter($str){
+	$str=str_replace('/data/service/photos/','',$str);
+	$str=str_replace('-','.',$str);
+	//if file is in packet folder
+	if (strpos($str,'/') !== false){
+		$explode=explode('.',$str);
+		$letter=$explode[1];
+	}else{
+		$explode=explode('.',$str);
+		$letter=$explode[2];
+	}
+	return $letter;
+}
+function getPhoto($photoID){
+	$r=@mysql_query("SELECT * from ps_photos WHERE photoID='$photoID' LIMIT 0,1");
+	$d=mysql_fetch_array($r, MYSQL_ASSOC);
+	return $d[localPath];
 }
 mysql_select_db ('core');
 $qqr = @mysql_query("SELECT * from ps_packets where packet_id = '$packet'");

@@ -225,30 +225,31 @@ function serverFiled($county, $server){
 	}
 }
 function photoCount($packet,$defendant){
+	$packet="EV".$packet;
 	$count=0;
-	$q="SELECT photo1a, photo1b, photo1c FROM evictionPackets WHERE eviction_id='$packet'";
-	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
-	$d=mysql_fetch_array($r,MYSQL_ASSOC);
-	foreach(range('a','c') as $letter){
-		$current="photo1".$letter;
-		if($d["$current"] != ''){$count++;}
+	if ($defendant == 'ALL'){
+		$q="SELECT * ps_photos WHERE packetID='$packet'";
+	}else{
+		$q="SELECT * ps_photos WHERE packetID='$packet' AND defendantID='$defendant'";
 	}
+	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
+	while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){$count++;	}
 	return $count;
 }
 function historyList($packet,$attorneys_id){
 	$qn="SELECT * FROM evictionHistory WHERE eviction_id = '$packet' order by defendant_id, history_id ASC";
-		$rn=@mysql_query($qn) or die ("Query: $qn<br>".mysql_error());
-		$counter=0;
-		while ($dn=mysql_fetch_array($rn, MYSQL_ASSOC)){$counter++;
-			$action_str=str_replace('<LI>','',strtoupper($dn[action_str]));
-			$action_str=str_replace('</LI>','',$action_str);
-				$list .=  "<li>#$dn[history_id] : ".id2server($dn[serverID]).' '.$dn[wizard].'<br>'.stripslashes(attorneyCustomLang($attorneys_id,$action_str));
-				if ($dn[wizard] == 'BORROWER' || $dn[wizard] == 'NOT BORROWER'){
-					$list .=  '<br>'.attorneyCustomLang($attorneys_id,$dn[residentDesc]);
-				}
-				$list .= "</li>";
-		}
-		return $list;
+	$rn=@mysql_query($qn) or die ("Query: $qn<br>".mysql_error());
+	$counter=0;
+	while ($dn=mysql_fetch_array($rn, MYSQL_ASSOC)){$counter++;
+		$action_str=str_replace('<LI>','',strtoupper($dn[action_str]));
+		$action_str=str_replace('</LI>','',$action_str);
+			$list .=  "<li>#$dn[history_id] : ".id2server($dn[serverID]).' '.$dn[wizard].'<br>'.stripslashes(attorneyCustomLang($attorneys_id,$action_str));
+			if ($dn[wizard] == 'BORROWER' || $dn[wizard] == 'NOT BORROWER'){
+				$list .=  '<br>'.attorneyCustomLang($attorneys_id,$dn[residentDesc]);
+			}
+			$list .= "</li>";
+	}
+	return $list;
 }
 function explodeDesc($str){
 	$desc=explode('<BR>',$str);
@@ -260,6 +261,24 @@ function explodeAge($str){
 	$age=explode(', ',$age[0]);
 	$count=count($age)-1;
 	return trim($age["$count"]);
+}
+function getLetter($str){
+	$str=str_replace('/data/service/photos/','',$str);
+	$str=str_replace('-','.',$str);
+	//if file is in packet folder
+	if (strpos($str,'/') !== false){
+		$explode=explode('.',$str);
+		$letter=$explode[1];
+	}else{
+		$explode=explode('.',$str);
+		$letter=$explode[2];
+	}
+	return $letter;
+}
+function getPhoto($photoID){
+	$r=@mysql_query("SELECT * from ps_photos WHERE photoID='$photoID' LIMIT 0,1");
+	$d=mysql_fetch_array($r, MYSQL_ASSOC);
+	return $d[localPath];
 }
 mysql_select_db ('core');
 $qqr = @mysql_query("SELECT * from evictionPackets where eviction_id = '$packet'");
