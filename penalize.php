@@ -87,6 +87,9 @@ if ($_GET[svc] == 'EV'){
 	$table='ps_packets';
 }
 ?>
+<style>
+body, form {padding:0px;}
+</style>
 <form method="post" style='display:inline;'>
 <input type='hidden' name='packet' value='<?=$_GET[packet]?>'>
 <input type='hidden' name='svc' value='<?=$_GET[svc]?>'>
