@@ -32,8 +32,8 @@ function photoAddress($packet,$defendant,$alpha){
 	$r=@mysql_query("SELECT * from evictionPackets where eviction_id = '$packet'");
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
 	if ($alpha == "a" || $alpha == "b"|| $alpha == "c"){
-		if ($d["address$defendant"]){
-			return $d["address$defendant"].", ".$d["state$defendant"];
+		if ($d["address1"]){
+			return $d["address1"].", ".$d["state1"];
 		}
 	}
 }
