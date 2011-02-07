@@ -85,7 +85,7 @@ function serverList2($packet,$table,$idType){
 }
 if ($_POST[submit]){
 	$desc=addslashes(strtoupper($_POST[desc]));
-	$q="INSERT INTO ps_penalties (desc,packetID,product,defendantID,serverID,entryDate,entryID) values ('$desc','$_POST[packet]','$_POST[svc]','$_POST[defendant]','$_POST[server]',NOW(),'".$_COOKIE[psdata][user_id]."')";
+	$q="INSERT INTO ps_penalties (description,packetID,product,defendantID,serverID,entryDate,entryID) values ('$desc','$_POST[packet]','$_POST[svc]','$_POST[defendant]','$_POST[server]',NOW(),'".$_COOKIE[psdata][user_id]."')";
 	@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 	$entry=$_COOKIE[psdata][name]." Penalized ".id2name($_POST[server])." For ".$desc;
 	if ($_POST[svc] == 'EV'){
