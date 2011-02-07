@@ -2,6 +2,20 @@
 mysql_connect();
 mysql_select_db('core');
 //include 'common.php';
+function hardLog($str,$type){
+	if ($type == "user"){
+		$log = "/logs/user.log";
+	}
+	if ($type == "contractor"){
+		$log = "/logs/contractor.log";
+	}
+	if ($type == "debug"){
+		$log = "/logs/debug.log";
+	}
+	if ($log){
+		error_log(date('h:iA n/j/y')." ".$_COOKIE[psdata][name]." ".$_SERVER["REMOTE_ADDR"]." ".trim($str)."\n", 3, $log);
+	}
+}
 function timeline($id,$note){
  	error_log("[".date('h:iA n/j/y')."] [".$_COOKIE[psdata][name]."] [".trim($id)."] [".trim($note)."] \n", 3, '/logs/timeline.log');
 
