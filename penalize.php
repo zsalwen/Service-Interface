@@ -1,7 +1,51 @@
 <?
 mysql_connect();
 mysql_select_db('core');
-include 'common.php';
+//include 'common.php';
+function timeline($id,$note){
+ 	error_log("[".date('h:iA n/j/y')."] [".$_COOKIE[psdata][name]."] [".trim($id)."] [".trim($note)."] \n", 3, '/logs/timeline.log');
+
+	mysql_select_db ('core');
+	hardLog("$note for packet $id",'user');
+
+	$q1 = "SELECT timeline FROM ps_packets WHERE packet_id = '$id'";
+	$r1 = @mysql_query ($q1) or die(mysql_error());
+	$d1 = mysql_fetch_array($r1, MYSQL_ASSOC);
+	$access=date('m/d/y g:i A');
+	if ($d1[timeline] != ''){
+		$notes = $d1[timeline]."<br>$access: ".$note;
+	}else{
+		$notes = $access.': '.$note;
+	}
+	$notes = addslashes($notes);
+	$q1 = "UPDATE ps_packets set timeline='$notes' WHERE packet_id = '$id'";		
+	$r1 = @mysql_query ($q1) or die(mysql_error());
+	//@mysql_query("insert into syslog (logTime, event) values (NOW(), 'Packet $id: $note')");
+}
+ function ev_timeline($id,$note){
+	mysql_select_db ('core');
+	hardLog("$note for eviction packet $id",'user');
+
+	$q1 = "SELECT timeline FROM evictionPackets WHERE eviction_id = '$id'";		
+	$r1 = @mysql_query ($q1) or die(mysql_error());
+	$d1 = mysql_fetch_array($r1, MYSQL_ASSOC);
+	$access=date('m/d/y g:i A');
+	if ($d1[timeline] != ''){
+		$notes = $d1[timeline]."<br>$access: ".$note;
+	}else{
+		$notes = $access.': '.$note;
+	}
+	$notes = addslashes($notes);
+	$q1 = "UPDATE evictionPackets set timeline='$notes' WHERE eviction_id = '$id'";		
+	$r1 = @mysql_query ($q1) or die(mysql_error());
+	//@mysql_query("insert into syslog (logTime, event) values (NOW(), 'Packet $id: $note')");
+}
+function id2name($id){
+	$q="SELECT name FROM ps_users WHERE id = '$id'";
+	$r=@mysql_query($q);
+	$d=mysql_fetch_array($r, MYSQL_ASSOC);
+return $d[name];
+}
 function serverList2($packet,$table,$idType){
 	$list='';
 	$i=0;
