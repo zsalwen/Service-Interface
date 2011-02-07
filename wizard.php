@@ -464,7 +464,7 @@ DEFENDANT: <a href="wizard.php?jump=<?=$packet?>-1<? if ($mailDate){ echo "&mail
 <a href="customInstructions.php?packet=<?=$ddr[packet_id]?>" target="_blank">INSTRUCTIONS</a> - 
 <a href="http://staff.mdwestserve.com/otd/serviceSheet.php?packet=<?=$packet?>&autoPrint=1" target="_blank">CHECKLIST</a> - 
 <a href="http://staff.mdwestserve.com/otd/historyModify.php?packet=<?=$packet?>" target="_blank">MODIFY</a>
-<br><iframe width="600px" height="45px" src="http://service.mdwestserve.com/penalize.php?packet=<?=$packet?>&svc=OTD&defendant=<?=$defendant?>" border='0' ></iframe>
+<br><iframe width="600px" height="45px" src="http://service.mdwestserve.com/penalize.php?packet=<?=$packet?>&svc=OTD&defendant=<?=$defendant?>" frameborder='0' ></iframe>
 <? } ?>
 <? if($_GET[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_GET[mailDate];} ?>
 <? if($_POST[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_POST[mailDate];} ?><br>

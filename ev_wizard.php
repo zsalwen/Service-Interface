@@ -355,7 +355,7 @@ if (is_array($_POST[served])){
 <a href="http://staff.mdwestserve.com/ev/ev_instructions.<? if($ddr[attorneys_id] == 56){ echo 'brennan.';}?>php?id=<?=$ddr[eviction_id]?>" target="_blank">INSTRUCTIONS</a> - 
 <a href="http://staff.mdwestserve.com/ev/evSheet.php?id=<?=$packet?>&autoPrint=1" target="_blank">CHECKLIST</a> - 
 <a href="http://staff.mdwestserve.com/ev/evictionHistoryModify.php?id=<?=$packet?>" target="_blank">MODIFY</a>
-<br><iframe width="600px" height="45px" src="http://service.mdwestserve.com/penalize.php?packet=<?=$packet?>&svc=EV&defendant=<?=$defendant?>" border='0'></iframe>
+<br><iframe src="http://service.mdwestserve.com/penalize.php?packet=<?=$packet?>&svc=EV&defendant=<?=$defendant?>" frameborder='0'></iframe>
 <? } ?>
 <? if($_GET[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_GET[mailDate];} ?>
 <? if($_POST[mailDate]){echo "<br>Updating Mailing Affidavits for the date: ".$_POST[mailDate];} ?><br>
