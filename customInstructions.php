@@ -175,24 +175,22 @@ if ($data2 == ''){
 	if ($data2[envInstruct] == 'GREEN'){
 		//if file is a final or preliminary, instruct to include available envelope stuffings
 		$toAttorney=id2attorneyName($data[attorneys_id]);
-		$toCounty=county2envelope2($data[circuit_court]);
-		$lossMit="Per Maryland law HB472, be sure to include the #10 envelopes that we have sent you.  ";
-		if ($data[lossMit] == 'PRELIMINARY'){
-			//if preliminary, instruct to include one envelope to client
-			$lossMit .= "One GREEN envelope should be included with the service documents for each defendant, addressed to '$toAttorney'.";
-		}else{
+		//if preliminary, instruct to include one envelope to client
+		$lossMit = "Per Maryland law HB472, please include one of the provided <u><b>GREEN</b></u>, preprinted #10 envelope addressed to '$toAttorney'";
+		if ($data[lossMit] == 'FINAL'){
 			//if final, instruct to include two envelopes: one to court and one to client
-			$lossMit .= "Two envelopes should be included with the service documents for each defendant (one GREEN envelope addressed to '$toAttorney', and a WHITE envelope addressed to '$toCounty').";
+			$toCounty=county2envelope2($data[circuit_court]);
+			$lossMit .= " and another <u><b>GREEN</b></u>, preprinted #10 envelope addressed to '".$toCounty."'";
 		}
 		echo "<span style='font-variant:small-caps; font-style:italic;'>$lossMit</span>";
 	}elseif($data2[envInstruct] == 'WHITE'){
 		//if file requires white BGW-style envelopes, then instruct to include envelope for attorney
 		$toAttorney=id2attorneyName($data[attorneys_id]);
-		$lossMit="Per Maryland law HB472, please include one of the provided WHITE, preprinted #10 envelope addressed to '$toAttorney'";
+		$lossMit="Per Maryland law HB472, please include one of the provided <u><b>WHITE</b></u>, preprinted #10 envelope addressed to '$toAttorney'";
 		if ($data[lossMit] == 'FINAL'){
 			//if file is a final, instruct to include envelope for court
 			$toCounty=county2envelope2($data[circuit_court]);
-			$lossMit .= " and another WHITE, preprinted #10 envelope addressed to '".$toCounty."'";
+			$lossMit .= " and another <u><b>WHITE</b></u>, preprinted #10 envelope addressed to '".$toCounty."'";
 		}
 		$lossMit .= " with each defendant's service documents.";
 		echo "<span style='font-variant:small-caps; font-style:italic;'>$lossMit</span>";
