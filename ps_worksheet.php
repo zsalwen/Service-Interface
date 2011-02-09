@@ -229,7 +229,7 @@ function makeEntry($packet){
 				<? if ($d['request_close'] == "YES" || $d['request_closea'] == "YES" || $d['request_closeb'] == "YES" || $d['request_closec'] == "YES" || $d['request_closed'] == "YES" || $d['request_closee'] == "YES"){?><img src="/gfx/icon.closed.jpg" height="35" border="0" /><? }?>
 				<a href="<?=$instructionsLink?>.php?<?=$field?>=<?=$d[$idType]?>" target="_blank"><img src="/gfx/icon.instructions.jpg" height="35" border="0" /></a>
 				<a href="<?=washURI2($d['otd']);?>" target="_blank"><img src="/gfx/icon.envelope.jpg" height="35" border="0" /></a>
-				<? if($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L"  && $d[attorneys_id] != 1){ 
+				<? if($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L" && $d[lossMit] != ''  && $d[attorneys_id] != 1){ 
 					$lossMitInstructions="include a WHITE, preprinted #10 envelope addressed to <span style='color:#990000;'>".strtoupper(id2attorney2($d[attorneys_id]))."</span>";
 					if ($d[lossMit] == "FINAL"){
 						//if file is a final, also instruct to include envelope for court
