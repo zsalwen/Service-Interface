@@ -171,11 +171,11 @@ $product=$_GET[product];
 if ($product == 'EV'){
 	$table='evictionPackets';
 	$histTable='evictionHistory';
-	$idType='eviction_id'
+	$idType='eviction_id';
 }else{
 	$table='ps_packets';
 	$histTable='ps_history';
-	$idType='packet_id'
+	$idType='packet_id';
 }
 if ($_GET[mailDate]){
 	$mailDate=$_GET[mailDate];
