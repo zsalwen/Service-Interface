@@ -45,7 +45,7 @@ function makeEntry($packet,$def,$add,$name,$date,$entryID,$mailDate,$product){
 		}
 		$r=@mysql_query($q) or die ("Query $q<br>".mysql_error());
 		$d=mysql_fetch_array($r, MYSQL_ASSOC);
-		if (($def == 1) && ($product == 'EV'))
+		if (($def == 1) && ($product == 'EV')){
 			$name2="ALL OCCUPANTS";
 		}else{
 			$name2=$d["name$def"];
