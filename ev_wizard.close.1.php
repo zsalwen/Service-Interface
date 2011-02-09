@@ -16,6 +16,9 @@ while ($item=mysql_fetch_array($history_items, MYSQL_ASSOC)){
 <? } ?>
 <? if ($_COOKIE[psdata][level] == "Operations"){ ?>
 Reopen Notes: <input name="reopenNotes" size="40" /><br />
+<? if ($ddr[service_status] == 'MAILING AND POSTING'){ ?>
+<iframe width="600px" height="250px" src="http://service.mdwestserve.com/mailMatrix.php?packet=<?=$packet?>&checked=1&mailDate=<?=$_POST[mailDate]?>&product=EV"></iframe>
+<? } ?>
 <div class="nav"><input onClick="submitLoader()" type="radio" name="i" value="close.3" /> CONFIRM AFFIDAVIT: APPROVE HISTORY ITEMS</div>
 <? }else{ ?>
 <div class="nav3"><input onClick="submitLoader()" type="radio" name="i" value="close.2" /> REQUEST PRINT APPROVAL</div>

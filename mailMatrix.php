@@ -1,5 +1,6 @@
 <? include 'common.php';
 $packet=$_GET[packet];
+$product=$_GET[product];
 if ($_POST[mailDate]){
 	$mailDate = $_POST[mailDate];
 }elseif ($_GET[mailDate]){
@@ -7,10 +8,14 @@ if ($_POST[mailDate]){
 }else{
 	$mailDate = date('Y-m-d');
 }
-$q="SELECT * FROM mailMatrix WHERE packetID='$packet'";
+$q="SELECT * FROM mailMatrix WHERE packetID='$packet' AND product='$product'";
 $r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 $d=mysql_fetch_array($r,MYSQL_ASSOC);
-$q1="SELECT name1, name2, name3, name4, name5, name6, address1, address1a, address1b, address1c, address1d, address1e, city1, city1a, city1b, city1c, city1d, city1e, state1, state1a, state1b, state1c, state1d, state1e, zip1, zip1a, zip1b, zip1c, zip1d, zip1e, pobox, pocity, postate, pozip, pobox2, pocity2, postate2, pozip2, service_status FROM ps_packets WHERE packet_id='$packet'";
+if ($product == 'EV'){
+	$q1="SELECT name1, name2, name3, name4, name5, name6, address1, city1, state1, zip1, onAffidavit1, onAffidavit2, onAffidavit3, onAffidavit4, onAffidavit5, onAffidavit6, service_status FROM evictionPackets WHERE eviction_id='$packet'";
+}else{
+	$q1="SELECT name1, name2, name3, name4, name5, name6, address1, address1a, address1b, address1c, address1d, address1e, city1, city1a, city1b, city1c, city1d, city1e, state1, state1a, state1b, state1c, state1d, state1e, zip1, zip1a, zip1b, zip1c, zip1d, zip1e, pobox, pocity, postate, pozip, pobox2, pocity2, postate2, pozip2, service_status FROM ps_packets WHERE packet_id='$packet'";
+}
 $r1=@mysql_query($q1) or die ("Query: $q1<br>".mysql_error());
 $d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 if ($_POST[submit]){
@@ -37,10 +42,10 @@ if ($_POST[submit]){
 			}
 		}
 		$qs .= $qs2;
-		$qs .= " WHERE packetID='$packet'";
+		$qs .= " WHERE packetID='$packet' AND product='$product'";
 		echo "<center><h2>MAIL MATRIX UPDATED FOR PACKET $packet</h2></center>";
 	}else{
-		$qs="INSERT INTO mailMatrix (packetID";
+		$qs="INSERT INTO mailMatrix (packetID, product";
 			while ($i < 6){$i++;
 				if ($d1["name$i"]){
 					$fields .= ", add$i";
@@ -64,23 +69,27 @@ if ($_POST[submit]){
 					}
 				}
 			}
-		$qs .= $fields.") values ('$packet'".$values.")";
+		$qs .= $fields.") values ('$packet', '$product'".$values.")";
 		echo "<center><h2>MAIL MATRIX CREATED FOR PACKET $packet</h2></center>";
 	}
 	@mysql_query($qs) or die("Query: $qs<br>".mysql_error());
 	//if not "MAIL ONLY" keep mailMatrix open, then pop open matrixEntries
 	if ($_POST[matrixEntries] == 'checked' && $d1[service_status] != "MAIL ONLY"){
-		echo "<script>window.open('http://service.mdwestserve.com/matrixEntries.php?packet=$packet&autoClose=1&mailDate=$mailDate','Mail Entries')</script>";
+		echo "<script>window.open('http://service.mdwestserve.com/matrixEntries.php?packet=$packet&autoClose=1&mailDate=$mailDate&product=$product','Mail Entries')</script>";
 	}
 	//for "MAIL ONLY" files
 	if ($d1[service_status] == "MAIL ONLY"){
 		if ($_POST[matrixEntries] == 'checked'){
 			//redirect to matrixEntries, which will bill for mailing, make affidavits, and then in turn open affidavit and checklist
-			echo "<script>window.location='http://service.mdwestserve.com/matrixEntries.php?packet=$packet&mailDate=$mailDate&mailCost=1'</script>";
+			echo "<script>window.location='http://service.mdwestserve.com/matrixEntries.php?packet=$packet&mailDate=$mailDate&mailCost=1&product=$product'</script>";
 		}
 	}
 	if ($_POST[matrixEntries] != 'checked'){
-		timeline($packet,$_COOKIE[psdata][name]." Set mailMatrix");
+		if ($product != 'EV'){
+			timeline($packet,$_COOKIE[psdata][name]." Set mailMatrix");
+		}else{
+			ev_timeline($packet,$_COOKIE[psdata][name]." Set mailMatrix");
+		}
 	}
 }
 if ($d1[service_status] == 'MAIL ONLY'){
@@ -94,7 +103,7 @@ if ($d1[service_status] == 'MAIL ONLY'){
 		$mailDate=date('Y-m-d',$mailDate);
 	}
 }
-echo "<fieldset><legend style='font-weight:bold;'>Mail Matrix</legend><form name='matrix' method='post'><input type='hidden' name='packetID' value='$packet'><table align='center' style='border-collapse:collapse; font-size:small; font-variant:small-caps; text-align=center;' border='1'>";
+echo "<fieldset><legend style='font-weight:bold;'>Mail Matrix</legend><form name='matrix' method='post'><input type='hidden' name='packetID' value='$packet'><input type='hidden' name='product' value='$product'><table align='center' style='border-collapse:collapse; font-size:small; font-variant:small-caps; text-align=center;' border='1'>";
 $header="<td>OTD$packet</td>";
 $r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 $d=mysql_fetch_array($r,MYSQL_ASSOC);
@@ -102,7 +111,13 @@ $i=0;
 $columns=0;
 while ($i < 6){$i++;
 	if ($d1["name$i"]){
-		$row .= "<tr><td>".strtoupper($d1["name$i"])."</td>";
+		if ($product == 'EV' && $i == 1){
+			$row .= "<tr><td>ALL OCCUPANTS</td>";
+		}elseif($product == 'EV' && (strtoupper($d1["onAffidavit$i"]) != 'CHECKED')){
+			$row .= "<tr><td>".strtoupper($d1["name$i"])."</td>";
+		}else{
+			$row .= "<tr><td>".strtoupper($d1["name$i"])."</td>";
+		}
 		$columns++;
 		if ($d1[address1]){
 			$onclick .= "document.matrix.add$i.checked='checked';
@@ -117,49 +132,51 @@ while ($i < 6){$i++;
 			}
 			$row .= "></td>";
 		}
-		foreach(range('a','e') as $letter){
-			if ($d1["address1$letter"]){
-				$onclick .= "document.matrix.add$i$letter.checked='checked';
+		if ($product != 'EV'){
+			foreach(range('a','e') as $letter){
+				if ($d1["address1$letter"]){
+					$onclick .= "document.matrix.add$i$letter.checked='checked';
+					";
+					if ($i == 1){
+						$header .= "<td>".strtoupper($d1["address1$letter"])."<br>".strtoupper($d1["city1$letter"]).", ".strtoupper($d1["state1$letter"])." ".strtoupper($d1["zip1$letter"])."</td>";
+						$columns++;
+					}
+					$row .= "<td><input name='add$i$letter' id='add$i$letter' type='checkbox' value='1'";
+					$var=$i.$letter;
+					if ($d["add$var"] == 1){
+						$row .= " checked ";
+					}
+					$row .= "></td>";
+				}
+			}
+			if ($d1[pobox]){
+				$field="add".$i."PO";
+				$onclick .= "document.matrix.$field.checked='checked';
 				";
 				if ($i == 1){
-					$header .= "<td>".strtoupper($d1["address1$letter"])."<br>".strtoupper($d1["city1$letter"]).", ".strtoupper($d1["state1$letter"])." ".strtoupper($d1["zip1$letter"])."</td>";
+					$header .= "<td>".strtoupper($d1[pobox])."<br>".strtoupper($d1[pocity]).", ".strtoupper($d1[postate])." ".strtoupper($d1[pozip])."</td>";
 					$columns++;
 				}
-				$row .= "<td><input name='add$i$letter' id='add$i$letter' type='checkbox' value='1'";
-				$var=$i.$letter;
-				if ($d["add$var"] == 1){
+				$row .= "<td><input name='$field' id='$field' type='checkbox' value='1'";
+				if ($d["$field"] == 1){
 					$row .= " checked ";
 				}
 				$row .= "></td>";
 			}
-		}
-		if ($d1[pobox]){
-			$field="add".$i."PO";
-			$onclick .= "document.matrix.$field.checked='checked';
-			";
-			if ($i == 1){
-				$header .= "<td>".strtoupper($d1[pobox])."<br>".strtoupper($d1[pocity]).", ".strtoupper($d1[postate])." ".strtoupper($d1[pozip])."</td>";
-				$columns++;
+			if ($d1[pobox2]){
+				$field="add".$i."PO2";
+				$onclick .= "document.matrix.$field.checked='checked';
+				";
+				if ($i == 1){
+					$header .= "<td>".strtoupper($d1[pobox2])."<br>".strtoupper($d1[pocity2]).", ".strtoupper($d1[postate2])." ".strtoupper($d1[pozip2])."</td>";
+					$columns++;
+				}
+				$row .= "<td><input name='$field' id='$field' type='checkbox' value='1'";
+				if ($d["$field"] == 1){
+					$row .= " checked ";
+				}
+				$row .= "></td>";
 			}
-			$row .= "<td><input name='$field' id='$field' type='checkbox' value='1'";
-			if ($d["$field"] == 1){
-				$row .= " checked ";
-			}
-			$row .= "></td>";
-		}
-		if ($d1[pobox2]){
-			$field="add".$i."PO2";
-			$onclick .= "document.matrix.$field.checked='checked';
-			";
-			if ($i == 1){
-				$header .= "<td>".strtoupper($d1[pobox2])."<br>".strtoupper($d1[pocity2]).", ".strtoupper($d1[postate2])." ".strtoupper($d1[pozip2])."</td>";
-				$columns++;
-			}
-			$row .= "<td><input name='$field' id='$field' type='checkbox' value='1'";
-			if ($d["$field"] == 1){
-				$row .= " checked ";
-			}
-			$row .= "></td>";
 		}
 		$row .= "</tr>";
 	}

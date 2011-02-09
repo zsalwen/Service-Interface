@@ -1,6 +1,87 @@
 <?
 //first we need to generate all mailing entries if file is M&P.
-
+function makeEntry($packet,$def,$add,$name,$date,$entryID,$mailDate,$product){
+	if ($add == 'PO'){
+		$q="select name$def, pobox, pocity, postate, pozip from ps_packets where packet_id = '$packet'";
+		$r=@mysql_query($q) or die ("Query $q<br>".mysql_error());
+		$d=mysql_fetch_array($r, MYSQL_ASSOC);
+		if((strpos(strtoupper($d['pobox']),'P.O. BOX') !== false) || (strpos(strtoupper($d['pobox']),'PO BOX')) !== false){			
+			$action="<li>I, $name, Mailed Papers to ".$d["name$def"]." at $d[pobox], $d[pocity], $d[postate] $d[pozip] \'P.O. Box Address\' by first class mail on $date.</li>";		
+		}else{
+	$action="<li>I, $name, Mailed Papers to ".$d["name$def"]." at $d[pobox], $d[pocity], $d[postate] $d[pozip] \'Mailing Only Address\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
+		}
+	}elseif($add == 'PO2'){
+		$q="select name$def, pobox2, pocity2, postate2, pozip2 from ps_packets where packet_id = '$packet'";
+		$r=@mysql_query($q) or die ("Query $q<br>".mysql_error());
+		$d=mysql_fetch_array($r, MYSQL_ASSOC);
+		if((strpos(strtoupper($d['pobox']),'P.O. BOX') !== false) || (strpos(strtoupper($d['pobox']),'PO BOX')) !== false){			
+			$action="<li>I, $name, Mailed Papers to ".$d["name$def"]." at $d[pobox2], $d[pocity2], $d[postate2] $d[pozip2] \'P.O. Box Address\' by first class mail on $date.</li>";		
+		}else{
+	$action="<li>I, $name, Mailed Papers to ".$d["name$def"]." at $d[pobox2], $d[pocity2], $d[postate2] $d[pozip2] \'Mailing Only Address\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
+		}
+	}else{
+		$var=$def.$add;
+		if ($product == 'EV'){
+			$q="select name$def, address$var, city$var, state$var, zip$var from evictionPackets where eviction_id = '$packet'";
+		}else{
+			$q="select name$def, address$var, city$var, state$var, zip$var, addressType$add from ps_packets where packet_id = '$packet'";
+		}
+		$r=@mysql_query($q) or die ("Query $q<br>".mysql_error());
+		$d=mysql_fetch_array($r, MYSQL_ASSOC);
+		if (($def == 1) && ($product == 'EV'))
+			$name2="ALL OCCUPANTS";
+		}else{
+			$name2=$d["name$def"];
+		}
+		$action="<li>I, $name, Mailed Papers to $name2 at ".$d["address$var"].", ".$d["city$var"].", ".$d["state$var"]." ".$d["zip$var"]." \'".$d["addressType$add"]."\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
+	}
+	$action=strtoupper($action);
+	$actionDate=$mailDate." 00:00:00";
+	if ($product == 'EV'){
+		@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate )values('".$packet."', '".$def."', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate')") or die (mysql_error());
+	}else{
+		@mysql_query("INSERT into ps_history (packet_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate )values('".$packet."', '".$def."', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate')") or die (mysql_error());
+	}
+	$_SESSION[querycount]++;
+}
+function entriesFromMatrix($packet,$name,$date,$entryID,$product){
+	$qm="SELECT * FROM mailMatrix WHERE packetID='$packet' AND product='$product'";
+	$rm=@mysql_query($qm);
+	$dm=mysql_fetch_array($rm, MYSQL_ASSOC);
+	$i=0;
+	while ($i < 6){$i++;
+		if ($dm["add$i"] != ''){
+			makeEntry($packet,$i,'',$name,$date,$entryID);
+		}
+		foreach(range('a','e') as $letter){
+			if ($dm["add$i$letter"] != ''){
+				makeEntry($packet,$i,$letter,$name,$date,$entryID);
+			}
+		}
+		$field="add".$i."PO";
+		if ($dm["$field"] != ''){
+			makeEntry($packet,$i,'PO',$name,$date,$entryID);
+		}
+		$field="add".$i."PO2";
+		if ($dm["$field"] != ''){
+			makeEntry($packet,$i,'PO2',$name,$date,$entryID);
+		}
+	}
+}
+function entriesFromEviction($packet,$name,$date,$entryID,$mailDate){
+	$q1="SELECT name1, name2, name3, name4, name5, name6, onAffidavit1, onAffidavit2, onAffidavit3, onAffidavit4, onAffidavit5, onAffidavit6, address1, attorneys_id FROM evictionPackets WHERE eviction_id='$packet'";
+	$r1=@mysql_query($q1) or die ("Query: $q1<br>".mysql_error());
+	$d1=mysql_fetch_array($r1,MYSQL_ASSOC);
+	if ($d1[name1]){
+		makeEntry($packet,1,'',$name,$date,$entryID,$mailDate,"EV");
+	}
+	$i=1;
+	while ($i < 6){$i++;
+		if ($d["name$i"] && (strtoupper($d["onAffidavit$i"]) != 'CHECKED') && ($d[attorneys_id] == 3)){
+			makeEntry($packet,$i,'',$name,$date,$entryID,$mailDate,"EV");
+		}
+	}
+}
 if ($ddr[service_status] == "MAILING AND POSTING"){
 	if ($_GET[mailDate]){
 		$mailDate=$_GET[mailDate];
@@ -40,21 +121,13 @@ if ($ddr[service_status] == "MAILING AND POSTING"){
 	}else{
 		$name=$_COOKIE[psdata][name];
 	}
-	
-	if ($d[name1]){
-		if ($d[address1]){
-			$action="<li>I, $name, Mailed Papers to All Occupants at $d[address1], $d[city1], $d[state1] $d[zip1] \'Residential Property Subject to Mortgage or Deed of Trust\' by certified mail, return receipt requested, and by first class mail on $date.</li>";	
-			$action=strtoupper($action);
-			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate, resident)values('".$packet."', '1', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate', 'ALL OCCUPANTS' )");$_SESSION[querycount]++; 
-		}
-	}	
-	$i=1;
-	while ($i < 6){$i++;
-		if ($d["name$i"] && (strtoupper($d["onAffidavit$i"]) != 'CHECKED')){
-			$action="<li>I, $name, Mailed Papers to ".$d["name$i"]." at $d[address1], $d[city1], $d[state1] $d[zip1] \'Residential Property Subject to Mortgage or Deed of Trust\' by certified mail, return receipt requested, and by first class mail on $date.</li>";	
-			$action=strtoupper($action);
-			@mysql_query("INSERT into evictionHistory (eviction_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate, resident )values('".$packet."', '$i', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate', '".strtoupper($d["name$i"])."' )");$_SESSION[querycount]++; 
-		}
+	$qm="SELECT packetID FROM mailMatrix WHERE packetID='$packet' AND product='EV'";
+	$rm=@mysql_query($qm);
+	$dm=mysql_fetch_array($rm, MYSQL_ASSOC);
+	if ($dm[packetID] != ''){
+		entriesFromMatrix($packet,$name,$date,$entryID,'EV');
+	}else{
+		entriesFromEviction($packet,$name,$date,$entryID);
 	}
 	$href="http://service.mdwestserve.com/evictionAff.php?id=$packet&mail=1&autoPrint=1";
 	echo "<script>window.open('".$href."', 'Mailing Affidavits')</script>";

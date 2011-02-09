@@ -32,8 +32,8 @@ function makeEntry($packet,$def,$add,$name,$date,$entryID){
 	$_SESSION[querycount]++;
 }
 
-function entriesFromMatrix($packet,$name,$date,$entryID){
-	$qm="SELECT * FROM mailMatrix WHERE packetID='$packet'";
+function entriesFromMatrix($packet,$name,$date,$entryID,$product){
+	$qm="SELECT * FROM mailMatrix WHERE packetID='$packet' AND product='$product'";
 	$rm=@mysql_query($qm);
 	$dm=mysql_fetch_array($rm, MYSQL_ASSOC);
 	$i=0;
@@ -114,11 +114,11 @@ if ($ddr[service_status] == "MAILING AND POSTING"){
 	}else{
 		$name=$_COOKIE[psdata][name];
 	}
-	$qm="SELECT packetID FROM mailMatrix WHERE packetID='$packet'";
+	$qm="SELECT packetID FROM mailMatrix WHERE packetID='$packet' AND product='OTD'";
 	$rm=@mysql_query($qm);
 	$dm=mysql_fetch_array($rm, MYSQL_ASSOC);
 	if ($dm[packetID] != ''){
-		entriesFromMatrix($packet,$name,$date,$entryID);
+		entriesFromMatrix($packet,$name,$date,$entryID,'OTD');
 	}else{
 		entriesFromPacket($packet,$name,$date,$entryID);
 	}
