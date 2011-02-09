@@ -214,7 +214,7 @@ if ($_POST[opServer] != ''){
 function confirmation() {
 	var answer = confirm("Entries already exist for this file.  Make them again?")
 	if (answer){
-		window.location = "http://service.mdwestserve.com/matrixEntries.php?packet=<?=$packet?>&confirm=1&mailDate=<?=$mailDate?>&autoClose=1";
+		window.location = "http://service.mdwestserve.com/matrixEntries.php?packet=<?=$packet?>&confirm=1&mailDate=<?=$mailDate?>&autoClose=1&product=<?=$product?>";
 	}
 	else{
 		alert("ABORTED");
