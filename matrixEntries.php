@@ -47,10 +47,14 @@ function makeEntry($packet,$def,$add,$name,$date,$entryID,$mailDate,$product){
 		$d=mysql_fetch_array($r, MYSQL_ASSOC);
 		if (($def == 1) && ($product == 'EV')){
 			$name2="ALL OCCUPANTS";
+			$addressType='RESIDENTIAL PROPERTY SUBJECT TO MORTGAGE OR DEED OF TRUST';
 		}else{
 			$name2=$d["name$def"];
+			if ($product != 'EV'){
+				$addressType=$d["addressType$add"];
+			}
 		}
-		$action="<li>I, $name, Mailed Papers to $name2 at ".$d["address$var"].", ".$d["city$var"].", ".$d["state$var"]." ".$d["zip$var"]." \'".$d["addressType$add"]."\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
+		$action="<li>I, $name, Mailed Papers to $name2 at ".$d["address$var"].", ".$d["city$var"].", ".$d["state$var"]." ".$d["zip$var"]." \'$addressType\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
 	}
 	$action=strtoupper($action);
 	$actionDate=$mailDate." 00:00:00";
