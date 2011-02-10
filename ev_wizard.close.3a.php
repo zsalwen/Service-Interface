@@ -44,7 +44,7 @@ function makeEntry($packet,$def,$add,$name,$date,$entryID,$mailDate,$product){
 	}
 	$_SESSION[querycount]++;
 }
-function entriesFromMatrix($packet,$name,$date,$entryID,$product){
+function entriesFromMatrix($packet,$name,$date,$entryID,$mailDate,$product){
 	$qm="SELECT * FROM mailMatrix WHERE packetID='$packet' AND product='$product'";
 	$rm=@mysql_query($qm);
 	$dm=mysql_fetch_array($rm, MYSQL_ASSOC);
@@ -125,9 +125,9 @@ if ($ddr[service_status] == "MAILING AND POSTING"){
 	$rm=@mysql_query($qm);
 	$dm=mysql_fetch_array($rm, MYSQL_ASSOC);
 	if ($dm[packetID] != ''){
-		entriesFromMatrix($packet,$name,$date,$entryID,'EV');
+		entriesFromMatrix($packet,$name,$date,$entryID,$mailDate,'EV');
 	}else{
-		entriesFromEviction($packet,$name,$date,$entryID);
+		entriesFromEviction($packet,$name,$date,$entryID,$mailDate);
 	}
 	$href="http://service.mdwestserve.com/evictionAff.php?id=$packet&mail=1&autoPrint=1";
 	echo "<script>window.open('".$href."', 'Mailing Affidavits')</script>";
