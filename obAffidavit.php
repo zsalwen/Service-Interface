@@ -16,6 +16,23 @@ function defCount($packet_id){
 	if ($d[name6]){$c++;}
 	return $c;
 }
+function county2envelope2($county){
+	$county=strtoupper($county);
+	if ($county == 'BALTIMORE'){
+		$search='BALTIMORE COUNTY';
+	}elseif($county == 'PRINCE GEORGES'){
+		$search='PRINCE GEORGE';
+	}elseif($county == 'ST MARYS'){
+		$search='ST. MARY';
+	}elseif($county == 'QUEEN ANNES'){
+		$search='QUEEN ANNE';
+	}else{
+		$search=$county;
+	}
+	$r=@mysql_query("SELECT to1 FROM envelopeImage WHERE to1 LIKE '%$search%' AND addressType='COURT' LIMIT 0,1");
+	$d=mysql_fetch_array($r,MYSQL_ASSOC);
+	return $d[to1];
+}
 ?>
 <style>
 .dim {
@@ -73,10 +90,17 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	}
 	$r1=@mysql_query($q1) or die(mysql_error());
 	$d1=mysql_fetch_array($r1, MYSQL_ASSOC);
+	$amended='';
 	if ($d1[amendedAff] == "checked"){
 		$amended="Amended ";
-	}else{
-		$amended="";
+	}
+	$lossMit='';
+	if ($d1[lossMit] != "N/A - OLD L" && $d1[lossMit] != ''){
+		$lossMit=", accompanied by a pre-printed envelope addressed to the attorney handling the foreclosure action";
+		if ($d1[lossMit] == "FINAL"){
+			$toCounty=county2envelope2($d1[circuit_court]);
+			$lossMit .= ", and another pre-printed envelope addressed to '$toCounty'";
+		}
 	}
 	$court = $d1[circuit_court];
 	if (!preg_match("/CITY|D.C./", $court)){
@@ -362,7 +386,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case<?=$lossMit?>, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($historye)?></td>
@@ -419,7 +443,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case<?=$lossMit?>, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($historyd)?></td>
@@ -476,7 +500,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case<?=$lossMit?>, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($historyc)?></td>
@@ -534,7 +558,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case<?=$lossMit?>, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($historyb)?></td>
@@ -592,7 +616,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case<?=$lossMit?>, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes($historya)?></td>
@@ -647,7 +671,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case<?=$lossMit?>, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px;"><?=stripslashes(str_replace('[SERVERNAME]',$serverName,$history))?></td>
@@ -708,7 +732,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case<?=$lossMit?>, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<? } ?>
 		<tr>
@@ -761,7 +785,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case<?=$lossMit?>, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-weight:bold; padding-left:20px"><?=stripslashes($history3)?></td>
@@ -824,7 +848,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 			<td colspan="2" align="center" style="font-weight:bold; font-size:20px;" height="30px" valign="top"><?=$result?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
+			<td colspan="2" align="left">Pursuant to Maryland Real Property Article 7-105.1 and Maryland Rules of Procedure <?=$article?> <?=$result?> a copy of the <?=$addlDocs?> and all other papers filed with it (the "Papers") in the above-captioned case<?=$lossMit?>, I, <?=$serverName?>, do hereby affirm that the contents of the following affidavit are true and correct, based on my personal knowledge:<br></td>
 		</tr>
 	<? if ($residentDesc){
 		$desc=strtoupper(str_replace('CO-A BORROWER IN THE ABOVE-REFERENCED CASE', 'A BORROWER IN THE ABOVE-REFERENCED CASE', str_replace('BORROWER','A BORROWER IN THE ABOVE-REFERENCED CASE', attorneyCustomLang($d1[attorneys_id],strtoupper($residentDesc)))));
