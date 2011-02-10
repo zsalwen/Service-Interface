@@ -1,6 +1,6 @@
 <?
 //first we need to generate all mailing entries if file is M&P.
-function makeEntry($packet,$def,$add,$name,$date,$entryID,$mailDate,$product){
+function makeEntry($packet,$def,$add,$name,$date,$entryID,$product){
 	if ($add == 'PO'){
 		$q="select name$def, pobox, pocity, postate, pozip from ps_packets where packet_id = '$packet'";
 		$r=@mysql_query($q) or die ("Query $q<br>".mysql_error());
@@ -51,29 +51,29 @@ function entriesFromMatrix($packet,$name,$date,$entryID,$mailDate,$product){
 	$i=0;
 	while ($i < 6){$i++;
 		if ($dm["add$i"] != ''){
-			makeEntry($packet,$i,'',$name,$date,$entryID);
+			makeEntry($packet,$i,'',$name,$date,$entryID,$product);
 		}
 		foreach(range('a','e') as $letter){
 			if ($dm["add$i$letter"] != ''){
-				makeEntry($packet,$i,$letter,$name,$date,$entryID);
+				makeEntry($packet,$i,$letter,$name,$date,$entryID,$product);
 			}
 		}
 		$field="add".$i."PO";
 		if ($dm["$field"] != ''){
-			makeEntry($packet,$i,'PO',$name,$date,$entryID);
+			makeEntry($packet,$i,'PO',$name,$date,$entryID,$product);
 		}
 		$field="add".$i."PO2";
 		if ($dm["$field"] != ''){
-			makeEntry($packet,$i,'PO2',$name,$date,$entryID);
+			makeEntry($packet,$i,'PO2',$name,$date,$entryID,$product);
 		}
 	}
 }
-function entriesFromEviction($packet,$name,$date,$entryID,$mailDate){
+function entriesFromEviction($packet,$name,$date,$entryID){
 	$q1="SELECT name1, name2, name3, name4, name5, name6, onAffidavit1, onAffidavit2, onAffidavit3, onAffidavit4, onAffidavit5, onAffidavit6, address1, attorneys_id FROM evictionPackets WHERE eviction_id='$packet'";
 	$r1=@mysql_query($q1) or die ("Query: $q1<br>".mysql_error());
 	$d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 	if ($d1[name1]){
-		makeEntry($packet,1,'',$name,$date,$entryID,$mailDate,"EV");
+		makeEntry($packet,1,'',$name,$date,$entryID,"EV");
 	}
 	$i=1;
 	while ($i < 6){$i++;
