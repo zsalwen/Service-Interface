@@ -34,7 +34,7 @@ foreach ($_POST[remove] as $key => $value){
 	}
 	if ($d[action_type] == 'Attempted Service' || $d[action_type] == 'Posted Papers'){$items++;
 		//1. address
-		$addressType="RESIDENTIAL PROPERTY SUBJECT TO MORTGAGE OR DEED OF TRUST";
+		$addressType=$ddr[addressType];
 		//2. month, day, year dropdowns
 		//3. hour, minute am/pm
 		//4. explode desc
@@ -62,7 +62,7 @@ foreach ($_POST[remove] as $key => $value){
 	}elseif ($d[wizard] == 'NOT BORROWER'){$items++;
 		//1. address
 	
-		$addressType="RESIDENTIAL PROPERTY SUBJECT TO MORTGAGE OR DEED OF TRUST";
+		$addressType=$ddr[addressType];
 		//2. resident name
 		$name=$d[resident];
 		//3. resident age
@@ -87,7 +87,7 @@ foreach ($_POST[remove] as $key => $value){
 		<?
 	}elseif($d[wizard] == 'BORROWER'){$items++;
 		//1. address
-		$addressType="RESIDENTIAL PROPERTY SUBJECT TO MORTGAGE OR DEED OF TRUST";
+		$addressType=$ddr[addressType];
 		//2. month, day, year dropdowns
 		//3. hour, minute am/pm
 		//4. residentDesc
