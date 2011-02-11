@@ -1,7 +1,7 @@
 <?
 //first we need to generate all mailing entries if file is M&P.
 
-function makeEntry($packet,$def,$add,$name,$date,$entryID){
+function makeEntry($packet,$def,$add,$name,$date,$entryID,$mailDate){
 	if ($add == 'PO'){
 		$q="select name$def, pobox, pocity, postate, pozip from ps_packets where packet_id = '$packet'";
 		$r=@mysql_query($q) or die ("makeEntry Query $q<br>".mysql_error());
@@ -28,54 +28,55 @@ function makeEntry($packet,$def,$add,$name,$date,$entryID){
 		$action="<li>I, $name, Mailed Papers to ".$d["name$def"]." at ".$d["address$var"].", ".$d["city$var"].", ".$d["state$var"]." ".$d["zip$var"]." \'".$d["addressType$add"]."\' by certified mail, return receipt requested, and by first class mail on $date.</li>";
 	}
 	$action=strtoupper($action);
-	@mysql_query("INSERT into ps_history (packet_id, defendant_id, action_type, action_str, serverID, recordDate, wizard )values('".$packet."', '".$def."', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS' )") or die (mysql_error());
+	$actionDate=$mailDate." 00:00:00";
+	@mysql_query("INSERT into ps_history (packet_id, defendant_id, action_type, action_str, serverID, recordDate, wizard, actionDate )values('".$packet."', '".$def."', 'First Class C.R.R. Mailing', '".addslashes($action)."', '".$entryID."', NOW(), 'MAILING DETAILS', '$actionDate' )") or die (mysql_error());
 	$_SESSION[querycount]++;
 }
 
-function entriesFromMatrix($packet,$name,$date,$entryID,$product){
+function entriesFromMatrix($packet,$name,$date,$entryID,$mailDate,$product){
 	$qm="SELECT * FROM mailMatrix WHERE packetID='$packet' AND product='$product'";
 	$rm=@mysql_query($qm);
 	$dm=mysql_fetch_array($rm, MYSQL_ASSOC);
 	$i=0;
 	while ($i < 6){$i++;
 		if ($dm["add$i"] != ''){
-			makeEntry($packet,$i,'',$name,$date,$entryID);
+			makeEntry($packet,$i,'',$name,$date,$entryID,$mailDate);
 		}
 		foreach(range('a','e') as $letter){
 			if ($dm["add$i$letter"] != ''){
-				makeEntry($packet,$i,$letter,$name,$date,$entryID);
+				makeEntry($packet,$i,$letter,$name,$date,$entryID,$mailDate);
 			}
 		}
 		$field="add".$i."PO";
 		if ($dm["$field"] != ''){
-			makeEntry($packet,$i,'PO',$name,$date,$entryID);
+			makeEntry($packet,$i,'PO',$name,$date,$entryID,$mailDate);
 		}
 		$field="add".$i."PO2";
 		if ($dm["$field"] != ''){
-			makeEntry($packet,$i,'PO2',$name,$date,$entryID);
+			makeEntry($packet,$i,'PO2',$name,$date,$entryID,$mailDate);
 		}
 	}
 }
 
-function entriesFromPacket($packet,$name,$date,$entryID){
+function entriesFromPacket($packet,$name,$date,$entryID,$mailDate){
 	$q1="SELECT name1, name2, name3, name4, name5, name6, address1, address1a, address1b, address1c, address1d, address1e, pobox, pobox2 FROM ps_packets WHERE packet_id='$packet'";
 	$r1=@mysql_query($q1) or die ("Query: $q1<br>".mysql_error());
 	$d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 	$i=0;
 	while ($i < 6){$i++;
 		if ($d["name$i"]){
-			makeEntry($packet,$def,'',$name,$date,$entryID);
+			makeEntry($packet,$def,'',$name,$date,$entryID,$mailDate);
 		}
 		foreach(range('a','e') as $letter){
 			if ($d["address1$letter"]){
-				makeEntry($packet,$i,$letter,$name,$date,$entryID);
+				makeEntry($packet,$i,$letter,$name,$date,$entryID,$mailDate);
 			}
 		}
 		if ($d[pobox]){
-			makeEntry($packet,$i,'PO',$name,$date,$entryID);
+			makeEntry($packet,$i,'PO',$name,$date,$entryID,$mailDate);
 		}
 		if ($d[pobox2]){
-			makeEntry($packet,$i,'PO2',$name,$date,$entryID);
+			makeEntry($packet,$i,'PO2',$name,$date,$entryID,$mailDate);
 		}
 	}
 }
@@ -118,9 +119,9 @@ if ($ddr[service_status] == "MAILING AND POSTING"){
 	$rm=@mysql_query($qm);
 	$dm=mysql_fetch_array($rm, MYSQL_ASSOC);
 	if ($dm[packetID] != ''){
-		entriesFromMatrix($packet,$name,$date,$entryID,'OTD');
+		entriesFromMatrix($packet,$name,$date,$entryID,$mailDate,'OTD');
 	}else{
-		entriesFromPacket($packet,$name,$date,$entryID);
+		entriesFromPacket($packet,$name,$date,$entryID,$mailDate);
 	}
 	$href="http://service.mdwestserve.com/obAffidavit.php?packet=$packet&mail=1&autoPrint=1";
 	echo "<script>window.open('".$href."', 'Mailing Affidavits')</script>";
