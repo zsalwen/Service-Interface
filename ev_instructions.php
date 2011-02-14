@@ -52,7 +52,8 @@ if ($data[attorneys_id] == 3){
 	}
 } ?>
 		<tr>
-			<td align='center'><fieldset><legend>Staff Instructions to Server</legend><li>In The Event Of Posting, Write The Name Of The Party For Whom You Are Posting The Documents, As Well As The Date And Time Of Posting On The Documents Being Left. Please Ensure That This Date Is Also Visible In The Posting Picture.</li><li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9 AM and 5 PM.  "Good Faith" efforts must be made at different times of day.</b></li><li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished before <?=$estFileDate?></b></li><?=strtoupper($server_notes);?></fieldset></td>
+			<td align='center'><fieldset><legend>Staff Instructions to Server</legend><div style="border:ridge 3px; font-size: 16px; width: 400px; align:justify;"><strong style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</strong><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
+		<li>You cannot make two attempts at the same property within the same 24 hour period.</li><li>In The Event Of Posting, Write The Name Of The Party For Whom You Are Posting The Documents, As Well As The Date And Time Of Posting On The Documents Being Left. Please Ensure That This Date Is Also Visible In The Posting Picture.</li><li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9 AM and 5 PM.  "Good Faith" efforts must be made at different times of day.</b></li><li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished before <?=$estFileDate?></b></li><?=strtoupper($server_notes);?></fieldset></td>
 		</tr>
 </table>
 <? 

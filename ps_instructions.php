@@ -152,10 +152,10 @@ if ($data[lossMit] != '' && $data[lossMit] != 'N/A - OLD L' && $data[packet_id] 
     </tr>
     <tr>
     	<td colspan="5" align="center"><div style="width:550px; text-align:left;"><div style="border:ridge 3px; font-size: 16px;"><strong style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</strong><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
-		<li>You cannot make two attempts at the same property on the same day.</li>
+		<li>You cannot make two attempts at the same property within the same 24 hour period.</li>
         <li><b>Posting</b> must be done <b>after</b> <u>all attempts</u> have been completed.</li>
         <li>Attempts are to be performed in order listed on service instructions.</li>
-		<li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9AM and 5PM.  Please avoid attempts between 8AM-9AM & 5PM-6PM.  "Good Faith" efforts must be made at different times of day, meaning that one attempt should be made <b>before</b> noon, and another afterwards, within reason.</b></li>
+		<li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9AM and 5PM.  Please avoid attempts between 8AM-9AM & 5PM-6PM.  "Good Faith" efforts must be made at different times of day, meaning that one attempt should be made <b>before</b> noon, and another afterwards, and they must be at least 24 hours apart.</b></li>
         <li>Photographs are required for <b>posting</b>s as well as for <b>attempt</b>s.</li>
 		<li>Personal delivery can only be achieved in the following manner:
 <pre>	1.  Direct Delivery to the defendants themselves.<br>
