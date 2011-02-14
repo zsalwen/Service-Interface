@@ -100,6 +100,11 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 	}else{
 		$amended="";
 	}
+	if ($def != 1 && strtoupper($d1["onAffidavit$def"]) != 'CHECKED'){
+		$party=strtoupper($d1["name$def"]);
+	}else{
+		$party="ALL OCCUPANTS";
+	}
 	if ($d1[altDocs] != ''){
 		$altDocs=$d1[altDocs];
 	}else{
@@ -216,10 +221,10 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 		$article = "14-102 (d) (3) (A) (ii)";
 		$result = "MAILING AND POSTING";
 		if ($attempts != ''){
-				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the occupant, by personal delivery:<br>I, [SERVERNAME], made the following efforts:</u></div>
+				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve $party, by personal delivery:<br>I, [SERVERNAME], made the following efforts:</u></div>
 				".$attempts;
 			}elseif($attemptsa != ''){
-				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve the occupant, by personal delivery:<br>I, [SERVERNAME], made the following efforts:</u></div>
+				$history = "<div style='font-weight:300'><u>Describe with particularity the good faith efforts to serve $party, by personal delivery:<br>I, [SERVERNAME], made the following efforts:</u></div>
 				".$attemptsa;
 				$iID=$iIDa;
 			}
