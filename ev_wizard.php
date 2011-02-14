@@ -358,7 +358,7 @@ DEFENDANT: <a href="wizard.php?jump=<?=$packet?>-1<? if ($mailDate){ echo "&mail
 <? if ($ddr[name6] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="ev_wizard.php?jump=<?=$packet?>-6<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '6'){ echo "<b>6</b>";}else{ echo "6";}?></a><? } ?>
 <? if($_COOKIE[psdata][level]=="Operations" && $_POST[opServer] != ''){ echo id2name($_POST[opServer])."*<br>"; }?>
 <? if ($_COOKIE[psdata][level] == 'Operations'){ ?> <a href="http://staff.mdwestserve.com/ev/order.php?packet=<?=$ddr[eviction_id]?>" target="_blank">(<?=id2attorney($ddr[attorneys_id]);?>)</a> - 
-<a href="http://staff.mdwestserve.com/ev/ev_instructions.<? if($ddr[attorneys_id] == 56){ echo 'brennan.';}?>php?id=<?=$ddr[eviction_id]?>" target="_blank">INSTRUCTIONS</a> - 
+<a href="ev_instructions.php?id=<?=$ddr[eviction_id]?>" target="_blank">INSTRUCTIONS</a> - 
 <a href="http://staff.mdwestserve.com/ev/evSheet.php?id=<?=$packet?>&autoPrint=1" target="_blank">CHECKLIST</a> - 
 <a href="http://staff.mdwestserve.com/ev/evictionHistoryModify.php?id=<?=$packet?>" target="_blank">MODIFY</a>
 <br><iframe width="500px" height="60px" src="http://staff.mdwestserve.com/penalize.php?packet=<?=$packet?>&svc=EV&defendant=<?=$defendant?>" frameborder='0' scrolling='no'></iframe>
