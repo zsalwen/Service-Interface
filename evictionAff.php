@@ -103,7 +103,7 @@ function EVmakeAffidavit($p,$defendant,$level,$user_id){
 	if ($def != 1 && strtoupper($d1["onAffidavit$def"]) != 'CHECKED'){
 		$party=strtoupper($d1["name$def"]);
 	}else{
-		$party="ALL OCCUPANTS";
+		$party="All Occupants";
 	}
 	if ($d1[altDocs] != ''){
 		$altDocs=$d1[altDocs];
