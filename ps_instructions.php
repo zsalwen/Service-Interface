@@ -151,7 +151,7 @@ if ($data[lossMit] != '' && $data[lossMit] != 'N/A - OLD L' && $data[packet_id] 
     	<td colspan="5" align="center"><b>Service Type 'A':</b></td>
     </tr>
     <tr>
-    	<td colspan="5" align="center"><div style="width:550px; text-align:left;"><div style="border:ridge 3px; font-size: 16px;"><strong style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</strong><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
+    	<td colspan="5" align="center"><div style="width:650px; text-align:left;"><div style="border:ridge 3px; font-size: 16px;"><strong style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</strong><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
 		<li>You cannot make two attempts at the same property within the same 24 hour period.</li>
         <li><b>Posting</b> must be done <b>after</b> <u>all attempts</u> have been completed.</li>
         <li>Attempts are to be performed in order listed on service instructions.</li>
