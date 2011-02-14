@@ -115,7 +115,7 @@ while ($i < 6){$i++;
 			$row .= "<tr><td>ALL OCCUPANTS</td>";
 		}elseif($product == 'EV' && (strtoupper($d1["onAffidavit$i"]) != 'CHECKED')){
 			$row .= "<tr><td>".strtoupper($d1["name$i"])."</td>";
-		}else{
+		}elseif($product != 'EV'){
 			$row .= "<tr><td>".strtoupper($d1["name$i"])."</td>";
 		}
 		$columns++;

@@ -22,7 +22,7 @@ function makeEntry($packet,$def,$add,$name,$date,$entryID,$mailDate,$product){
 	}else{
 		$var=$def.$add;
 		if ($product == 'EV'){
-			$q="select name$def, address$var, city$var, state$var, zip$var from evictionPackets where eviction_id = '$packet'";
+			$q="select name$def, address$var, city$var, state$var, zip$var, addressType from evictionPackets where eviction_id = '$packet'";
 		}else{
 			$q="select name$def, address$var, city$var, state$var, zip$var, addressType$add from ps_packets where packet_id = '$packet'";
 		}
