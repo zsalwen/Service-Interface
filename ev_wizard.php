@@ -351,11 +351,11 @@ if (is_array($_POST[served])){
 <form enctype="multipart/form-data" id="wizard" name="wizard" onSubmit="hideshow(document.getElementById('loading'))" method="post" style='display:inline;'>
 <fieldset style="background-color:#FFFFFF;"><legend style=" background-color:#FFFFCC; border:double 1px #999999; padding:0px;">
 DEFENDANT: <a href="wizard.php?jump=<?=$packet?>-1<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '1'){ echo "<b>1</b>";}else{ echo "1";}?></a>
-<? if ($ddr[name2] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="wizard.php?jump=<?=$packet?>-2<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '2'){ echo "<b>2</b>";}else{ echo "2";}?></a> <? } ?>
-<? if ($ddr[name3] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="wizard.php?jump=<?=$packet?>-3<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '3'){ echo "<b>3</b>";}else{ echo "3";}?></a> <? } ?>
-<? if ($ddr[name4] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="wizard.php?jump=<?=$packet?>-4<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '4'){ echo "<b>4</b>";}else{ echo "4";}?></a><? } ?>
-<? if ($ddr[name5] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="wizard.php?jump=<?=$packet?>-5<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '5'){ echo "<b>5</b>";}else{ echo "5";}?></a><? } ?>
-<? if ($ddr[name6] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="wizard.php?jump=<?=$packet?>-6<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '6'){ echo "<b>6</b>";}else{ echo "6";}?></a><? } ?>
+<? if ($ddr[name2] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="ev_wizard.php?jump=<?=$packet?>-2<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '2'){ echo "<b>2</b>";}else{ echo "2";}?></a> <? } ?>
+<? if ($ddr[name3] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="ev_wizard.php?jump=<?=$packet?>-3<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '3'){ echo "<b>3</b>";}else{ echo "3";}?></a> <? } ?>
+<? if ($ddr[name4] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="ev_wizard.php?jump=<?=$packet?>-4<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '4'){ echo "<b>4</b>";}else{ echo "4";}?></a><? } ?>
+<? if ($ddr[name5] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="ev_wizard.php?jump=<?=$packet?>-5<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '5'){ echo "<b>5</b>";}else{ echo "5";}?></a><? } ?>
+<? if ($ddr[name6] && strtoupper($ddr[onAffidavit2]) != 'CHECKED'){?> <a href="ev_wizard.php?jump=<?=$packet?>-6<? if ($mailDate){ echo "&mailDate=".$mailDate;} ?>"><?if ($defendant == '6'){ echo "<b>6</b>";}else{ echo "6";}?></a><? } ?>
 <? if($_COOKIE[psdata][level]=="Operations" && $_POST[opServer] != ''){ echo id2name($_POST[opServer])."*<br>"; }?>
 <? if ($_COOKIE[psdata][level] == 'Operations'){ ?> <a href="http://staff.mdwestserve.com/ev/order.php?packet=<?=$ddr[eviction_id]?>" target="_blank">(<?=id2attorney($ddr[attorneys_id]);?>)</a> - 
 <a href="http://staff.mdwestserve.com/ev/ev_instructions.<? if($ddr[attorneys_id] == 56){ echo 'brennan.';}?>php?id=<?=$ddr[eviction_id]?>" target="_blank">INSTRUCTIONS</a> - 
