@@ -102,7 +102,7 @@ foreach(range('e','a') as $letter){
     	<td colspan="5" align="center"><b>Service Type 'D':</b></td>
     </tr>
     <tr>
-    	<td colspan="5" align="center"><div style="width:650px; text-align:justify;"><div style="border:ridge 3px; font-size: 16px; width: 400px; align:justify;"><b style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</b><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
+    	<td colspan="5" align="center"><div style="width:650px; text-align:justify;"><div style="border:ridge 3px; font-size: 16px; align:justify;"><b style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</b><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
 		<li>You cannot make two attempts at the same property within the same 24 hour period.</li>
         <li><b>Posting</b> must be done <b>after</b> <u>all attempts</u> have been completed.</li>
         <li>Attempts are to be performed in order listed on service instructions.</li>

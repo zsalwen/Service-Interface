@@ -246,7 +246,7 @@ if ($data2 == ''){
 		echo "<tr><td align='center'>".strtoupper($data[server_notes])."</td></tr>";
 	} ?>
 		<tr>
-			<td align="center" style="width:700px;font-size:13px;"><div style="width:700px; text-align:left; border: 1px solid black;"><fieldset><legend>SERVICE REQUIREMENTS</legend><div style="border:3px ridge black; font-size: 16px; width=650px;"><b style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</b><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
+			<td align="center" style="width:700px;font-size:13px;"><div style="width:700px; text-align:left; border: 1px solid black;"><fieldset><legend>SERVICE REQUIREMENTS</legend><div style="border:3px ridge black; font-size: 16px;"><b style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</b><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
 		<li>You cannot make two attempts at the same property within the same 24 hour period.</li>
         <li>Posting must be done <b>after</b> <u>all attempts</u> have been completed.</li>
         <li>Attempts are to be performed in order listed on service instructions.</li>
