@@ -120,17 +120,19 @@ while ($i < 6){$i++;
 		}
 		$columns++;
 		if ($d1[address1]){
-			$onclick .= "document.matrix.add$i.checked='checked';
-			";
-			if ($i == 1){
-				$header .= "<td>".strtoupper($d1[address1])."<br>".strtoupper($d1[city1]).", ".strtoupper($d1[state1])." ".strtoupper($d1[zip1])."</td>";
-				$columns++;
+			if (($product == 'EV' && $i == 1) || ($product == 'EV' && (strtoupper($d1["onAffidavit$i"]) != 'CHECKED')) || ($product != 'EV')){
+				$onclick .= "document.matrix.add$i.checked='checked';
+				";
+				if ($i == 1){
+					$header .= "<td>".strtoupper($d1[address1])."<br>".strtoupper($d1[city1]).", ".strtoupper($d1[state1])." ".strtoupper($d1[zip1])."</td>";
+					$columns++;
+				}
+				$row .= "<td><input name='add$i' id='add$i' type='checkbox' value='1'";
+				if ($d["add$i"] == 1){
+					$row .= " checked ";
+				}
+				$row .= "></td>";
 			}
-			$row .= "<td><input name='add$i' id='add$i' type='checkbox' value='1'";
-			if ($d["add$i"] == 1){
-				$row .= " checked ";
-			}
-			$row .= "></td>";
 		}
 		if ($product != 'EV'){
 			foreach(range('a','e') as $letter){
