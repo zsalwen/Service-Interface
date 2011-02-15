@@ -201,6 +201,10 @@ if ($data2 == ''){
 	<?
 	$i=0;
 	$add = $data["address1"].', '.$data["city1"].', '.$data["state1"].' '.$data["zip1"];
+	$bgw='';
+	if ($data[attorneys_id] == 70){
+		$bgw=" Complete attempts at this address before proceeding to other addresses (for service on this defendant).";
+	}
 	while ($i < 6){$i++;
 		if ($data["name$i"]){
 			$name=strtoupper($data["name$i"]);
@@ -210,7 +214,7 @@ if ($data2 == ''){
 				foreach(range('e','a') as $letter){
 					$address=$i.$letter;
 					if ($data2["customA$address"] != ''){$addCount++;
-						echo strtoupper("<li>".id2name($data["server_id$letter"])." is to make ".$data2["attempts$letter"]." service attempts on $name at ".$data["address1$letter"].", " .$data["city1$letter"].", ".$data["state1$letter"]." ".$data["zip1$letter"]." on different days.</li>");
+						echo strtoupper("<li>".id2name($data["server_id$letter"])." is to make ".$data2["attempts$letter"]." service attempts on $name at ".$data["address1$letter"].", " .$data["city1$letter"].", ".$data["state1$letter"]." ".$data["zip1$letter"]." on different days.$bgw</li>");
 					}
 				}
 				if ($data2["customA$i"] != ''){$addCount++;
