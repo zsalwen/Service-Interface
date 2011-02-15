@@ -62,7 +62,7 @@ $i2=0;
 foreach(range('e','a') as $letter){
 	$vr=$i.$letter;
 	if ($data["address$vr"]){$i2++; ?>
-	<li><?=id2name($data["server_id$letter"])?> is to make 2 service attempts on <?=$name?> at <?=$data["address$vr"].' '.$data["city$vr"].', '.$data["state$vr"].' '.$data["zip$vr"]?>.</li>
+	<li><?=id2name($data["server_id$letter"])?> is to make 2 service attempts on <?=$name?> at <?=$data["address$vr"].' '.$data["city$vr"].', '.$data["state$vr"].' '.$data["zip$vr"]?>. Complete attempts at this address before proceeding to other addresses (for service on this defendant).</li>
 <? } 
 		}
 	if ($i2 == 0 && $data[avoidDOT] == ''){?>
