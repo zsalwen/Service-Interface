@@ -29,8 +29,8 @@ if (move_uploaded_file($_FILES['upload']['tmp_name'], $target_path)){ echo "file
 $link = "http://service.mdwestserve.com/photographs/EV".$packet."/".$defendant.".".$_POST[photo].".".time().".jpg";
 $user = $_COOKIE[psdata][user_id];
 $addressID=alpha2ID($_POST[photo]);
-$desc=alpha2desc($_POST[photo]);
-$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,desc) VALUES ('EV$packet','$defendant','$addressID','$user','$target_path','$link','$desc')";
+$description=alpha2desc($_POST[photo]);
+$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,description) VALUES ('EV$packet','$defendant','$addressID','$user','$target_path','$link','$description')";
 @mysql_query($query2) or die ("Query: $query2".mysql_error());
 // send html with img tags....
 $headers  = "MIME-Version: 1.0 \n";
