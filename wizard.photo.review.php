@@ -5,12 +5,12 @@
 $qP="SELECT * FROM ps_photos WHERE packetID='$packet' AND defendantID='$defendant' ORDER by addressID ASC";
 $rP=@mysql_query($qP) or die ("Query: $qP<br>".mysql_error());
 while ($dP=mysql_fetch_array($rP,MYSQL_ASSOC)){
+	$letter=getLetter($dP[localPath]);
 	if ($dP[description] != ''){
 		$description=strtoupper($dP[description]);
 	}else{
 		$description=alpha2desc($letter);
 	}
-	$letter=getLetter($dP[localPath]);
 	$newPic = str_replace('ps/','',$dP[browserAddress]);
 	echo "<td><input type='radio' name='photo' value='$dP[photoID]'></td><td>".$description."<br>".strtoupper($ddr["address$defendant"].", ".$ddr["state$defendant"])."<br><a href='$newPic' target='_Blank'><img width='200' height='125' src='$newPic' /></a></td>";	
 }
