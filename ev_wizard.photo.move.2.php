@@ -20,8 +20,8 @@ function alpha2ID($alpha){
 	if ($alpha == 'm'){ return "6"; }
 }
 $addressID=alpha2ID($_POST["new"]);
-$desc=alpha2desc($_POST["new"]);
-@mysql_query("UPDATE ps_photos SET desc='$desc', addressID='$addressID' WHERE photoID='$_POST[photo]'");
+$description=alpha2desc($_POST["new"]);
+@mysql_query("UPDATE ps_photos SET description='$description', addressID='$addressID' WHERE photoID='$_POST[photo]'");
 ?>
 Move Completed...<br>
 <div class="nav2"><input onClick="submitLoader()" type="radio" name="i" value="photo.review" /> NEXT</div>

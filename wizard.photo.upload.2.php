@@ -34,15 +34,16 @@ if ($defendant == "ALL"){
 		if ($ddr["name$i"]){
 				$user = $_COOKIE[psdata][user_id];
 				$addressID=alpha2ID($_POST[photo]);
-				$desc=alpha2desc($_POST[photo]);
-				$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,desc) VALUES ('$packet','$i','$addressID','$user','$target_path','$link','$desc')";
+				$description=alpha2desc($_POST[photo]);
+				$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,description) VALUES ('$packet','$i','$addressID','$user','$target_path','$link','$description')";
 				@mysql_query($query2);
 		}
 	}
 }else{
 	$user = $_COOKIE[psdata][user_id];
 	$addressID=alpha2ID($_POST[photo]);
-	$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress) VALUES ('$packet','$defendant','$addressID','$user','$target_path','$link')";
+	$description=alpha2desc($_POST[photo]);
+	$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,description) VALUES ('$packet','$defendant','$addressID','$user','$target_path','$link','$description')";
 	@mysql_query($query2);
 }
 // do all watermarking here!
