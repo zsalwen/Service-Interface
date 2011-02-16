@@ -20,7 +20,7 @@ if ($_FILES['upload']['tmp_name']){
 @mysql_query("insert into ps_file_array (name, type, size, tmp_name, error, uploadDate, user) values ('".$_FILES['upload']['name']."','".$_FILES['upload']['type']."','".$_FILES['upload']['size']."','".$_FILES['upload']['tmp_name']."','".$_FILES['upload']['error']."', NOW(), '$name' )");
 // ok first we need to go get the files
 $path = "/data/service/photos/";
-$file_path = $path.'/'.$packet;
+$file_path = $path.$packet;
 if (!file_exists($file_path)){
 	mkdir ($file_path,0777);
 }
