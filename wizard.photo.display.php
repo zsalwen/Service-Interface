@@ -66,12 +66,12 @@ fieldset, legend, div, table {padding:0px;}
 <?
 $packet=$_GET[packet];
 $def=$_GET[defendant];
-if (!$_GET[server] && !$_GET[all]){
+if (!$_GET[server] && !$_GET[viewAll]){
 	$r=@mysql_query("SELECT photoID FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'");
 	$serverCount=mysql_num_rows($r);
 	$allCount=photoCount($packet);
-	echo "<table align='center' valign='top'><tr><td><a href='?packet=$packet&def=$def&server=1'>View Photos (As Server Would See) [$serverCount]</a></td><td><a href='?packet=$packet&def=$def&all=1'>View All Photos [$allCount]</a></td></tr></table>";
-}elseif($_GET[all]){
+	echo "<table align='center' valign='top'><tr><td><a href='?packet=$packet&def=$def&server=1'>View Photos (As Server Would See) [$serverCount]</a></td><td><a href='?packet=$packet&def=$def&viewAll=1'>View All Photos [$allCount]</a></td></tr></table>";
+}elseif($_GET[viewAll]){
 	//use Service-Web-Service/findPhotos.php to search packet's directory for all photos
 	$q="SELECT name1, name2, name3, name4, name5, name6 FROM ps_packets WHERE packet_id='$packet'";
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
