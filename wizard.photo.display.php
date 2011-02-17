@@ -110,7 +110,7 @@ if (!$_GET[server] && !$_GET[all]){
 		if ($dP[description] != ''){
 			$desc=strtoupper($dP[description]);
 		}
-		"<div><a href='$path' target='_blank'><img src='$path' height='250' width='400'><br>$desc - <small>Uploaded: $time [<b>$size</b>]</small></a></div>"
+		"<div><a href='$path' target='_blank'><img src='$path' height='250' width='400'><br>$desc - <small>Uploaded: $time [<b>$size</b>]</small></a></div>";
 	}
 	echo "</fieldset></td></tr></table>";
 }
