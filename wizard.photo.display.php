@@ -82,7 +82,42 @@ if (!$_GET[server] && !$_GET[viewAll]){
 	//echo "$q<br>";
 	$serverCount=mysql_num_rows($r);
 	$allCount=photoCount($packet);
-	echo "<table align='center' valign='top'><tr><td><a href='?packet=$packet&defendant=$def&server=1'>View Photos (As Server Would See) [$serverCount]</a></td><td><a href='?packet=$packet&defendant=$def&viewAll=1'>View All Photos [$allCount]</a></td></tr></table>";
+	if ($serverCount != $allCount){
+		echo "<table align='center' valign='top'><tr><td><a href='?packet=$packet&defendant=$def&server=1'>View Photos (As Server Would See) [$serverCount]</a></td><td><a href='?packet=$packet&defendant=$def&viewAll=1'>View All Photos [$allCount]</a></td></tr></table>";
+	}else{
+		//list all photos within ps_photos table for this packet & defendant
+		$q="SELECT name1, name2, name3, name4, name5, name6 FROM ps_packets WHERE packet_id='$packet'";
+		$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
+		$d=mysql_fetch_array($r,MYSQL_ASSOC);
+		//echo "$q<br>";
+		echo "<table align='center' valign='top'><tr><td valign='top'><fieldset><legend>".strtoupper($d["name$def"])."</legend>";
+		$q2="SELECT * FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'";
+		$r2=@mysql_query($q2) or die ("Query: $q2<br>".mysql_error());
+		//echo "$q2<br>";
+		while ($d2=mysql_fetch_array($r2,MYSQL_ASSOC)){
+			$path=str_replace('/data/service/photos/','',$d2[localPath]);
+			$size = byteConvert(filesize($d2[localPath]));
+			$letter = explode("/",$path);
+			$letter = explode(".",$letter[1]);
+			$path="http://mdwestserve.com/photographs/".$path;
+			$i2=0;
+			while ($i2 < count($letter)){
+				if ((trim($letter["$i2"]) != '') && (strlen(trim($letter["$i2"])) == 1)){
+					if (ctype_alpha($letter["$i2"])){
+						$desc=alpha2desc($letter["$i2"]);
+					}
+				}elseif(($i2 == count($letter)-2) && is_numeric($letter["$i2"])){
+					$time=date('n/j/y @ H:i:s',$letter["$i2"]);
+				}
+			$i2++;
+			}
+			if ($dP[description] != ''){
+				$desc=strtoupper($dP[description]);
+			}
+			echo "<div><a href='$path' target='_blank'><img src='$path' height='250' width='400'><br>$desc - <small>Uploaded: $time [<b>$size</b>]</small></a></div>";
+		}
+		echo "</fieldset></td></tr></table>";
+	}
 }elseif($_GET[viewAll]){
 	//use Service-Web-Service/findPhotos.php to search packet's directory for all photos
 	$q="SELECT name1, name2, name3, name4, name5, name6 FROM ps_packets WHERE packet_id='$packet'";
