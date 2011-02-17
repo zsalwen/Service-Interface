@@ -234,7 +234,7 @@ function makeEntry($packet){
 					if ($d[lossMit] == "FINAL"){
 						//if file is a final, also instruct to include envelope for court
 						$toCounty=county2envelope2($d[circuit_court]);
-						$lossMitInstructions .= ", and another to <span style='color:#990000;'>".$toCounty."</span>";
+						$lossMitInstructions .= ", and another WHITE envelope addressed to <span style='color:#990000;'>".$toCounty."</span>";
 					}
 					$lossMit .= " with each defendant's service documents.";
 					echo " <div style='display:inline-block; font-weight:bold; width:250px; font-size:10px; padding:0px; border: double 2px; background-color:FFFFFF; line-height: 9px;'>".strtoupper($lossMitInstructions)."</div> "; 
