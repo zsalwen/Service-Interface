@@ -13,7 +13,7 @@ while ($dP=mysql_fetch_array($rP,MYSQL_ASSOC)){
 	}
 	if ($dP[addressID] != ''){
 		$letter=num2add($dP[addressID]);
-		$address=strtoupper($ddr["address$defendant$letter"].", ".$ddr["state$defendant$letter"])
+		$address=strtoupper($ddr["address$defendant$letter"].", ".$ddr["state$defendant$letter"]);
 	}else{
 		$address=strtoupper($ddr["address$defendant"].", ".$ddr["state$defendant"]);
 	}
