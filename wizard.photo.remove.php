@@ -10,7 +10,7 @@ $file = $ddr["photo".$defendant.$_POST['photo']];
 		$headers .= "From: $from \n";
 //		mail($to,$subject,$info.$history,$headers);
 //@mysql_query("UPDATE ps_packets set $field = '' ");
-@mysql_query("UPDATE ps_photos SET packetID='' WHERE photoID='$_POST[photo]'");
+@mysql_query("DELETE FROM ps_photos WHERE photoID='$_POST[photo]'");
 $user = $_COOKIE[psdata][user_id];
 mkAlert('REMOVED PHOTO FOR OTD$packet',$user,$user,$packet);
  ?>
