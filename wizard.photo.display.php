@@ -50,6 +50,13 @@ function photoAddress($packet,$defendant,$alpha){
 			return $d["address$defendant"."e"].", ".$d["state$defendant"."e"];
 		}
 	}
+}
+function photoCount($packet){
+	$count=trim(getPage("http://data.mdwestserve.com/countPhotos.php?packet=$packet", 'MDWS Count Photos', '5', ''));
+	if ($count==''){
+		$count=0;
+	}
+	return $count;
 }?>
 <style>
 legend{background-color:#FFFFCC;}
@@ -59,16 +66,52 @@ fieldset, legend, div, table {padding:0px;}
 <?
 $packet=$_GET[packet];
 $def=$_GET[defendant];
-$q="SELECT name1, name2, name3, name4, name5, name6 FROM ps_packets WHERE packet_id='$packet'";
-$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
-$d=mysql_fetch_array($r,MYSQL_ASSOC);
-$html=trim(getPage("http://data.mdwestserve.com/findPhotos.php?packet=$packet&def=$def", 'MDWS Find Photos', '5', ''));
-echo "<table align='center' valign='top'><tr>";
-if ($d["name$def"]){
-	echo "<td valign='top'><fieldset><legend>".strtoupper($d["name$def"])."</legend>";
-	echo $html;
-	echo "</fieldset></td>";
+if (!$_GET[server] && !$_GET[all]){
+	$r=@mysql_query("SELECT photoID FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'");
+	$serverCount=mysql_num_rows($r);
+	$allCount=photoCount($packet);
+	echo "<table align='center' valign='top'><tr><td><a href='?packet=$packet&def=$def&server=1'>View Photos (As Server Would See) [$serverCount]</a></td><td><a href='?packet=$packet&def=$def&all=1'>View All Photos [$allCount]</a></td></tr></table>";
+}elseif($_GET[all]){
+	//use Service-Web-Service/findPhotos.php to search packet's directory for all photos
+	$q="SELECT name1, name2, name3, name4, name5, name6 FROM ps_packets WHERE packet_id='$packet'";
+	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
+	$d=mysql_fetch_array($r,MYSQL_ASSOC);
+	$html=trim(getPage("http://data.mdwestserve.com/findPhotos.php?packet=$packet&def=$def", 'MDWS Find Photos', '5', ''));
+	echo "<table align='center' valign='top'><tr>";
+	if ($d["name$def"]){
+		echo "<td valign='top'><fieldset><legend>".strtoupper($d["name$def"])."</legend>";
+		echo $html;
+		echo "</fieldset></td>";
+	}
+	echo "</tr></table>";
+}elseif($_GET[server]){
+	//list all photos within ps_photos table for this packet & defendant
+	$q="SELECT name1, name2, name3, name4, name5, name6 FROM ps_packets WHERE packet_id='$packet'";
+	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
+	$d=mysql_fetch_array($r,MYSQL_ASSOC);
+	echo "<table align='center' valign='top'><tr><td valign='top'><fieldset><legend>".strtoupper($d["name$def"])."</legend>";
+	$r2=@mysql_query("SELECT photoID FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'");
+	while ($d2=mysql_fetch_array($r2,MYSQL_ASSOC)){
+		$path=str_replace('/data/service/photos/','http://mdwestserve.com/photographs/',$d2[localPath]);
+		$size = byteConvert(filesize($d2[localPath]));
+		$letter = explode("/",$path);
+		$letter = $explode(".",$letter[1]);
+		$i2=0;
+		while ($i2 < count($letter)){
+			if ((trim($letter["$i2"]) != '') && (strlen(trim($letter["$i2"])) == 1)){
+				if (ctype_alpha($letter["$i2"])){
+					$desc=alpha2desc($letter["$i2"]);
+				}
+			}elseif(($i2 == count($letter)-2) && is_numeric($letter["$i2"])){
+				$time=date('n/j/y @ H:i:s',$letter["$i2"]);
+			}
+		$i2++;
+		}
+		if ($dP[description] != ''){
+			$desc=strtoupper($dP[description]);
+		}
+		"<div><a href='$path' target='_blank'><img src='$path' height='250' width='400'><br>$desc - <small>Uploaded: $time [<b>$size</b>]</small></a></div>"
+	}
+	echo "</fieldset></td></tr></table>";
 }
-
-echo "</tr></table>";
 ?>
