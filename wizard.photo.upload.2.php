@@ -24,25 +24,35 @@ $file_path = $path.$packet;
 if (!file_exists($file_path)){
 	mkdir ($file_path,0777);
 }
-$target_path = $file_path."/".$defendant.".".$_POST[photo].".".time().".jpg";  
+$target_path = $file_path."/".$defendant.".".$_POST[photo].".".time().".jpg"; 
 if (move_uploaded_file($_FILES['upload']['tmp_name'], $target_path)){"file <b>NOT</b> saved...($target_path)<br>"; }else{ echo "file saved...($target_path)<br>"; }
 
-$link = "http://mdwestserve.com/ps/photographs/".$packet."/".$defendant.".".$_POST[photo].".".time().".jpg";
+$link = "http://mdwestserve.com/photographs/".$packet."/".$defendant.".".$_POST[photo].".".time().".jpg";
 if ($defendant == "ALL"){
 	$i=0;
 	while ($i < 6){$i++;
 		if ($ddr["name$i"]){
 				$user = $_COOKIE[psdata][user_id];
-				$addressID=alpha2ID($_POST[photo]);
-				$description=alpha2desc($_POST[photo]);
+				if ($_POST[photo] == 'x'){
+					$addressID=$_POST[freeAdd];
+					$description=strtoupper($_POST[freeDesc]);
+				}else{
+					$addressID=alpha2ID($_POST[photo]);
+					$description=alpha2desc($_POST[photo]);
+				}
 				$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,description) VALUES ('$packet','$i','$addressID','$user','$target_path','$link','$description')";
 				@mysql_query($query2);
 		}
 	}
 }else{
 	$user = $_COOKIE[psdata][user_id];
-	$addressID=alpha2ID($_POST[photo]);
-	$description=alpha2desc($_POST[photo]);
+	if ($_POST[photo] == 'x'){
+		$addressID=$_POST[freeAdd];
+		$description=strtoupper($_POST[freeDesc]);
+	}else{
+		$addressID=alpha2ID($_POST[photo]);
+		$description=alpha2desc($_POST[photo]);
+	}
 	$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,description) VALUES ('$packet','$defendant','$addressID','$user','$target_path','$link','$description')";
 	@mysql_query($query2);
 }
