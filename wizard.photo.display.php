@@ -67,7 +67,7 @@ fieldset, legend, div, table {padding:0px;}
 $packet=$_GET[packet];
 $def=$_GET[defendant];
 if (!$_GET[server] && !$_GET[viewAll]){
-	$r=@mysql_query("SELECT photoID FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'");
+	$r=@mysql_query("SELECT photoID FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'") or die (mysql_error());
 	$serverCount=mysql_num_rows($r);
 	$allCount=photoCount($packet);
 	echo "<table align='center' valign='top'><tr><td><a href='?packet=$packet&def=$def&server=1'>View Photos (As Server Would See) [$serverCount]</a></td><td><a href='?packet=$packet&def=$def&viewAll=1'>View All Photos [$allCount]</a></td></tr></table>";
@@ -96,7 +96,7 @@ if (!$_GET[server] && !$_GET[viewAll]){
 		$path=str_replace('/data/service/photos/','',$d2[localPath]);
 		$size = byteConvert(filesize($d2[localPath]));
 		$letter = explode("/",$path);
-		$letter = $explode(".",$letter[1]);
+		$letter = explode(".",$letter[1]);
 		$path="http://mdwestserve.com/photographs/".$path;
 		$i2=0;
 		while ($i2 < count($letter)){
