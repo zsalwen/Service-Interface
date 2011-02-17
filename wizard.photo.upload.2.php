@@ -15,63 +15,68 @@ function alpha2ID($alpha){
 	if ($alpha == 'm'){ return "6"; }
 }
 if ($_FILES['upload']['tmp_name']){
-
-// log all attempts
-@mysql_query("insert into ps_file_array (name, type, size, tmp_name, error, uploadDate, user) values ('".$_FILES['upload']['name']."','".$_FILES['upload']['type']."','".$_FILES['upload']['size']."','".$_FILES['upload']['tmp_name']."','".$_FILES['upload']['error']."', NOW(), '$name' )");
-// ok first we need to go get the files
-$path = "/data/service/photos/";
-$file_path = $path.$packet;
-if (!file_exists($file_path)){
-	mkdir ($file_path,0777);
-}
-$target_path = $file_path."/".$defendant.".".$_POST[photo].".".time().".jpg"; 
-if (move_uploaded_file($_FILES['upload']['tmp_name'], $target_path)){"file <b>NOT</b> saved...($target_path)<br>"; }else{ echo "file saved...($target_path)<br>"; }
-
-$link = "http://mdwestserve.com/photographs/".$packet."/".$defendant.".".$_POST[photo].".".time().".jpg";
-if ($defendant == "ALL"){
-	$i=0;
-	while ($i < 6){$i++;
-		if ($ddr["name$i"]){
-				$user = $_COOKIE[psdata][user_id];
-				if ($_POST[photo] == 'x'){
-					$addressID=$_POST[freeAdd];
-					$description=strtoupper($_POST[freeDesc]);
-				}else{
-					$addressID=alpha2ID($_POST[photo]);
-					$description=alpha2desc($_POST[photo]);
-				}
-				$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,description) VALUES ('$packet','$i','$addressID','$user','$target_path','$link','$description')";
-				@mysql_query($query2);
+	if ($_POST[photo] != 'x' || $_POST[freeDesc] != ''){
+		// log all attempts
+		@mysql_query("insert into ps_file_array (name, type, size, tmp_name, error, uploadDate, user) values ('".$_FILES['upload']['name']."','".$_FILES['upload']['type']."','".$_FILES['upload']['size']."','".$_FILES['upload']['tmp_name']."','".$_FILES['upload']['error']."', NOW(), '$name' )");
+		// ok first we need to go get the files
+		$path = "/data/service/photos/";
+		$file_path = $path.$packet;
+		if (!file_exists($file_path)){
+			mkdir ($file_path,0777);
 		}
+		$target_path = $file_path."/".$defendant.".".$_POST[photo].".".time().".jpg"; 
+		if (move_uploaded_file($_FILES['upload']['tmp_name'], $target_path)){"file <b>NOT</b> saved...($target_path)<br>"; }else{ echo "file saved...($target_path)<br>"; }
+
+		$link = "http://mdwestserve.com/photographs/".$packet."/".$defendant.".".$_POST[photo].".".time().".jpg";
+		if ($defendant == "ALL"){
+			$i=0;
+			while ($i < 6){$i++;
+				if ($ddr["name$i"]){
+						$user = $_COOKIE[psdata][user_id];
+						if ($_POST[photo] == 'x'){
+							$addressID=$_POST[freeAdd];
+							$description=strtoupper($_POST[freeDesc]);
+						}else{
+							$addressID=alpha2ID($_POST[photo]);
+							$description=alpha2desc($_POST[photo]);
+						}
+						$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,description) VALUES ('$packet','$i','$addressID','$user','$target_path','$link','$description')";
+						@mysql_query($query2);
+				}
+			}
+		}else{
+			$user = $_COOKIE[psdata][user_id];
+			if ($_POST[photo] == 'x'){
+				$addressID=$_POST[freeAdd];
+				$description=strtoupper($_POST[freeDesc]);
+			}else{
+				$addressID=alpha2ID($_POST[photo]);
+				$description=alpha2desc($_POST[photo]);
+			}
+			$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,description) VALUES ('$packet','$defendant','$addressID','$user','$target_path','$link','$description')";
+			@mysql_query($query2);
+		}
+		// do all watermarking here!
+		include 'wizard.photo.watermark.php';
+		// send html with img tags....
+		$headers  = "MIME-Version: 1.0 \n";
+		$headers .= "Content-type: text/html; charset=iso-8859-1 \n";
+		$headers .= "From: SYSTEM <sysop@hwestauctions.com> \n";
+		$subject = "WIZARD: PHOTO UPLOAD OTD$packet";
+		$ps = $info.id2name($_COOKIE[psdata][user_id]).' '.$link;
+		$ps .= "<br><img src='http://mdwestserve.com/ps/$img'>";
+		$to = "SYSTEM OPERATORS <sysop@hwestauctions.com>";
+		//mail($to,$subject,$ps,$headers);
+		mkAlert('UPLOADED PHOTO',$user,$user,$packet);
+		timeline($packet,$_COOKIE[psdata][name]." Uploaded Photo");
+		?>
+		<div class="nav2"><input onClick="submitLoader()" type="radio" name="i" value="photo.review" /> NEXT</div>
+	<? }else{?>
+		NO DESCRIPTION ENTERED
+		<div class="nav"><input onClick="submitLoader()" type="radio" name="i" value="photo.upload.1" /> BACK</div>
+	<?
 	}
-}else{
-	$user = $_COOKIE[psdata][user_id];
-	if ($_POST[photo] == 'x'){
-		$addressID=$_POST[freeAdd];
-		$description=strtoupper($_POST[freeDesc]);
-	}else{
-		$addressID=alpha2ID($_POST[photo]);
-		$description=alpha2desc($_POST[photo]);
-	}
-	$query2 = "INSERT into ps_photos (packetID,defendantID,addressID,serverID,localPath,browserAddress,description) VALUES ('$packet','$defendant','$addressID','$user','$target_path','$link','$description')";
-	@mysql_query($query2);
-}
-// do all watermarking here!
-include 'wizard.photo.watermark.php';
-// send html with img tags....
-$headers  = "MIME-Version: 1.0 \n";
-$headers .= "Content-type: text/html; charset=iso-8859-1 \n";
-$headers .= "From: SYSTEM <sysop@hwestauctions.com> \n";
-$subject = "WIZARD: PHOTO UPLOAD OTD$packet";
-$ps = $info.id2name($_COOKIE[psdata][user_id]).' '.$link;
-$ps .= "<br><img src='http://mdwestserve.com/ps/$img'>";
-$to = "SYSTEM OPERATORS <sysop@hwestauctions.com>";
-//mail($to,$subject,$ps,$headers);
-mkAlert('UPLOADED PHOTO',$user,$user,$packet);
-timeline($packet,$_COOKIE[psdata][name]." Uploaded Photo");
-?>
-<div class="nav2"><input onClick="submitLoader()" type="radio" name="i" value="photo.review" /> NEXT</div>
-<? } else {?>
+ } else {?>
 NO PHOTO SELECTED
 <div class="nav"><input onClick="submitLoader()" type="radio" name="i" value="photo.upload.1" /> BACK</div>
 

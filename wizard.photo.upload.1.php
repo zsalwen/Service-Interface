@@ -8,7 +8,9 @@ if (photoAddress($packet,$defendant,$letter) != ''){
 <?
 }
  } ?>
-<div class="photoa"><input onClick="submitLoader()" type="radio" name="photo" value="x">FREEFORM <input name="freeDesc" size="50" value="DESCRIPTION" onClick="value=''"><br>ADDRESS: <select name='freeAdd'>
+<div class="photoa"><input onClick="submitLoader()" type="radio" name="photo" value="x">FREEFORM<br>
+DESCRIPTION: <input name="freeDesc" size="50" value=''><br>
+ADDRESS: <select name='freeAdd'>
 	<option value="1"><?=substr($ddr[address1].", ".$ddr[city1].", ".$ddr[state1],0,50)?></option>
     <? if ($ddr[address1a]){?>
 	<option value="2"><?=substr($ddr[address1a].", ".$ddr[city1a].", ".$ddr[state1a],0,50)?></option>
