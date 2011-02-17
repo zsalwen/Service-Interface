@@ -67,7 +67,9 @@ fieldset, legend, div, table {padding:0px;}
 $packet=$_GET[packet];
 $def=$_GET[defendant];
 if (!$_GET[server] && !$_GET[viewAll]){
-	$r=@mysql_query("SELECT photoID FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'");
+	$q="SELECT photoID FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'";
+	$r=@mysql_query($q);
+	echo "$q<br>";
 	$serverCount=mysql_num_rows($r);
 	$allCount=photoCount($packet);
 	echo "<table align='center' valign='top'><tr><td><a href='?packet=$packet&def=$def&server=1'>View Photos (As Server Would See) [$serverCount]</a></td><td><a href='?packet=$packet&def=$def&viewAll=1'>View All Photos [$allCount]</a></td></tr></table>";
@@ -76,6 +78,7 @@ if (!$_GET[server] && !$_GET[viewAll]){
 	$q="SELECT name1, name2, name3, name4, name5, name6 FROM ps_packets WHERE packet_id='$packet'";
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
+	echo "$q<br>";
 	$html=trim(getPage("http://data.mdwestserve.com/findPhotos.php?packet=$packet&def=$def", 'MDWS Find Photos', '5', ''));
 	echo "<table align='center' valign='top'><tr>";
 	if ($d["name$def"]){
@@ -89,9 +92,11 @@ if (!$_GET[server] && !$_GET[viewAll]){
 	$q="SELECT name1, name2, name3, name4, name5, name6 FROM ps_packets WHERE packet_id='$packet'";
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
+	echo "$q<br>";
 	echo "<table align='center' valign='top'><tr><td valign='top'><fieldset><legend>".strtoupper($d["name$def"])."</legend>";
 	$q2="SELECT * FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'";
 	$r2=@mysql_query($q2) or die ("Query: $q2<br>".mysql_error());
+	echo "$q2<br>";
 	while ($d2=mysql_fetch_array($r2,MYSQL_ASSOC)){
 		$path=str_replace('/data/service/photos/','',$d2[localPath]);
 		$size = byteConvert(filesize($d2[localPath]));
