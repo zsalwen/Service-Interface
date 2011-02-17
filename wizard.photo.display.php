@@ -90,7 +90,7 @@ if (!$_GET[server] && !$_GET[all]){
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	echo "<table align='center' valign='top'><tr><td valign='top'><fieldset><legend>".strtoupper($d["name$def"])."</legend>";
-	$r2=@mysql_query("SELECT photoID FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'");
+	$r2=@mysql_query("SELECT * FROM ps_photos WHERE packetID='$packet' AND defendantID='$def'");
 	while ($d2=mysql_fetch_array($r2,MYSQL_ASSOC)){
 		$path=str_replace('/data/service/photos/','http://mdwestserve.com/photographs/',$d2[localPath]);
 		$size = byteConvert(filesize($d2[localPath]));
