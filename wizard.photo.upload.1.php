@@ -8,22 +8,22 @@ if (photoAddress($packet,$defendant,$letter) != ''){
 <?
 }
  } ?>
-<div class="photoa"><input onClick="submitLoader()" type="radio" name="photo" value="x">FREEFORM <input name="freeDesc" size="30" value="DESCRIPTION" onClick="value=''"> ADDRESS: <select name='freeAdd'>
-	<option value="1"><?=$ddr[address1]?>, <?=$ddr[city1]?>, <?=$ddr[state1]?> <?=$ddr[zip1]?></option>
+<div class="photoa"><input onClick="submitLoader()" type="radio" name="photo" value="x">FREEFORM <input name="freeDesc" size="50" value="DESCRIPTION" onClick="value=''"><br>ADDRESS: <select name='freeAdd'>
+	<option value="1"><?=substr($ddr[address1].", ".$ddr[city1].", ".$ddr[state1],0,50)?></option>
     <? if ($ddr[address1a]){?>
-	<option value="2"><?=$ddr[address1a]?>, <?=$ddr[city1a]?>, <?=$ddr[state1a]?> <?=$ddr[zip1a]?></option>
+	<option value="2"><?=substr($ddr[address1a].", ".$ddr[city1a].", ".$ddr[state1a],0,50)?></option>
     <? }
 	if ($ddr[address1b]){?>
-	<option value="3"><?=$ddr[address1b]?>, <?=$ddr[city1b]?>, <?=$ddr[state1b]?> <?=$ddr[zip1b]?></option>
+	<option value="3"><?=substr($ddr[address1b].", ".$ddr[city1b].", ".$ddr[state1b],0,50)?></option>
     <? }
 	if ($ddr[address1c]){?>
-	<option value="4"><?=$ddr[address1c]?>, <?=$ddr[city1c]?>, <?=$ddr[state1c]?> <?=$ddr[zip1c]?></option>
+	<option value="4"><?=substr($ddr[address1c].", ".$ddr[city1c].", ".$ddr[state1c],0,50)?></option>
     <? } 
 	if ($ddr[address1d]){?>
-	<option value="5"><?=$ddr[address1d]?>, <?=$ddr[city1d]?>, <?=$ddr[state1d]?> <?=$ddr[zip1d]?></option>
+	<option value="5"><?=substr($ddr[address1d].", ".$ddr[city1d].", ".$ddr[state1d],0,50)?></option>
     <? } 
 	if ($ddr[address1e]){?>
-	<option value="6"><?=$ddr[address1e]?>, <?=$ddr[city1e]?>, <?=$ddr[state1e]?> <?=$ddr[zip1e]?></option>
+	<option value="6"><?=substr($ddr[address1e].", ".$ddr[city1e].", ".$ddr[state1e],0,50)?></option>
     <? } ?></select></div>
 <div class="nav0"><input onClick="submitLoader()" Checked type="radio" name="i" value="photo.upload.2" /> AUTO-NEXT</div>
 <div class="nav2"><input onClick="submitLoader()" type="radio" name="i" value="photo.review" /> BACK</div>

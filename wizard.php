@@ -48,6 +48,21 @@ function alpha2add($alpha){
 	if ($alpha == 'j' || $alpha == 'k'){ return 5; }
 	if ($alpha == 'l' || $alpha == 'm'){ return 6; }
 }
+function num2add($str){
+	if($str == 1){
+		return '';
+	}elseif ($str == 2){
+		return 'a';
+	}elseif ($str == 3){
+		return 'b';
+	}elseif ($str == 4){
+		return 'c';
+	}elseif ($str == 5){
+		return 'd';
+	}elseif ($str == 6){
+		return 'e';
+	}
+}
 function photoAddress($packet,$defendant,$alpha){
 	$r=@mysql_query("SELECT * from ps_packets where packet_id = '$packet'");
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);

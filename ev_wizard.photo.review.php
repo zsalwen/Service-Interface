@@ -11,8 +11,14 @@ while ($dP=mysql_fetch_array($rP,MYSQL_ASSOC)){
 	}else{
 		$description=alpha2desc($letter);
 	}
+	if ($dP[addressID] != ''){
+		$letter=num2add($dP[addressID]);
+		$address=strtoupper($ddr["address$defendant$letter"].", ".$ddr["state$defendant$letter"])
+	}else{
+		$address=strtoupper($ddr["address$defendant"].", ".$ddr["state$defendant"]);
+	}
 	$newPic = str_replace('ps/','',$dP[browserAddress]);
-	echo "<td><input type='radio' name='photo' value='$dP[photoID]'></td><td>".$description."<br>".strtoupper($ddr["address$defendant"].", ".$ddr["state$defendant"])."<br><a href='$newPic' target='_Blank'><img width='200' height='125' src='$newPic' /></a></td>";	
+	echo "<td><input type='radio' name='photo' value='$dP[photoID]'></td><td>$description<br>$address<br><a href='$newPic' target='_Blank'><img width='200' height='125' src='$newPic' /></a></td>";	
 }
 ?>
 </tr></table>

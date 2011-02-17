@@ -28,6 +28,21 @@ function alpha2desc($alpha){
 	if ($alpha == 'b'){ return "SECOND DOT ATTEMPT"; }
 	if ($alpha == 'c'){ return "POSTED DOT PROPERTY"; }
 }
+function num2add($str){
+	if($str == 1){
+		return '';
+	}elseif ($str == 2){
+		return 'a';
+	}elseif ($str == 3){
+		return 'b';
+	}elseif ($str == 4){
+		return 'c';
+	}elseif ($str == 5){
+		return 'd';
+	}elseif ($str == 6){
+		return 'e';
+	}
+}
 function photoAddress($packet,$defendant,$alpha){
 	$r=@mysql_query("SELECT * from evictionPackets where eviction_id = '$packet'");
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
