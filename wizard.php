@@ -502,7 +502,7 @@ $photoCount=photoCount($ddr[packet_id],$defendant); ?>
 <?=$ddr[timeline]?>
 </div>
 <? if ($_COOKIE[psdata][level] === 'Operations'){?>
-<iframe name="photos" id='photos' style='display:<? if ($photoCount > 0){ echo "block";}else{ echo "none";}?>;' src="wizard.photo.display.php?packet=<?=$packet?>&defendant=<?=$defendant?>" height="320" width="98%"></iframe>
+<iframe name="photos" id='photos' style='display:<? if ($photoCount > 0){ echo "block";}else{ echo "none";}?>;' src="http://staff.mdwestserve.com/photoDisplay.php?packet=<?=$packet?>&defendant=<?=$defendant?>" height="320" width="98%"></iframe>
 <iframe name="notes" id='notes' style='display:none;' src="http://staff.mdwestserve.com/notes.php?packet=<?=$packet?>" height="320" width="98%"></iframe>
 <? } ?>
 </fieldset>

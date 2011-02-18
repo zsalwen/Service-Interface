@@ -399,7 +399,7 @@ DEFENDANT: <a href="wizard.php?jump=<?=$packet?>-1<? if ($mailDate){ echo "&mail
 <?=$ddr[timeline]?>
 </div>
 <? if ($_COOKIE[psdata][level] == 'Operations'){?>
-<iframe name="photos" id='photos' style='display:<? if ((strtoupper($ddr[service_status]) == "PERSONAL DELIVERY")){ echo "none";}else{ echo "block";}?>;' src="ev_wizard.photo.display.php?packet=<?=$packet?>&defendant=<?=$defendant?>" height="320" width="98%"></iframe>
+<iframe name="photos" id='photos' style='display:<? if ((strtoupper($ddr[service_status]) == "PERSONAL DELIVERY")){ echo "none";}else{ echo "block";}?>;' src="http://staff.mdwestserve.com/photoDisplay.php?packet=EV<?=$packet?>&defendant=<?=$defendant?>" height="320" width="98%"></iframe>
 <iframe name="notes" id='notes' style='display:none;' src="http://staff.mdwestserve.com/notes.php?packet=<?=$packet?>" height="320" width="98%"></iframe>
 <? } ?>
 </fieldset>
