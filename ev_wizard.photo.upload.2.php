@@ -26,7 +26,7 @@ if ($_FILES['upload']['tmp_name']){
 		}
 		$target_path = $file_path."/".$defendant.".".$_POST[photo].".".time().".jpg";  
 		if (move_uploaded_file($_FILES['upload']['tmp_name'], $target_path)){ "file <b>NOT</b> saved...($target_path)<br>"; }else{ echo "file saved...($target_path)<br>"; }
-		$link = "http://service.mdwestserve.com/photographs/EV".$packet."/".$defendant.".".$_POST[photo].".".time().".jpg";
+		$link = "http://mdwestserve.com/photographs/EV".$packet."/".$defendant.".".$_POST[photo].".".time().".jpg";
 		$user = $_COOKIE[psdata][user_id];
 		if ($_POST[photo] == 'x'){
 			$addressID=$_POST[freeAdd];
