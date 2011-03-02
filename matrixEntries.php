@@ -245,7 +245,7 @@ if ($dh["$idType"] && !$_GET[confirm]){
 	//if $_GET[mailCost] is present, file is "MAIL ONLY", set estFileDate=$mailDate+1 day
 	if ($_GET[mailCost]){
 		$deadline=datePlusOne($mailDate);
-		@mysql_query("UPDATE ps_packets SET bill420='$cost', estFileDate='$deadline' WHERE packet_id='$packet'");
+		@mysql_query("UPDATE ps_packets, ps_pay SET ps_pay.bill420='$cost', ps_packets.estFileDate='$deadline' WHERE ps_packets.packet_id='$packet' AND ps_packets.packet_id=ps_pay.packetID AND ps_pay.product='OTD'");
 		timeline($packet,$_COOKIE[psdata][name]." Set mailMatrix, made affidavit entries, and determined mailing cost of $".$cost);
 		//pop up affidavit, redirect to quality control checklist
 		echo "<script>window.open('http://service.mdwestserve.com/obAffidavit.php?packet=$packet&mail=1&autoPrint=1',  'affidavit',   'width=1000, height=800'); </script>";
