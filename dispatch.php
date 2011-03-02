@@ -91,16 +91,6 @@ if ($_POST[submit]){
 		@mysql_query($q3);
 		
 	}
-	if ($_POST[print_cost]){
-	foreach ( $_POST[print_cost] as $value){
-		$q="SELECT packet_id from ps_packets where package_id = '$value'";
-		$r=@mysql_query($q);
-		while($d=mysql_fetch_array($r, MYSQL_ASSOC)){
-			$cost = printCost($d[packet_id]);
-			$q="UPDATE ps_packets SET print_cost='$cost' WHERE packet_id ='$d[packet_id]'";
-			@mysql_query($q);
-		}
-	}}
 }
 
 include 'menu.php';
@@ -143,7 +133,6 @@ function accord(id){
 <form method="post" name="form1">
     <tr class="fff" bgcolor="#6699CC">
     	<td align="left" width="10%"><small><strong>Assign</strong></small></td>
-    	<td align="left" width="10%"><small><strong>Print Cost</strong></small></td>
         <td align="center"><small><strong>Name</strong></small></td>
         <td align="center" width="10%"><small><strong>Map</strong></small></td>
         <td align="center" width="15%"><small><strong>Volume</strong></small></td>
@@ -162,7 +151,6 @@ window.open( "http://mdwestserve.com/ps/package_map.php?package="+id, "Package M
 </script>
     <tr bgcolor="<?=row_color($i,'#9999cc','#99ccff')?>">
 		<td><input type="checkbox" name="assign[<?=$d[id]?>]" value="<?=$d[id]?>" /></td>
-        <td><input type="checkbox" name="print_cost[<?=$d[id]?>]" value="<?=$d[id]?>" /></td>
         <td align="center"><?=$d[name] ?></td>
         <td align="center"><a onClick="packagePopup(<?=$d[id]?>)"><font color="#FFFF99" size="-1" style="font-weight:bold">Map</font></a></td>
         <td align="center"><small><?=inPackage($d[id]);?></small></td>
