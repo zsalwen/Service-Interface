@@ -62,6 +62,12 @@ if ($hours > 0 && $hours <= 24){ return "ffFF00"; }
 if ($hours > 24){ return "00FF00"; }
 }
 
+function envAllowed($server){
+	$r=@mysql_query("SELECT envPrint FROM ps_users WHERE id='$server' LIMIT 0,1");
+	$d=mysql_fetch_array($r,MYSQL_ASSOC);
+	return $d[envPrint];
+}
+
 function rangeLinks($exStart,$exStop,$server,$idType,$table,$linkAppend){
 	if ($table == 'evictionPackets'){
 			$q1="SELECT $idType FROM $table WHERE server_id='$server' ORDER BY $idType ASC LIMIT 0,1";
@@ -229,7 +235,14 @@ function makeEntry($packet){
 				<? if ($d['request_close'] == "YES" || $d['request_closea'] == "YES" || $d['request_closeb'] == "YES" || $d['request_closec'] == "YES" || $d['request_closed'] == "YES" || $d['request_closee'] == "YES"){?><img src="/gfx/icon.closed.jpg" height="35" border="0" /><? }?>
 				<a href="<?=$instructionsLink?>.php?<?=$field?>=<?=$d[$idType]?>" target="_blank"><img src="/gfx/icon.instructions.jpg" height="35" border="0" /></a>
 				<a href="<?=washURI2($d['otd']);?>" target="_blank"><img src="/gfx/icon.envelope.jpg" height="35" border="0" /></a>
-				<? if($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L" && $d[lossMit] != ''  && $d[attorneys_id] != 1){ 
+				<? if($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L" && $d[lossMit] != ''  && $d[attorneys_id] != 1){
+					if (envAllowed($id) == 'YES'){
+						if ($d[attorneys_id] == '70'){
+							echo "<a href='http://service.mdwestserve.com/stuffPacket.bgw.php?packet=<?=$d[$idType]?>' target='_blank'><img src='/gfx/icon.green.envelope.jpg' height='35' border='0' /></a>";
+						}else{
+							echo "<a href='http://service.mdwestserve.com/stuffPacket.2.php?packet=<?=$d[$idType]?>' target='_blank'><img src='/gfx/icon.green.envelope.jpg' height='35' border='0' /></a>";
+						}
+					}
 					$lossMitInstructions="include a WHITE, preprinted #10 envelope addressed to <span style='color:#990000;'>".strtoupper(id2attorney2($d[attorneys_id]))."</span>";
 					if ($d[lossMit] == "FINAL"){
 						//if file is a final, also instruct to include envelope for court
