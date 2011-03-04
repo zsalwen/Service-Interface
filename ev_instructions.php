@@ -26,12 +26,12 @@ $server_notes=$data[server_notes];
 $add1x = $data["address1"].' '.$data["city1"].', '.$data["state1"].' '.$data["zip1"];
 ?>
 		<tr>
-		<td>
+		<td style='font-size:16px'>
 		<strong>ALL OCCUPANTS:</strong>
 		<ol><li><?=id2name($data[server_id])?> is to make 2 service attempts on all occupants of <?=$add1x?> on different days.</li><li>
 		After all other attempts have proven unsuccessful, 
 		If <?=id2name($data[server_id])?> is unable to serve an occupant of suitable age and discretion:<br />
-		<?=id2name($data[server_id])?> is to post <?=$add1x?>.</li></ol>
+		<?=id2name($data[server_id])?> is to post <?=$add1x?>, addressing the documents to "ALL OCCUPANTS".</li></ol>
 		</ol></td></tr>
 <?
 if ($data[attorneys_id] == 3){
@@ -41,19 +41,19 @@ if ($data[attorneys_id] == 3){
 			$name=ucwords($data["name$i"]);
 			?>
 			<tr>
-			<td>
+			<td style='font-size:16px;'>
 			<strong><?=$name?>:</strong>
 			<ol><li><?=id2name($data[server_id])?> is to make 2 service attempts on <?=$name?> at <?=$add1x?> on different days.</li><li>
 			After all other attempts have proven unsuccessful, 
 			If <?=id2name($data[server_id])?> is unable to serve <?=$name?>:<br />
-			<?=id2name($data[server_id])?> is to post <?=$add1x?>.</li></ol>
+			<?=id2name($data[server_id])?> is to post <?=$add1x?>, addressing the documents to "<?=$name?>".</li></ol>
 			</ol></td></tr>
 	<?	}
 	}
 } ?>
 		<tr>
-			<td align='center'><fieldset><legend>Staff Instructions to Server</legend><div style="border:ridge 3px; font-size: 16px; width:650px; align:justify;"><b style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</b><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
-		<li>You cannot make two attempts at the same property within the same 24 hour period.</li><li>In The Event Of Posting, Write The Name Of The Party For Whom You Are Posting The Documents, As Well As The Date And Time Of Posting On The Documents Being Left. Please Ensure That This Date Is Also Visible In The Posting Picture.</li><li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9 AM and 5 PM.  "Good Faith" efforts must be made at different times of day.</b></li><li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished before <?=$estFileDate?></b></li><?=strtoupper($server_notes);?></fieldset></td>
+			<td align='center'><fieldset><legend>Staff Instructions to Server</legend><div style="border:ridge 3px; font-size: 12px; width:650px; align:justify;"><b style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</b><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
+		<li>You cannot make two attempts at the same property within the same 24 hour period.</li><li>In The Event Of Posting, Write The Name Of The Party For Whom You Are Posting The Documents, As Well As The Date And Time Of Posting On The Documents Being Left. Please Ensure That This Date Is Also Visible In The Posting Picture.</li><li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9 AM and 5 PM.  "Good Faith" efforts must be made at different times of day, meaning that one attempt should be made before noon, and another afterwards, and they must be at least 24 hours apart.</b></li><li><b>Delivery to MDWestServe of all service affidavits for this file must be accomplished before <?=$estFileDate?></b></li><?=strtoupper($server_notes);?></fieldset></td>
 		</tr>
 </table>
 <? 
