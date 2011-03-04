@@ -58,7 +58,7 @@ $target_path = $path.$name;
 				       <tr>
 				         <td><?=$d[processed];?></td>
 					   <td><a href='<?=$d[url];?>' target='_Blank'>Open Attachment</a></td>
-					  <td><a href='?assign=<?=$d[id];?>' target='_Blank'>Link Attachment to Packet</a></td>
+					  <td><a href='?assign=<?=$d[id];?>'>Link Attachment to Packet</a></td>
   </tr>
 					    <? }?>
 					    </table>
