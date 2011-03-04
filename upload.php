@@ -26,7 +26,7 @@ $target_path = $path.$name;
  $finalURL = "http://mdwestserve.com/affidavits/".date('Y')."/".date('F')."/".date('j')."/".$name;
  $finalURL2 = "http://".$_SERVER['HTTP_HOST']."/affidavits/".date('Y')."/".date('F')."/".date('j')."/".$name;
 
- echo "<li>$name ready and listed as unclaimed.</li>";
+ echo "<li><b>$name?</b> ready and listed in your upload inbox.</li>";
  @mysql_query("insert into attachment (server_id, processed, url, path, absolute_url) values ('".$_COOKIE[psdata][user_id]."', NOW(), '$finalURL','$finalPATH','$finalURL2')");
  }else{
  echo "<li>$name failed</li>";
