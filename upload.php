@@ -40,7 +40,7 @@ $target_path = $path.$name;
  <body>
  <form enctype="multipart/form-data" action="upload.php" method = "post">
  	<input id="my_file_element" type="file" name="file_1" >
-		<input type="submit" value="Upload to unclaimed">
+		<input type="submit" value="Upload to your inbox">
 		</form>
 		Files (20max):
 		<div id="files_list"></div>
@@ -50,19 +50,16 @@ $target_path = $path.$name;
 				</script>
 
 				<hr>
-				Your unclaimed uploads
+				Your upload inbox:
 				<table>
-				 <tr>
-				   <td>processed</td>
-				     <td>url</td>
-				      </tr>
 				      <? 
 				      $r=@mysql_query("select * from attachment where server_id = '".$_COOKIE[psdata][user_id]."' and status = 'unclaimed' ");
 				      while($d=mysql_fetch_array($r,MYSQL_ASSOC)){ ?>
 				       <tr>
 				         <td><?=$d[processed];?></td>
-					   <td><a href='<?=$d[url];?>' target='_Blank'><?=$d[url];?></a></td>
-					    </tr>
+					   <td><a href='<?=$d[url];?>' target='_Blank'>Open Attachment</a></td>
+					  <td><a href='?assign=<?=$d[id];?>' target='_Blank'>Link Attachment to Packet</a></td>
+  </tr>
 					    <? }?>
 					    </table>
 
