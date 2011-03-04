@@ -35,7 +35,7 @@ $target_path = $path.$name;
  $i++;
  }
  ?>
- <script src="multifile_compressed.js"></script>
+ <script src="multifile_comptessed.js"></script>
  </head>
  <body>
  <form enctype="multipart/form-data" action="upload.php" method = "post">
