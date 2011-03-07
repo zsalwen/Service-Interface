@@ -42,6 +42,11 @@ $received=date('n/j/y',$deadline);
 $deadline=$deadline+432000;
 $deadline=date('m/d/Y',$deadline);
 $estFileDate=fileDate($data[estFileDate]);
+$r1=mysql_query("SELECT * FROM gasRates ORDER BY id DESC LIMIT 0,1");
+$d1=mysql_fetch_array($r1,MYSQL_ASSOC);
+if ($d1[id]){
+	$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $d1[gasPrice] | CONTRACTOR SURCHARGE: $d1[contractor_rate]]</div></center>";
+}
 ?>
 <style>
 body { margin:0px; padding:0px;}
@@ -53,7 +58,7 @@ li {font-size:12px;}
     	<td valign="bottom" align="center" style="font-size:18px; font-variant:small-caps;" height="50px;">MDWestServe, Inc.<br>410-828-4568<br>Service Type 'A' For Packet <?=$_GET[packet]?></td>
     </tr>
 	<tr>
-		<td align="center" style="font-size:18px; font-variant:small-caps;">Received: <?=$received?> || Affidavit Deadline: <?=$estFileDate?></td>
+		<td align="center" style="font-size:18px; font-variant:small-caps;">Received: <?=$received?> || Affidavit Deadline: <?=$estFileDate?><?=$rate?></td>
 	</tr>
 <?
 $i=0;
