@@ -11,12 +11,13 @@ $url='http://mdwestserve.com/invoices/'.$d2[display_name];
 $results = array();
 $handler = opendir($directory);
 while ($file = readdir($handler)) {
-if ($file != '.' && $file != '..' && $file != 'CVS')
+if ($file != '.' && $file != '..' && $file != 'CVS'){
 $pos = strpos($file, $d[case_no]);
 if ($pos === false) {
 //  echo "."; // too many results =)
 } else {
     echo "<li><a href='$url/$file'>Invoice: $file</a></li>";
+}
 }
 }
 closedir($handler);
