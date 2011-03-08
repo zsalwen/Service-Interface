@@ -1,4 +1,27 @@
 <?
+mysql_connect ();
+mysql_select_db ('core');
+
+// check file system
+$directory = '/data/service/invoices/WHITE/';
+$url='http://mdwestserve.com/invoices/WHITE/';
+$results = array();
+$handler = opendir($directory);
+while ($file = readdir($handler)) {
+if ($file != '.' && $file != '..' && $file != 'CVS')
+
+$findme   = 'CAE09-21723';
+$pos = strpos($file, $findme);
+if ($pos === false) {
+    echo ".";
+} else {
+    echo "<li><a href='$file'>$file</a></li>";
+}
+
+}
+closedir($handler);
+
+
 /*
 // client invoice to print | email?
 
