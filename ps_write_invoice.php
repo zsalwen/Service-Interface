@@ -7,7 +7,7 @@ $r=@mysql_query("select display_name from attorneys where attorneys_id = '$d[att
 $d2=mysql_fetch_array($r,MYSQL_ASSOC);
 // check file system
 $directory = '/data/service/invoices/'.$d2[display_name].'/';
-$url='http://mdwestserve.com/invoices/'.$d2[display_name];
+$url='http://mdwestserve.com/serviceInvoices/'.$d2[display_name];
 $results = array();
 $handler = opendir($directory);
 while ($file = readdir($handler)) {
