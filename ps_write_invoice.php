@@ -16,7 +16,7 @@ $pos = strpos($file, $d[case_no]);
 if ($pos === false) {
 // all invoices for this case number
 } else {
-    echo "<li><a href='$url/$file' target='_Blank'>Invoice: $file</a></li>";
+    echo "<li><a href='$url/$file' target='_Blank'>Invoice (c): $file</a></li>";
 }
 $pos = strpos($file, $d[client_file]);
 if ($pos === false) {
@@ -24,11 +24,10 @@ if ($pos === false) {
 } else {
 $pos = strpos($file,'SERVER');
 if ($pos === false) {
-    echo "<li><a href='$url/$file' target='_Blank'>Invoice: $file</a></li>";
+    echo "<li><a href='$url/$file' target='_Blank'>Invoice (f): $file</a></li>";
 } else {
  // make sure we don't list any server invoices circa early 2008
 }
- echo "<li><a href='$url/$file' target='_Blank'>Invoice: $file</a></li>";
 }
 }
 }
