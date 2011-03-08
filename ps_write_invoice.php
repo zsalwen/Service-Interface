@@ -14,15 +14,21 @@ while ($file = readdir($handler)) {
 if ($file != '.' && $file != '..' && $file != 'CVS'){
 $pos = strpos($file, $d[case_no]);
 if ($pos === false) {
-//  echo "."; // too many results =)
+// all invoices for this case number
 } else {
     echo "<li><a href='$url/$file' target='_Blank'>Invoice: $file</a></li>";
 }
 $pos = strpos($file, $d[client_file]);
 if ($pos === false) {
-//  echo "."; // too many results =)
+//  only match client file number
 } else {
+$pos = strpos($file,'SERVER');
+if ($pos === false) {
     echo "<li><a href='$url/$file' target='_Blank'>Invoice: $file</a></li>";
+} else {
+ // make sure we don't list any server invoices circa early 2008
+}
+ echo "<li><a href='$url/$file' target='_Blank'>Invoice: $file</a></li>";
 }
 }
 }
