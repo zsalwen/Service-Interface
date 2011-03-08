@@ -6,8 +6,8 @@ $d=mysql_fetch_array($r,MYSQL_ASSOC);
 $r=@mysql_query("select display_name from attorneys where attorneys_id = '$d[attorneys_id]' ");
 $d2=mysql_fetch_array($r,MYSQL_ASSOC);
 // check file system
-$directory = '/data/service/invoices/$d2[display_name]/';
-$url='http://mdwestserve.com/invoices/$d2[display_name]/';
+$directory = '/data/service/invoices/'.$d2[display_name].'/';
+$url='http://mdwestserve.com/invoices/'.$d2[display_name];
 $results = array();
 $handler = opendir($directory);
 while ($file = readdir($handler)) {
@@ -16,7 +16,7 @@ $pos = strpos($file, $d[case_no]);
 if ($pos === false) {
 //  echo "."; // too many results =)
 } else {
-    echo "<li><a href='$file'>$file</a></li>";
+    echo "<li><a href='$url/$file'>Invoice: $file</a></li>";
 }
 }
 closedir($handler);
