@@ -16,7 +16,7 @@ $pos = strpos($file, $d[case_no]);
 if ($pos === false) {
 //  echo "."; // too many results =)
 } else {
-    echo "<li><a href='$url/$file'>Invoice: $file</a></li>";
+    echo "<li><a href='$url/$file' target='_Blank'>Invoice: $file</a></li>";
 }
 }
 }
