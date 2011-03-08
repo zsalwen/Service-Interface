@@ -1,5 +1,9 @@
 <?
 include 'common.php';
+function fileDate($date){
+	$date=strtotime($date)-86400;
+	return date('n/j/y',$date); 
+}
 $user = $_COOKIE[psdata][user_id];
 $eviction = $_GET[id];
 logAction($_COOKIE[psdata][user_id], $_SERVER['PHP_SELF'], 'Viewing Service Instructions for Packet '.$eviction);
@@ -9,8 +13,7 @@ $data=mysql_fetch_array($result,MYSQL_ASSOC);
 $deadline=strtotime($data[date_received]);
 $received=date('m/d/Y',$deadline);
 $deadline=$deadline+432000;
-$estFileDate=strtotime($data[estFileDate]);
-$estFileDate=date('m/d/Y',$estFileDate);
+$estFileDate=fileDate($data[estFileDate]);
 $server_notes=$data[server_notes];
 $r1=mysql_query("SELECT * FROM gasRates ORDER BY id DESC LIMIT 0,1");
 $d1=mysql_fetch_array($r1,MYSQL_ASSOC);
