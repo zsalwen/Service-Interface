@@ -15,10 +15,11 @@ $received=date('m/d/Y',$deadline);
 $deadline=$deadline+432000;
 $estFileDate=fileDate($data[estFileDate]);
 $server_notes=$data[server_notes];
+$today=date('n/j/y');
 $r1=mysql_query("SELECT * FROM gasRates ORDER BY id DESC LIMIT 0,1");
 $d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 if ($d1[id]){
-	$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $$d1[gasPrice] | CONTRACTOR SURCHARGE: $$d1[contractor_rate]]</div></center>";
+	$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $$d1[gasPrice] | CONTRACTOR SURCHARGE: $$d1[contractor_rate] | DATE: $today]</div></center>";
 }
 ?>
 <style>body { margin:0px; padding:0px;}</style>
