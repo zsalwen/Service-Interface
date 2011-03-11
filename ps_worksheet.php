@@ -238,9 +238,9 @@ function makeEntry($packet){
 				<? if($idType == 'packet_id' && $d[$idType] >= 12435 && $d[lossMit] != "N/A - OLD L" && $d[lossMit] != ''  && $d[attorneys_id] != 1){
 					if (envAllowed($id) == 'YES'){
 						if ($d[attorneys_id] == '70'){
-							echo "<a href='http://service.mdwestserve.com/stuffPacket.bgw.php?packet=<?=$d[$idType]?>' target='_blank'><img src='/gfx/icon.green.envelope.jpg' height='35' border='0' /></a>";
+							echo "<a href='http://service.mdwestserve.com/stuffPacket.bgw.php?packet=$d[$idType]' target='_blank'><img src='/gfx/icon.green.envelope.jpg' height='35' border='0' /></a>";
 						}else{
-							echo "<a href='http://service.mdwestserve.com/stuffPacket.2.php?packet=<?=$d[$idType]?>' target='_blank'><img src='/gfx/icon.green.envelope.jpg' height='35' border='0' /></a>";
+							echo "<a href='http://service.mdwestserve.com/stuffPacket.2.php?packet=$d[$idType]' target='_blank'><img src='/gfx/icon.green.envelope.jpg' height='35' border='0' /></a>";
 						}
 					}
 					$lossMitInstructions="include a WHITE, preprinted #10 envelope addressed to <span style='color:#990000;'>".strtoupper(id2attorney2($d[attorneys_id]))."</span>";
