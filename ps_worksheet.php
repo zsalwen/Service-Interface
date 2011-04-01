@@ -27,7 +27,7 @@ function mkAlert($alertStr,$entryID,$serverID,$packetID){
 	@mysql_query("INSERT INTO ps_alert (alertStr, entryID, entryTime, serverID, packetID) VALUES ('$alertStr', '$entryID', NOW(), '$serverID', '$packetID')");
 }
 function id2name3($id){
-$q="SELECT name FROM ps_users WHERE id = '$id'";
+$q="SELECT name FROM ps_users WHERE id = '$id' LIMIT 0,1";
 $r=@mysql_query($q);
 $d=mysql_fetch_array($r, MYSQL_ASSOC);
 	if ($id == '' || $d[name] == ''){
@@ -125,7 +125,7 @@ function county2envelope2($county){
 	}else{
 		$search=$county;
 	}
-	$r=@mysql_query("SELECT to1 FROM envelopeImage WHERE to1 LIKE '%$search%' AND addressType='COURT'");
+	$r=@mysql_query("SELECT to1 FROM envelopeImage WHERE to1 LIKE '%$search%' AND addressType='COURT' LIMIT 0,1");
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	return $d[to1];
 }
@@ -154,7 +154,7 @@ function fileDate($date){
 }
 
 function id2attorney2($id){
-	$q="SELECT full_name FROM attorneys WHERE attorneys_id = '$id'";
+	$q="SELECT full_name FROM attorneys WHERE attorneys_id = '$id' LIMIT 0,1";
 	$r=@mysql_query($q);
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
 	return $d[full_name];
@@ -180,7 +180,7 @@ function makeEntry($packet){
 		$docType='PRESALE';
 		$dir='otd';
 	}
-	$q="SELECT *, DATEDIFF(estFileDate, CURDATE()) as hours FROM $table WHERE $idType='$packet'";
+	$q="SELECT *, DATEDIFF(estFileDate, CURDATE()) as hours FROM $table WHERE $idType='$packet' LIMIT 0,1";
 	$r=@mysql_query($q) or die ("Query: $q<br>".mysql_error());
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	if ($_GET[status] && $_COOKIE[psdata][level] == 'Operations'){
