@@ -204,9 +204,14 @@ function makeEntry($packet){
 		$dueDate=dueDate($d[date_received]);
 		$due="<br>Due: $dueDate";
 	}
+	if ($d[reopenDate] != '0000-00-00'){
+		$received="REStart:".date('n/j/y',$d[reopenDate]); 
+	}else{
+		$received="Start: ".justDate($d['date_received']);
+	}
 	?>  
 	<tr bgcolor="<?=colorCode($hours)?>">
-		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top"><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?>Start: <?=justDate($d['date_received']);?><?=$due?>
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top"><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?><?=$received?><?=$due?>
 		</td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
 		<table><tr><td nowrap="nowrap">
