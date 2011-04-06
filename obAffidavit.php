@@ -246,10 +246,11 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 
 	$q4="SELECT * from ps_history where packet_id = '$packet' AND defendant_id = '$def' and action_type = 'Posted Papers' and onAffidavit='checked'";
 	$r4=@mysql_query($q4) or die(mysql_error());
-	$d4=mysql_fetch_array($r4, MYSQL_ASSOC);
-	$posting = $d4[action_str];
-	$iiID = $d4[serverID];
-	$iiID2["$def"] = $d4[serverID];
+	while ($d4=mysql_fetch_array($r4, MYSQL_ASSOC)){
+		$posting .= $d4[action_str];
+		$iiID = $d4[serverID];
+		$iiID2["$def"] = $d4[serverID];
+	}
 
 	$q4="SELECT * from ps_history where packet_id = '$packet' AND defendant_id = '$def' and action_type = 'First Class C.R.R. Mailing' and onAffidavit='checked'";
 	$r4=@mysql_query($q4) or die(mysql_error());
