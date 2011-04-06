@@ -205,7 +205,8 @@ function makeEntry($packet){
 		$due="<br>Due: $dueDate";
 	}
 	if ($d[reopenDate] != '0000-00-00'){
-		$received="REStart:".date('n/j/y',$d[reopenDate]); 
+		$date=strtotime($d[reopenDate]);
+		$received="REStart:".date('n/j/y',$date); 
 	}else{
 		$received="Start: ".justDate($d['date_received']);
 	}
