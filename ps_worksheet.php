@@ -153,6 +153,13 @@ function fileDate($date){
 	return date('n/j/y',$date); 
 }
 
+function dueDate($date){
+	$deadline=strtotime($date);
+	$received=date('n/j/y',$deadline);
+	$deadline=$deadline+432000;
+	return date('m/d/Y',$deadline);
+}
+
 function id2attorney2($id){
 	$q="SELECT full_name FROM attorneys WHERE attorneys_id = '$id' LIMIT 0,1";
 	$r=@mysql_query($q);
@@ -191,9 +198,16 @@ function makeEntry($packet){
 	//calculate due date of 5pm on day previous to estFileDate
 	$curHour=date('G');
 	$hours=(($d[hours]-1)*24)+7+$curHour;
+	if ($d[estFileDate] != '0000-00-00'){
+		$fileDate=fileDate($d[estFileDate]);
+		$due="<br>Due: $fileDate";
+	}else{
+		$dueDate=dueDate($d[date_received]);
+		$due="<br>Due: $dueDate";
+	}
 	?>  
 	<tr bgcolor="<?=colorCode($hours)?>">
-		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top"><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?>Start: <?=justDate($d['date_received']);?><br>Due: <?=fileDate($d[estFileDate])?>
+		<td style="border-top:solid 1px #000000; background-color:#FFFFFF; font-size:11px; font-variant:small-caps;" nowrap="nowrap" valign="top"><? if ($d[rush]){ echo "<b style='display:block; background-color:FFBB00;'>RUSH</b>";}?>Start: <?=justDate($d['date_received']);?><?=$due?>
 		</td>
 		<td style="border-top:solid 1px #000000;" valign="top" nowrap="nowrap">
 		<table><tr><td nowrap="nowrap">
