@@ -155,9 +155,8 @@ function fileDate($date){
 
 function dueDate($date){
 	$deadline=strtotime($date);
-	$received=date('n/j/y',$deadline);
 	$deadline=$deadline+432000;
-	return date('m/d/Y',$deadline);
+	return date('n/j/y',$deadline);
 }
 
 function id2attorney2($id){
