@@ -327,14 +327,14 @@ function getAddressType($address){
 	$d = mysql_fetch_array($r, MYSQL_ASSOC);
 	if ($d[address1] != ''){
 		$add=$d[address1].', '.$d[city1].', '.$d[state1].' '.$d[zip1];
-		if ($address == $add){
+		if (strtoupper($address) == strtoupper($add)){
 			$return=$d[addressType];
 		}
 	}
 	foreach (range('a','e') as $letter){
 		if ($d["address1$letter"] != ''){
 			$add=$d["address1$letter"].', '.$d["city1$letter"].', '.$d["state1$letter"].' '.$d["zip1$letter"];
-			if ($address == $add){
+			if (strtoupper($address) == strtoupper($add)){
 				$return=$d["addressType$letter"];
 			}
 		}
