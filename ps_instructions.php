@@ -63,8 +63,9 @@ function serverList2($packet){
 		}
 		$i++;
 	}
-	if ($count == 1){
+	if ($count == 1 && $list != ''){
 		return "$list2 is";
+	}elseif($list == ''){
 	}else{
 		return "$list2 are";
 	}
