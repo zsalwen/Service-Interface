@@ -12,7 +12,7 @@ function county2envelope2($county){
 	}else{
 		$search=$county;
 	}
-	$r=@mysql_query("SELECT to1 FROM envelopeImage WHERE to1 LIKE '%$search%' AND addressType='COURT'");
+	$r=@mysql_query("SELECT to1 FROM envelopeImage WHERE to1 LIKE '%$search%' AND addressType='COURT' LIMIT 0,1");
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	return $d[to1];
 }
@@ -21,7 +21,7 @@ function fileDate($date){
 	return date('n/j/y',$date); 
 }
 function id2attorneyName($id){
-	$q="SELECT full_name FROM attorneys WHERE attorneys_id = '$id'";
+	$q="SELECT full_name FROM attorneys WHERE attorneys_id = '$id' LIMIT 0,1";
 	$r=@mysql_query($q);
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
 	return $d[full_name];
@@ -34,7 +34,7 @@ include 'common.php';
 $user = $_COOKIE[psdata][user_id];
 $packet = $_GET[packet];
 logAction($_COOKIE[psdata][user_id], $_SERVER['PHP_SELF'], 'Viewing Service Instructions for Packet '.$packet);
-$query="SELECT * FROM ps_packets WHERE packet_id = '$packet'";
+$query="SELECT * FROM ps_packets WHERE packet_id = '$packet' LIMIT 0,1";
 $result=@mysql_query($query);
 $data=mysql_fetch_array($result,MYSQL_ASSOC);
 $deadline=strtotime($data[date_received]);

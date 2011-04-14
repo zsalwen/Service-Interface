@@ -7,7 +7,7 @@ function fileDate($date){
 $user = $_COOKIE[psdata][user_id];
 $eviction = $_GET[id];
 logAction($_COOKIE[psdata][user_id], $_SERVER['PHP_SELF'], 'Viewing Service Instructions for Packet '.$eviction);
-$query="SELECT * FROM evictionPackets WHERE eviction_id = '$eviction'";
+$query="SELECT * FROM evictionPackets WHERE eviction_id = '$eviction' LIMIT 0,1";
 $result=@mysql_query($query);
 $data=mysql_fetch_array($result,MYSQL_ASSOC);
 $deadline=strtotime($data[date_received]);

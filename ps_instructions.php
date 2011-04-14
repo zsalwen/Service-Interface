@@ -12,13 +12,13 @@ function county2envelope2($county){
 	}else{
 		$search=$county;
 	}
-	$r=@mysql_query("SELECT to1 FROM envelopeImage WHERE to1 LIKE '%$search%' AND addressType='COURT'");
+	$r=@mysql_query("SELECT to1 FROM envelopeImage WHERE to1 LIKE '%$search%' AND addressType='COURT' LIMIT 0,1");
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	return $d[to1];
 }
 
 function id2attorneyName($id){
-	$q="SELECT full_name FROM attorneys WHERE attorneys_id = '$id'";
+	$q="SELECT full_name FROM attorneys WHERE attorneys_id = '$id' LIMIT 0,1";
 	$r=@mysql_query($q);
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
 	return $d[full_name];
@@ -27,6 +27,48 @@ function fileDate($date){
 	$date=strtotime($date)-86400;
 	return date('n/j/y',$date); 
 }
+function serverList($packet){
+	$q="SELECT server_id, server_ida, server_idb, server_idc, server_idd, server_ide FROM ps_packets WHERE packet_id = '$packet' LIMIT 0,1";
+	$r=@mysql_query($q);
+	$d=mysql_fetch_array($r, MYSQL_ASSOC);
+	if ($d[server_ida] != '' && $d[server_ida] != $d[server_id]){
+		$list .= id2name($d[server_ida])."|";
+	}
+	if ($d[server_idb] != '' && $d[server_idb] != $d[server_id] && $d[server_idb] != $d[server_ida]){
+		$list .= id2name($d[server_idb])."|";
+	}
+	if ($d[server_idc] != '' && $d[server_idc] != $d[server_id] && $d[server_idc] != $d[server_ida] && $d[server_idc] != $d[server_idb]){
+		$list .= id2name($d[server_idc])."|";
+	}
+	if ($d[server_idd] != '' && $d[server_idd] != $d[server_id] && $d[server_idd] != $d[server_ida] && $d[server_idd] != $d[server_idb] && $d[server_idd] != $d[server_idc]){
+		$list .= id2name($d[server_idd])."|";
+	}
+	if ($d[server_ide] != '' && $d[server_ide] != $d[server_id] && $d[server_ide] != $d[server_ida] && $d[server_ide] != $d[server_idb] && $d[server_ide] != $d[server_idc] && $d[server_ide] != $d[server_idd]){
+		$list .= id2name($d[server_ide])."|";
+	}
+	//remove last "|"
+	$list=substr($list,0,-1);
+	$list=explode('|',$list);
+	$count=count($list);
+	$i=-1;
+	while ($i < $count){$i++;
+		if($i == 0){
+			$list2 .= $list["$i"];
+		}elseif($i == ($count-1) && $count == 2){
+			$list2 .= " and ".$list["$i"];
+		}elseif ($i == ($count-1)){
+			$list2 .= ", and ".$list["$i"];
+		}else{
+			$list2 .= ", ".$list["$i"];
+		}
+	}
+	if ($count == 1){
+		return "$list2 is";
+	}else{
+		return "$list2 are";
+	}
+}
+
 if ($_GET[autoSave] == 1){
 	ob_start();
 }
@@ -34,7 +76,7 @@ include 'common.php';
 $user = $_COOKIE[psdata][user_id];
 $packet = $_GET[packet];
 logAction($_COOKIE[psdata][user_id], $_SERVER['PHP_SELF'], 'Viewing Service Instructions for Packet '.$packet);
-$query="SELECT * FROM ps_packets WHERE packet_id = '$packet'";
+$query="SELECT * FROM ps_packets WHERE packet_id = '$packet' LIMIT 0,1";
 $result=@mysql_query($query);
 $data=mysql_fetch_array($result,MYSQL_ASSOC);
 $deadline=strtotime($data[date_received]);
@@ -96,13 +138,13 @@ while ($i < 6){$i++;
 		<?=id2name($data[server_idb])?> is to make 1 service attempt on <?=$name?> at <?=$add1bx?>.</li><li>
 		<?=id2name($data[server_ida])?> is to make 1 service attempt on <?=$name?> at <?=$add1ax?>.</li><li> 
 		After all other attempts have proven unsuccessful, 
-		If <?=id2name($data[server_ida])?> or <?=id2name($data[server_idb])?> is unable to serve <?=$name?>:<br />
+		If <?=serverList($d[packet_id])?> unable to serve <?=$name?>:<br />
 		<?=id2name($data[server_id])?> is to post <?=$add1x?>.<?if ($data[avoidDOT] == 'checked'){ echo "  <b>PLEASE DO NOT MAKE ANY ATTEMPTS AT THIS ADDRESS, SIMPLY POST DOCUMENTS. IF YOU ENCOUNTER A PARTY OF SUITABLE DISCRETION, DO NOT DELIVER PAPERS, BUT CONTACT OUR OFFICE INSTEAD. ALSO, CONTACT OUR OFFICE UNLESS YOU ARE ABSOLUTELY SURE YOU ARE AUTHORIZED TO PROCEED WITH POSTING.</b>";} ?></li>
 	<? }elseif($data[address1b]){ ?>
 		<ol><li><?=id2name($data[server_ida])?> is to make 1 service attempt on <?=$name?> at <?=$add1bx?>.</li><li>
 		<?=id2name($data[server_id])?> is to make 1 service attempt on <?=$name?> at <?=$add1ax?>.</li><li> 
 		After all other attempts have proven unsuccessful, 
-		If <?=id2name($data[server_ida])?> or <?=id2name($data[server_id])?> is unable to serve <?=$name?>:<br />
+		If <?=serverList($d[packet_id])?> unable to serve <?=$name?>:<br />
 		<?=id2name($data[server_id])?> is to post <?=$add1x?>.<?if ($data[avoidDOT] == 'checked'){ echo "  <b>PLEASE DO NOT MAKE ANY ATTEMPTS AT THIS ADDRESS, SIMPLY POST DOCUMENTS. IF YOU ENCOUNTER A PARTY OF SUITABLE DISCRETION, DO NOT DELIVER PAPERS, BUT CONTACT OUR OFFICE INSTEAD. ALSO, CONTACT OUR OFFICE UNLESS YOU ARE ABSOLUTELY SURE YOU ARE AUTHORIZED TO PROCEED WITH POSTING.</b>";} ?></li>
 	<? }else{?>
 <ol><li><?=id2name($data[server_ida])?> is to make 2 service attempts on <?=$name?> at <?=$add1ax?> on different days.</li><li> 
@@ -147,7 +189,13 @@ if ($data[lossMit] != '' && $data[lossMit] != 'N/A - OLD L' && $data[packet_id] 
 <tr>
 	<td style='border: 1px solid;' align='center'><?=strtoupper($lossMit);?></td>
 </tr>
-<? } ?>
+<? } 
+if ($data[server_idb] != '' || $data[address1b] != ''){
+	$timedInstruct = "<li>Since only one attempt will be made at each address, ensure that they are still made at different times of day <b>(see below)</b></li>";
+}else{
+	$timedInstruct = "<li>You cannot make two attempts at the same property within the same 24 hour period.</li>";
+}
+?>
 		<tr>
 			<td align='center'><?=strtoupper($data[server_notes]);?></td>
 		</tr>
@@ -158,9 +206,9 @@ if ($data[lossMit] != '' && $data[lossMit] != 'N/A - OLD L' && $data[packet_id] 
     </tr>
     <tr>
     	<td colspan="5" align="center"><div style="width:650px; text-align:left;"><div style="border:ridge 3px; font-size: 16px;"><b style="text-decoration:underline;">ALL SERVICE MUST TAKE INTO ACCOUNT:</b><br>'Two good faith attempts on separate days' - MD Rule 14-209(b)</div>
-		<li>You cannot make two attempts at the same property within the same 24 hour period.</li>
         <li><b>Posting</b> must be done <b>after</b> <u>all attempts</u> have been completed.</li>
         <li>Attempts are to be performed in order listed on service instructions.</li>
+		<?=$timedInstruct?>
 		<li><b>Make one attempt either before 8 AM or after 6 PM, and another attempt between 9AM and 5PM.  Please avoid attempts between 8AM-9AM & 5PM-6PM.  "Good Faith" efforts must be made at different times of day, meaning that one attempt should be made <b>before</b> noon, and another afterwards, and they must be at least 24 hours apart.</b></li>
         <li>Photographs are required for <b>posting</b>s as well as for <b>attempt</b>s.</li>
 		<li>Personal delivery can only be achieved in the following manner:

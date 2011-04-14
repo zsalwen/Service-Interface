@@ -41,12 +41,12 @@ function county2envelope2($county){
 	}else{
 		$search=$county;
 	}
-	$r=@mysql_query("SELECT to1 FROM envelopeImage WHERE to1 LIKE '%$search%' AND addressType='COURT'");
+	$r=@mysql_query("SELECT to1 FROM envelopeImage WHERE to1 LIKE '%$search%' AND addressType='COURT' LIMIT 0,1");
 	$d=mysql_fetch_array($r,MYSQL_ASSOC);
 	return $d[to1];
 }
 function id2attorneyName($id){
-	$q="SELECT full_name FROM attorneys WHERE attorneys_id = '$id'";
+	$q="SELECT full_name FROM attorneys WHERE attorneys_id = '$id' LIMIT 0,1";
 	$r=@mysql_query($q);
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
 	return $d[full_name];
@@ -62,11 +62,11 @@ include 'common.php';
 $user = $_COOKIE[psdata][user_id];
 $packet = $_GET[packet];
 logAction($_COOKIE[psdata][user_id], $_SERVER['PHP_SELF'], 'Viewing Service Instructions for Packet '.$packet);
-$query2="SELECT * FROM ps_instructions WHERE packetID='$packet'";
+$query2="SELECT * FROM ps_instructions WHERE packetID='$packet' LIMIT 0,1";
 $result2=@mysql_query($query2);
 $data2=mysql_fetch_array($result2,MYSQL_ASSOC);
 if ($data2 == ''){
-	$query="SELECT attorneys_id, circuit_court, lossMit FROM ps_packets WHERE packet_id='$packet'";
+	$query="SELECT attorneys_id, circuit_court, lossMit FROM ps_packets WHERE packet_id='$packet' LIMIT 0,1";
 	$result=@mysql_query($query);
 	$data=mysql_fetch_array($result,MYSQL_ASSOC);
 	if($data[attorneys_id] == 56){
@@ -99,7 +99,7 @@ if ($data2 == ''){
 		echo $typeA;
 	}
 	if ($_GET['autoSave'] == 1){
-		$query3="SELECT packet_id, otd FROM ps_packets WHERE packet_id='$packet'";
+		$query3="SELECT packet_id, otd FROM ps_packets WHERE packet_id='$packet' LIMIT 0,1";
 		$result3=@mysql_query($query3);
 		$data3=mysql_fetch_array($result3,MYSQL_ASSOC);
 		$contents=ob_get_clean();
@@ -120,7 +120,7 @@ if ($data2 == ''){
 		echo "<script>window.open('instructionSave.php?packet=".$data3['packet_id']."&folder=".$folder."');</script>";
 	}
 }else{
-	$query="SELECT * FROM ps_packets WHERE packet_id = '$packet'";
+	$query="SELECT * FROM ps_packets WHERE packet_id = '$packet' LIMIT 0,1";
 	$result=@mysql_query($query);
 	$data=mysql_fetch_array($result,MYSQL_ASSOC);
 	$deadline=strtotime($data[date_received]);
