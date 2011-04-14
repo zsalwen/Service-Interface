@@ -27,7 +27,7 @@ function fileDate($date){
 	$date=strtotime($date)-86400;
 	return date('n/j/y',$date); 
 }
-function serverList($packet){
+function serverList2($packet){
 	$q="SELECT server_id, server_ida, server_idb, server_idc, server_idd, server_ide FROM ps_packets WHERE packet_id = '$packet' LIMIT 0,1";
 	$r=@mysql_query($q) or die (mysql_error());
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
@@ -46,40 +46,33 @@ function serverList($packet){
 	if ($d[server_ide] != '' && $d[server_ide] != $d[server_id] && $d[server_ide] != $d[server_ida] && $d[server_ide] != $d[server_idb] && $d[server_ide] != $d[server_idc] && $d[server_ide] != $d[server_idd]){
 		$list .= id2name($d[server_ide])."|";
 	}
-	if ($list != ''){
-		//remove last "|"
-		$list=substr($list,0,-1);
-		$explode=explode('|',$list);
-		$count=count($explode);
-		$i=0;
-		while ($i < $count){
-			if($i == 0){
-				$explode2 .= $explode["$i"];
-			}elseif($i == ($count-1) && $count == 2){
-				$explode2 .= " and ".$explode["$i"];
-			}elseif ($i == ($count-1)){
-				$explode2 .= ", and ".$explode["$i"];
-			}else{
-				$explode2 .= ", ".$explode["$i"];
-			}
-			$i++;
-		}
-		if ($count == 1){
-			return "$list2 is";
+	//remove last "|"
+	$list=substr($list,0,-1);
+	$explode=explode('|',$list);
+	$count=count($explode);
+	$i=0;
+	while ($i < $count){
+		if($i == 0){
+			$explode2 .= $explode["$i"];
+		}elseif($i == ($count-1) && $count == 2){
+			$explode2 .= " and ".$explode["$i"];
+		}elseif ($i == ($count-1)){
+			$explode2 .= ", and ".$explode["$i"];
 		}else{
-			return "$list2 are";
+			$explode2 .= ", ".$explode["$i"];
 		}
+		$i++;
+	}
+	if ($count == 1){
+		return "$list2 is";
 	}else{
-		return "you are";
+		return "$list2 are";
 	}
 }
-echo "1!<br>";
 if ($_GET[autoSave] == 1){
 	ob_start();
 }
-echo "2!<br>";
 include 'common.php';
-echo "3!<br>";
 $user = $_COOKIE[psdata][user_id];
 $packet = $_GET[packet];
 logAction($_COOKIE[psdata][user_id], $_SERVER['PHP_SELF'], 'Viewing Service Instructions for Packet '.$packet);
@@ -97,7 +90,6 @@ $d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 if ($d1[id]){
 	$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $$d1[gasPrice] | CONTRACTOR SURCHARGE: $$d1[contractor_rate] | DATE: $today]</div></center>";
 }
-echo "5!<br>";
 ?>
 <style>
 body { margin:0px; padding:0px;}
@@ -146,13 +138,13 @@ while ($i < 6){$i++;
 		<?=id2name($data[server_idb])?> is to make 1 service attempt on <?=$name?> at <?=$add1bx?>.</li><li>
 		<?=id2name($data[server_ida])?> is to make 1 service attempt on <?=$name?> at <?=$add1ax?>.</li><li> 
 		After all other attempts have proven unsuccessful, 
-		If <?=serverList($data[packet_id])?> unable to serve <?=$name?>:<br />
+		If <?=serverList2($data[packet_id])?> unable to serve <?=$name?>:<br />
 		<?=id2name($data[server_id])?> is to post <?=$add1x?>.<?if ($data[avoidDOT] == 'checked'){ echo "  <b>PLEASE DO NOT MAKE ANY ATTEMPTS AT THIS ADDRESS, SIMPLY POST DOCUMENTS. IF YOU ENCOUNTER A PARTY OF SUITABLE DISCRETION, DO NOT DELIVER PAPERS, BUT CONTACT OUR OFFICE INSTEAD. ALSO, CONTACT OUR OFFICE UNLESS YOU ARE ABSOLUTELY SURE YOU ARE AUTHORIZED TO PROCEED WITH POSTING.</b>";} ?></li>
 	<? }elseif($data[address1b]){ ?>
 		<ol><li><?=id2name($data[server_ida])?> is to make 1 service attempt on <?=$name?> at <?=$add1bx?>.</li><li>
 		<?=id2name($data[server_id])?> is to make 1 service attempt on <?=$name?> at <?=$add1ax?>.</li><li> 
 		After all other attempts have proven unsuccessful, 
-		If <?=serverList($data[packet_id])?> unable to serve <?=$name?>:<br />
+		If <?=serverList2($data[packet_id])?> unable to serve <?=$name?>:<br />
 		<?=id2name($data[server_id])?> is to post <?=$add1x?>.<?if ($data[avoidDOT] == 'checked'){ echo "  <b>PLEASE DO NOT MAKE ANY ATTEMPTS AT THIS ADDRESS, SIMPLY POST DOCUMENTS. IF YOU ENCOUNTER A PARTY OF SUITABLE DISCRETION, DO NOT DELIVER PAPERS, BUT CONTACT OUR OFFICE INSTEAD. ALSO, CONTACT OUR OFFICE UNLESS YOU ARE ABSOLUTELY SURE YOU ARE AUTHORIZED TO PROCEED WITH POSTING.</b>";} ?></li>
 	<? }else{?>
 <ol><li><?=id2name($data[server_ida])?> is to make 2 service attempts on <?=$name?> at <?=$add1ax?> on different days.</li><li> 
