@@ -29,7 +29,7 @@ function fileDate($date){
 }
 function serverList($packet){
 	$q="SELECT server_id, server_ida, server_idb, server_idc, server_idd, server_ide FROM ps_packets WHERE packet_id = '$packet' LIMIT 0,1";
-	$r=@mysql_query($q);
+	$r=@mysql_query($q) or die (mysql_error());
 	$d=mysql_fetch_array($r, MYSQL_ASSOC);
 	if ($d[server_ida] != '' && $d[server_ida] != $d[server_id]){
 		$list .= id2name($d[server_ida])."|";
@@ -81,7 +81,7 @@ $user = $_COOKIE[psdata][user_id];
 $packet = $_GET[packet];
 logAction($_COOKIE[psdata][user_id], $_SERVER['PHP_SELF'], 'Viewing Service Instructions for Packet '.$packet);
 $query="SELECT * FROM ps_packets WHERE packet_id = '$packet' LIMIT 0,1";
-$result=@mysql_query($query);
+$result=@mysql_query($query) or die ("Query: $query<br>".mysql_error());
 $data=mysql_fetch_array($result,MYSQL_ASSOC);
 $deadline=strtotime($data[date_received]);
 $received=date('n/j/y',$deadline);
@@ -89,7 +89,7 @@ $deadline=$deadline+432000;
 $deadline=date('m/d/Y',$deadline);
 $estFileDate=fileDate($data[estFileDate]);
 $today=date('n/j/y');
-$r1=mysql_query("SELECT * FROM gasRates ORDER BY id DESC LIMIT 0,1");
+$r1=mysql_query("SELECT * FROM gasRates ORDER BY id DESC LIMIT 0,1") or die (mysql_error());
 $d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 if ($d1[id]){
 	$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $$d1[gasPrice] | CONTRACTOR SURCHARGE: $$d1[contractor_rate] | DATE: $today]</div></center>";
@@ -142,13 +142,13 @@ while ($i < 6){$i++;
 		<?=id2name($data[server_idb])?> is to make 1 service attempt on <?=$name?> at <?=$add1bx?>.</li><li>
 		<?=id2name($data[server_ida])?> is to make 1 service attempt on <?=$name?> at <?=$add1ax?>.</li><li> 
 		After all other attempts have proven unsuccessful, 
-		If <?=serverList($d[packet_id])?> unable to serve <?=$name?>:<br />
+		If <?=serverList($data[packet_id])?> unable to serve <?=$name?>:<br />
 		<?=id2name($data[server_id])?> is to post <?=$add1x?>.<?if ($data[avoidDOT] == 'checked'){ echo "  <b>PLEASE DO NOT MAKE ANY ATTEMPTS AT THIS ADDRESS, SIMPLY POST DOCUMENTS. IF YOU ENCOUNTER A PARTY OF SUITABLE DISCRETION, DO NOT DELIVER PAPERS, BUT CONTACT OUR OFFICE INSTEAD. ALSO, CONTACT OUR OFFICE UNLESS YOU ARE ABSOLUTELY SURE YOU ARE AUTHORIZED TO PROCEED WITH POSTING.</b>";} ?></li>
 	<? }elseif($data[address1b]){ ?>
 		<ol><li><?=id2name($data[server_ida])?> is to make 1 service attempt on <?=$name?> at <?=$add1bx?>.</li><li>
 		<?=id2name($data[server_id])?> is to make 1 service attempt on <?=$name?> at <?=$add1ax?>.</li><li> 
 		After all other attempts have proven unsuccessful, 
-		If <?=serverList($d[packet_id])?> unable to serve <?=$name?>:<br />
+		If <?=serverList($data[packet_id])?> unable to serve <?=$name?>:<br />
 		<?=id2name($data[server_id])?> is to post <?=$add1x?>.<?if ($data[avoidDOT] == 'checked'){ echo "  <b>PLEASE DO NOT MAKE ANY ATTEMPTS AT THIS ADDRESS, SIMPLY POST DOCUMENTS. IF YOU ENCOUNTER A PARTY OF SUITABLE DISCRETION, DO NOT DELIVER PAPERS, BUT CONTACT OUR OFFICE INSTEAD. ALSO, CONTACT OUR OFFICE UNLESS YOU ARE ABSOLUTELY SURE YOU ARE AUTHORIZED TO PROCEED WITH POSTING.</b>";} ?></li>
 	<? }else{?>
 <ol><li><?=id2name($data[server_ida])?> is to make 2 service attempts on <?=$name?> at <?=$add1ax?> on different days.</li><li> 
