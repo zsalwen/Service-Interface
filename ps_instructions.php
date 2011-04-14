@@ -49,19 +49,20 @@ function serverList($packet){
 	if ($list != ''){
 		//remove last "|"
 		$list=substr($list,0,-1);
-		$list=explode('|',$list);
-		$count=count($list);
-		$i=-1;
-		while ($i < $count){$i++;
+		$explode=explode('|',$list);
+		$count=count($explode);
+		$i=0;
+		while ($i < $count){
 			if($i == 0){
-				$list2 .= $list["$i"];
+				$explode2 .= $explode["$i"];
 			}elseif($i == ($count-1) && $count == 2){
-				$list2 .= " and ".$list["$i"];
+				$explode2 .= " and ".$explode["$i"];
 			}elseif ($i == ($count-1)){
-				$list2 .= ", and ".$list["$i"];
+				$explode2 .= ", and ".$explode["$i"];
 			}else{
-				$list2 .= ", ".$list["$i"];
+				$explode2 .= ", ".$explode["$i"];
 			}
+			$i++;
 		}
 		if ($count == 1){
 			return "$list2 is";
@@ -72,7 +73,7 @@ function serverList($packet){
 		return "you are";
 	}
 }
-
+echo "1!<br>";
 if ($_GET[autoSave] == 1){
 	ob_start();
 }
@@ -83,6 +84,7 @@ logAction($_COOKIE[psdata][user_id], $_SERVER['PHP_SELF'], 'Viewing Service Inst
 $query="SELECT * FROM ps_packets WHERE packet_id = '$packet' LIMIT 0,1";
 $result=@mysql_query($query) or die ("Query: $query<br>".mysql_error());
 $data=mysql_fetch_array($result,MYSQL_ASSOC);
+echo "2!<br>";
 $deadline=strtotime($data[date_received]);
 $received=date('n/j/y',$deadline);
 $deadline=$deadline+432000;
@@ -94,6 +96,7 @@ $d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 if ($d1[id]){
 	$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $$d1[gasPrice] | CONTRACTOR SURCHARGE: $$d1[contractor_rate] | DATE: $today]</div></center>";
 }
+echo "3!<br>";
 ?>
 <style>
 body { margin:0px; padding:0px;}
