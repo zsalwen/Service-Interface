@@ -77,14 +77,15 @@ echo "1!<br>";
 if ($_GET[autoSave] == 1){
 	ob_start();
 }
+echo "2!<br>";
 include 'common.php';
+echo "3!<br>";
 $user = $_COOKIE[psdata][user_id];
 $packet = $_GET[packet];
 logAction($_COOKIE[psdata][user_id], $_SERVER['PHP_SELF'], 'Viewing Service Instructions for Packet '.$packet);
 $query="SELECT * FROM ps_packets WHERE packet_id = '$packet' LIMIT 0,1";
 $result=@mysql_query($query) or die ("Query: $query<br>".mysql_error());
 $data=mysql_fetch_array($result,MYSQL_ASSOC);
-echo "2!<br>";
 $deadline=strtotime($data[date_received]);
 $received=date('n/j/y',$deadline);
 $deadline=$deadline+432000;
@@ -96,7 +97,7 @@ $d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 if ($d1[id]){
 	$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $$d1[gasPrice] | CONTRACTOR SURCHARGE: $$d1[contractor_rate] | DATE: $today]</div></center>";
 }
-echo "3!<br>";
+echo "5!<br>";
 ?>
 <style>
 body { margin:0px; padding:0px;}
