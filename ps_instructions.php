@@ -46,26 +46,30 @@ function serverList($packet){
 	if ($d[server_ide] != '' && $d[server_ide] != $d[server_id] && $d[server_ide] != $d[server_ida] && $d[server_ide] != $d[server_idb] && $d[server_ide] != $d[server_idc] && $d[server_ide] != $d[server_idd]){
 		$list .= id2name($d[server_ide])."|";
 	}
-	//remove last "|"
-	$list=substr($list,0,-1);
-	$list=explode('|',$list);
-	$count=count($list);
-	$i=-1;
-	while ($i < $count){$i++;
-		if($i == 0){
-			$list2 .= $list["$i"];
-		}elseif($i == ($count-1) && $count == 2){
-			$list2 .= " and ".$list["$i"];
-		}elseif ($i == ($count-1)){
-			$list2 .= ", and ".$list["$i"];
-		}else{
-			$list2 .= ", ".$list["$i"];
+	if ($list != ''){
+		//remove last "|"
+		$list=substr($list,0,-1);
+		$list=explode('|',$list);
+		$count=count($list);
+		$i=-1;
+		while ($i < $count){$i++;
+			if($i == 0){
+				$list2 .= $list["$i"];
+			}elseif($i == ($count-1) && $count == 2){
+				$list2 .= " and ".$list["$i"];
+			}elseif ($i == ($count-1)){
+				$list2 .= ", and ".$list["$i"];
+			}else{
+				$list2 .= ", ".$list["$i"];
+			}
 		}
-	}
-	if ($count == 1){
-		return "$list2 is";
+		if ($count == 1){
+			return "$list2 is";
+		}else{
+			return "$list2 are";
+		}
 	}else{
-		return "$list2 are";
+		return "you are";
 	}
 }
 
