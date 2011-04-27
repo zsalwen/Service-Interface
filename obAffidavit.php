@@ -84,6 +84,7 @@ if ($_GET[server]){
 //PageIII=staff mailing
 //PagePD=personal delivery page
 
+error_log("[".date('h:iA n/j/y')."] [".$_COOKIE[psdata][name]."] [".trim($_GET[packet])."] [start ob]  \n", 3, '/logs/fail.log');
 
 function makeAffidavit($p,$defendant,$level,$user_id){
 	$packet = $p;
@@ -1217,6 +1218,7 @@ if ($_GET[server]){
 	//else display all
 	makeAffidavit($_GET[packet],"ALL",$level,$user_id);
 }
+error_log("[".date('h:iA n/j/y')."] [".$_COOKIE[psdata][name]."] [".trim($_GET[packet])."] [end ob]  \n", 3, '/logs/fail.log');
 if ($_GET['autoPrint'] == 1){
 echo "<script>
 if (window.self) window.print();
