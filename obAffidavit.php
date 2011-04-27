@@ -404,7 +404,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>
 		<table width="80%" align="center" bgcolor="#FFFFFF" <? if (strtoupper($d1[affidavit_status]) != "SERVICE CONFIRMED"){ echo $dim;}?>>
-		<tr><?=$header?><IMG SRC='barcode.php?barcode=<?=$cord?>&width=300&height=40'><center>File Number: <?=$d1[client_file]?><br>[PAGE]</center></td></tr>
+		<tr><?=$header?><IMG SRC='http://service.mdwestserve.com/barcode.php?barcode=<?=$cord?>&width=300&height=40'><center>File Number: <?=$d1[client_file]?><br>[PAGE]</center></td></tr>
 		<tr>
 			<td colspan="2" align="center" style="font-weight:bold; text-decoration:underline" height="30px" valign="top"><?=$amended?>Affidavit of Attempted Delivery<? if ($iID && !$iIDa && !$iIDb && !$iIDc && !$iIDd && !$iIDe){ echo " and Posting";}?></td>
 		</tr>
@@ -461,7 +461,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 				".$attemptsd;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>        
-		<? echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
+		<? echo "<tr>".$header."<IMG SRC='http://service.mdwestserve.com/barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
 		<tr>
 			<td colspan="2" align="center" style="font-weight:bold; text-decoration:underline" height="30px" valign="top"><?=$amended?>Affidavit of Attempted Delivery</td>
 		</tr>
@@ -518,7 +518,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 				".$attemptsc;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>
-		<? echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
+		<? echo "<tr>".$header."<IMG SRC='http://service.mdwestserve.com/barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
 		<tr>
 			<td colspan="2" align="center" style="font-weight:bold; text-decoration:underline" height="30px" valign="top"><?=$amended?>Affidavit of Attempted Delivery</td>
 		</tr>
@@ -576,7 +576,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 				".$attemptsb;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>   
-		<? echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
+		<? echo "<tr>".$header."<IMG SRC='http://service.mdwestserve.com/barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
 		<tr>
 			<td colspan="2" align="center" style="font-weight:bold; text-decoration:underline" height="30px" valign="top"><?=$amended?>Affidavit of Attempted Delivery</td>
 		</tr>
@@ -634,7 +634,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 				".$attemptsa;
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?>  
-		<? echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
+		<? echo "<tr>".$header."<IMG SRC='http://service.mdwestserve.com/barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
 		<tr>
 			<td colspan="2" align="center" style="font-weight:bold; text-decoration:underline" height="30px" valign="top"><?=$amended?>Affidavit of Attempted Delivery</td>
 		</tr>
@@ -689,7 +689,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverPhone=$d3[phone];
 	}
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
-	 echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
+	 echo "<tr>".$header."<IMG SRC='http://service.mdwestserve.com/barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
 		<tr>
 			<td colspan="2" align="center" style="font-weight:bold; text-decoration:underline" height="30px" valign="top"><?=$amended?>Affidavit of Attempted Delivery<? if ($iID==$iiID){ echo " and Posting";} ?></td>
 		</tr>
@@ -750,7 +750,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	}
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?> 
-		<? echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
+		<? echo "<tr>".$header."<IMG SRC='http://service.mdwestserve.com/barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
 		<tr>
 			<td colspan="2" align="center" style="font-weight:bold; text-decoration:underline" height="30px" valign="top"><?=$amended?>Affidavit of Posting</td>
 		</tr>
@@ -803,7 +803,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	$serverPhone=$d3[phone];
 	}
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
-	 echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
+	 echo "<tr>".$header."<IMG SRC='http://service.mdwestserve.com/barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
 		<tr>
 			<td colspan="2" align="center" style="font-weight:bold; text-decoration:underline" height="30px" valign="top"><?=$amended?>Affidavit of Mailing</td>
 		</tr>
@@ -866,7 +866,7 @@ function makeAffidavit($p,$defendant,$level,$user_id){
 	}
 	$cord=$d1[packet_id]."-".$def."-".$serverID."%";
 	?> 
-	<? echo "<tr>".$header."<IMG SRC='barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
+	<? echo "<tr>".$header."<IMG SRC='http://service.mdwestserve.com/barcode.php?barcode=".$cord."&width=300&height=40'><center>File Number: ".$d1[client_file]."<br>[PAGE]</center></td></tr>"; ?>
 		<tr>
 			<td colspan="2" align="center" style="font-weight:bold; text-decoration:underline" height="30px" valign="top"><?=$amended?>Affidavit of Personal Delivery</td>
 		</tr>
