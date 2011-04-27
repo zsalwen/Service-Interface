@@ -87,6 +87,7 @@ if ($_GET[server]){
 error_log("[".date('h:iA n/j/y')."] [".$_COOKIE[psdata][name]."] [".trim($_GET[packet])."] [start ob]  \n", 3, '/logs/fail.log');
 
 function makeAffidavit($p,$defendant,$level,$user_id){
+	error_log("[".date('h:iA n/j/y')."] [".$_COOKIE[psdata][name]."] [".trim($_GET[packet])."] [makeAffidavit($p,$defendant,$level,$user_id]  \n", 3, '/logs/fail.log');
 	$packet = $p;
 	$def = 0;
 	if (strpos($defendant,"!")){
