@@ -14,7 +14,7 @@ $d=mysql_fetch_array($r, MYSQL_ASSOC);
 return "$d[punch_time] $d[punch_date] ".id2name2($id)." $d[action]<br>";
 }
 mysql_select_db('core');
-$r=@mysql_query("SELECT distinct user_id from MDWestServeTimeClock order by user_id");
+$r=@mysql_query("SELECT distinct user_id from MDWestServeTimeClock WHERE user_id IN (SELECT id FROM ps_users WHERE level='Operations') order by user_id");
 while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){
 	if ($d[user_id] == 1 || $d[user_id] == 2 || $d[user_id] == 265 || $d[user_id] == 296 || $d[user_id] == 308 || $d[user_id] == 370){
 		echo "<span style='background-color:yellow;' id='$d[user_id]'>".lastPunch($d[user_id])."</span>";
