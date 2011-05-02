@@ -17,9 +17,9 @@ mysql_select_db('core');
 $r=@mysql_query("SELECT distinct user_id from MDWestServeTimeClock order by user_id");
 while ($d=mysql_fetch_array($r,MYSQL_ASSOC)){
 	if ($d[user_id] == 1 || $d[user_id] == 2 || $d[user_id] == 265 || $d[user_id] == 296 || $d[user_id] == 308 || $d[user_id] == 370){
-		echo "<span style='background-color:yellow;'>".lastPunch($d[user_id])."</span>";
+		echo "<span style='background-color:yellow;' id='$d[user_id]'>".lastPunch($d[user_id])."</span>";
 	}else{
-		echo lastPunch($d[user_id]);
+		echo "<span id='$d[user_id]'>".lastPunch($d[user_id])."</span>";
 	}
 }
 
