@@ -91,7 +91,7 @@ $d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 if ($d1[id]){
 	$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $$d1[gasPrice] | CONTRACTOR SURCHARGE: $$d1[contractor_rate] | DATE: $today]</div></center>";
 }
-if ($d[rush] != ''){
+if ($data[rush] != ''){
 	$rush='<b>RUSH</b>';
 }
 ?>
