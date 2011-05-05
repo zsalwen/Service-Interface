@@ -25,6 +25,9 @@ function id2attorneyName($id){
 }
 function fileDate($date){
 	$date=strtotime($date)-86400;
+	while(date('w',$date) == 0 || date('w',$date) == 6){
+		$date=$date-86400;
+	}
 	return date('n/j/y',$date); 
 }
 function serverList2($packet){

@@ -2,6 +2,9 @@
 include 'common.php';
 function fileDate($date){
 	$date=strtotime($date)-86400;
+	while(date('w',$date) == 0 || date('w',$date) == 6){
+		$date=$date-86400;
+	}
 	return date('n/j/y',$date); 
 }
 $user = $_COOKIE[psdata][user_id];
