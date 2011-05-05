@@ -42,7 +42,7 @@ if ($d1[id]){
 	$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $$d1[gasPrice] | CONTRACTOR SURCHARGE: $$d1[contractor_rate] | DATE: $today]</div></center>";
 }
 if ($data[rush] != ''){
-	$rush='<b>RUSH</b>';
+	$rush='<b>RUSH</b> ';
 }
 ?>
 <style>
