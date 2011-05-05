@@ -132,6 +132,9 @@ if ($data2 == ''){
 	if ($d1[id]){
 		$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $$d1[gasPrice] | CONTRACTOR SURCHARGE: $$d1[contractor_rate] | DATE: $today]</div></center>";
 	}
+	if ($d[rush] != ''){
+		$rush='<b>RUSH</b>';
+	}
 	?>
 	<style>
 	body {
@@ -155,7 +158,7 @@ if ($data2 == ''){
 	<img style="position:absolute; left:0px; top:0px; width:100px; height:100px;" src="http://staff.mdwestserve.com/small.logo.gif" class="logo">
 	<table align="center" style="font-variant:small-caps; font-size:14px; width:700px;" border="0">
 		<tr>
-			<td valign="bottom" align="center" style="font-size:18px; font-variant:small-caps;" height="50px;">MDWestServe, Inc.<br><?=$data2[contact]?><br>Service Instructions For Packet <?=$_GET[packet]?></td>
+			<td valign="bottom" align="center" style="font-size:18px; font-variant:small-caps;" height="50px;">MDWestServe, Inc.<br><?=$data2[contact]?><br><?=$rush?>Service Instructions For Packet <?=$_GET[packet]?></td>
 		</tr>
 		<tr>
 			<td align="center" style="font-size:18px; font-variant:small-caps;">Received: <?=$received?> || Affidavit Deadline: <?=$estFileDate?><?=$rate?></td>

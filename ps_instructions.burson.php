@@ -48,12 +48,15 @@ $d1=mysql_fetch_array($r1,MYSQL_ASSOC);
 if ($d1[id]){
 	$rate = "<br><center><div style='font-size:14px;'>[GAS PRICE: $$d1[gasPrice] | CONTRACTOR SURCHARGE: $$d1[contractor_rate] | DATE: $today]</div></center>";
 }
+if ($d[rush] != ''){
+	$rush='<b>RUSH</b>';
+}
 ?>
 <style>body { margin:0px; padding:0px; width:600px;}</style>
 <img style="position:absolute; left:0px; top:0px; width:100px; height:100px;" src="http://service.mdwestserve.com/smallLogo.jpg" class="logo">
 <table align="center" width="700px" style="font-variant:small-caps;" border="0">
 	<tr>
-    	<td valign="bottom" align="center" style="font-size:18px; font-variant:small-caps;" height="50px;">MDWestServe, Inc.<br>410-828-4568<br>Service Type 'B' For Packet <?=$_GET[packet]?></td>
+    	<td valign="bottom" align="center" style="font-size:18px; font-variant:small-caps;" height="50px;">MDWestServe, Inc.<br>410-828-4568<br><?=$rush?>Service Type 'B' For Packet <?=$_GET[packet]?></td>
     </tr>
 	<tr>
 		<td align="center" style="font-size:18px; font-variant:small-caps;">Received: <?=$received?> || Affidavit Deadline: <?=$estFileDate?><?=$rate?></td>
